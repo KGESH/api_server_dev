@@ -1,0 +1,35 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "@babel/typescript"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "extensions": [
+          ".ts"
+        ],
+        "root": [
+          "."
+        ],
+        "alias": {
+          "@db": "./src/db",
+          "@graphql": "./src/graphql",
+          "@router": "./src/router",
+          "@auth": "./src/auth"
+        }
+      }
+    ]
+  ],
+  "comments": false,
+  "ignore": [
+  ]
+}
