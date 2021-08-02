@@ -1,5 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga';
-import resolvers from '@graphql/resolvers';
+import { resolvers } from '@graphql/resolvers';
 import { MongoDB } from '@db/MongoDB';
 
 MongoDB();
