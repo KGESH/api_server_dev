@@ -1,6 +1,5 @@
-import { KakaoAuth } from './KakaoAuth';
-import { GetUserData } from './GetUserData';
-import { access } from 'fs';
+import { KakaoAuth } from '@auth/kakao/KakaoAuth';
+import { GetUserData } from '@auth/kakao/GetUserData';
 
 export const KakaoCallback = (req: any, res: any) => {
   const REDIRECT_URL = 'http://localhost:3000/Login/KakaoCallback';
