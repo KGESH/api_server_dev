@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// DB admin
 const db = {
   user: 'admin',
   password: '1q2w3e4r!',
