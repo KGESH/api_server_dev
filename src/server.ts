@@ -2,15 +2,16 @@ import { GraphQLServer } from 'graphql-yoga';
 import { resolvers } from '@graphql/resolvers';
 import { MongoDB } from '@db/MongoDB';
 import { KakaoTokenCallback, KakaoCallback } from '@auth/kakao/KakaoCallback';
-
+import { isAuthenticate } from '@auth/middle-ware/Passport';
 MongoDB();
 const options = {
-  port: 4010,
+  port: 4011,
 };
 
 export const server = new GraphQLServer({
   typeDefs: 'src/graphql/schema.graphql',
   resolvers,
+  context: ({ request }) => ({ request, isAuthenticate }),
 });
 
 /**
