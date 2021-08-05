@@ -16,6 +16,7 @@ export const KakaoCallback = (req: any, res: any) => {
   /**
    * need refactor
    */
+
   KakaoAuth(code)
     .then((res) => res.json())
     .then((result) => {

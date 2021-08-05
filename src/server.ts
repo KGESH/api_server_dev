@@ -11,7 +11,7 @@ const options = {
 export const server = new GraphQLServer({
   typeDefs: 'src/graphql/schema.graphql',
   resolvers,
-  context: ({ request }) => ({ request, isAuthenticate }),
+  //context: ({ request }) => ({ request, isAuthenticate }),
 });
 
 /**
