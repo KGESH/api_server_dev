@@ -1,11 +1,10 @@
 type Query {
   getAllUser: [user]
+  emailUser(email: String!): user
+  authUser: user
 
 }
 
-type Mutation {
-  getKakaoToken(kakaoAuthCode: String): String
-}
 
 type user {
   id: Int!,

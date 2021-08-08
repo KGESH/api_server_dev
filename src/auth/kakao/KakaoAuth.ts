@@ -1,5 +1,8 @@
 import fetch from 'node-fetch';
 
+/**
+ * 카카오 서버로부터 온 인증코드로 엑세스 토큰을 받음
+ */
 export const KakaoAuth = async (code: string) => {
   const urlParams: any = new URLSearchParams({
     grant_type: 'authorization_code',

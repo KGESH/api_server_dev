@@ -16,10 +16,6 @@ export const GetUserData = async (kakaoAccessToken: string) => {
       const { email } = kakao_account;
       const { nickname } = kakao_account.profile;
       const user: User = { id, name: nickname, email };
-      console.log(`request me result`);
-      console.log(`uid : ${id}`);
-      console.log(`nickname: ${nickname}`);
-      console.log(`email: ${email}`);
       return user;
     });
 };
