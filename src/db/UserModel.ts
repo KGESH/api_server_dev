@@ -18,4 +18,4 @@ const userSchema = new Schema<User>({
   point: Number,
 });
 
-export const UserModel = mongoose.model('user', userSchema);
+export const UserModel = mongoose.model('user', userSchema, 'users');
