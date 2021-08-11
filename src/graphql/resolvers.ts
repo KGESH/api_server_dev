@@ -1,5 +1,5 @@
 import { UserModel } from '@db/UserModel';
-
+import { FindUserByEmail } from '@db/FindUser';
 export const resolvers = {
   Query: {
     /**
@@ -13,7 +13,7 @@ export const resolvers = {
      * email로 db에서 유저 조회
      */
     emailUser: async (_: any, { email }: any) => {
-      return await UserModel.find({ email });
+      return FindUserByEmail(email);
     },
     /**
      * 인증 테스트용 쿼리
