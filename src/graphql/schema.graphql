@@ -2,12 +2,15 @@ type Query {
   getAllUser: [user]
   emailUser(email: String!): user
   authUser: user
+  getUserById(id: Int!): user
 
 }
-
 
 type user {
   id: Int!,
   name: String!,
-  email: String!
+  email: String!,
+  auth: String!,
+  qr_list: [String],
+  point: Int!
 }

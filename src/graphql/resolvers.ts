@@ -9,6 +9,9 @@ export const resolvers = {
       console.log(`query request`);
       return await UserModel.find({});
     },
+    getUserById: async (_: any, args: any) => {
+      return await UserModel.findOne({ id: args.id });
+    },
     /**
      * email로 db에서 유저 조회
      */
