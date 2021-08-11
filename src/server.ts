@@ -7,7 +7,7 @@ import { AuthContext } from '@auth/middle-ware/AuthContext';
 MongoDB();
 
 const options = {
-  port: 4011,
+  port: 4010,
   endpoint: '/graphql',
   playground: '/playground',
 };

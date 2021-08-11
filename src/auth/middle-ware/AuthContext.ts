@@ -16,7 +16,7 @@ export const AuthContext = ({ request }: any) => {
    * Bearer Token From Client
    * `Bearer ${token}`
    */
-  const authToken = request?.headers?.authorization.split(' ')[1] ?? undefined;
+  const authToken = request?.headers?.authorization?.split(' ')[1] ?? undefined;
 
   console.log(`authToken: ${authToken}`);
   if (!authToken) {
