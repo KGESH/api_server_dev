@@ -3,7 +3,7 @@ type Query {
   emailUser(email: String!): user
   authUser: user
   getUserById(id: Int!): user
-
+  getCafeByName(cafe_name: String!): cafe
 }
 
 type user {
@@ -13,4 +13,13 @@ type user {
   auth: String!,
   qr_list: [String],
   point: Int!
+}
+
+type cafe {
+  id: Int!,
+  cafe_name: String!,
+  cafe_info: String!,
+  bean_info: String!,
+  point_fluctuation: Int!,
+  discount_rate: Int!,
 }

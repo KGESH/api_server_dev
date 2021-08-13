@@ -1,4 +1,5 @@
 import { UserModel } from '@db/UserModel';
+import { CafeModel } from '@db/CafeModel';
 
 export const resolvers = {
   Query: {
@@ -7,13 +8,17 @@ export const resolvers = {
       console.log(`query request`);
       return await UserModel.find({});
     },
-    /** MyPage에서 사용할 사용자 조회 Query (21-8-12:유성현) */
+    /** 사용자 조회 Query (추가 21-8-12:유성현) */
     getUserById: async (_: any, args: any) => {
       return await UserModel.findOne({ id: args.id });
     },
     /** email로 db에서 유저 조회 */
     emailUser: async (_: any, { email }: any) => {
       return await UserModel.find({ email });
+    },
+    /** cafe 조회 Query (추가 21-8-13:유성현) */
+    getCafeByName: async (_: any, args: any) => {
+      return await CafeModel.findOne({ cafe_name: args.cafe_name });
     },
     /**
      * 인증 테스트용 쿼리
