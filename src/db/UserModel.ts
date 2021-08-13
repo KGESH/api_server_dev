@@ -1,13 +1,13 @@
 import mongoose, { Schema } from 'mongoose';
 
-export type User = {
+export interface User {
   id: number;
   name: string;
   email: string;
-  auth: string;
-  qr_list: [string];
-  point: number;
-};
+  auth?: string;
+  qr_list?: [string];
+  point?: number;
+}
 
 const userSchema = new Schema<User>({
   id: Number,

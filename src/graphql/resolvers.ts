@@ -1,5 +1,9 @@
 import { UserModel } from '@db/UserModel';
 import { CafeModel } from '@db/CafeModel';
+import { FindUserByEmail } from '@db/FindUser';
+import { FindCafeByName, FindCafeById } from '@db/FindCafe';
+import { Cafe } from '@db/CafeModel';
+import { SaveCafe } from '@db/SaveCafe';
 
 export const resolvers = {
   Query: {
@@ -8,17 +12,24 @@ export const resolvers = {
       console.log(`query request`);
       return await UserModel.find({});
     },
-    /** 사용자 조회 Query (추가 21-8-12:유성현) */
+    /** db 카페 조회 테스트용 쿼리 (21-8-13:지성현) */
+    getAllCafe: async (_: any, __: any) => {
+      console.log(`query req`);
+      return await CafeModel.find({});
+    },
+    /** MyPage에서 사용할 사용자 조회 Query (21-8-12:유성현) */
     getUserById: async (_: any, args: any) => {
       return await UserModel.findOne({ id: args.id });
     },
     /** email로 db에서 유저 조회 */
     emailUser: async (_: any, { email }: any) => {
-      return await UserModel.find({ email });
+      return FindUserByEmail(email);
     },
-    /** cafe 조회 Query (추가 21-8-13:유성현) */
-    getCafeByName: async (_: any, args: any) => {
-      return await CafeModel.findOne({ cafe_name: args.cafe_name });
+    /** MyPage Detail에서 사용할 카페 조회 Query (21-8-13:지성현) */
+    getCafeByName: async (_: any, { name }: any) => {
+      console.log(`call cafe name`);
+      console.log(name);
+      return await FindCafeByName(name);
     },
     /**
      * 인증 테스트용 쿼리
