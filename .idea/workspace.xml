@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1165ae2e-83e9-4c31-866f-d8912e27e67c" name="Changes" comment="123">
-      <change afterPath="$PROJECT_DIR$/src/db/FindCafe.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/db/SaveCafe.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/auth/Jwt.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/Jwt.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/CafeModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/CafeModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/UserModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/UserModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/resolvers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/resolvers.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/graphql/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/schema.graphql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +72,7 @@
       <workItem from="1628827919363" duration="1146000" />
       <workItem from="1628829777069" duration="44000" />
       <workItem from="1628852563995" duration="1698000" />
-      <workItem from="1628854800895" duration="335000" />
+      <workItem from="1628854800895" duration="2463000" />
     </task>
     <task id="LOCAL-00001" summary="123">
       <created>1628713925319</created>
