@@ -8,6 +8,10 @@ type Query {
   getCafeById(id: Int!): cafe
 }
 
+type Mutation {
+  addCode(codeInput: String!): user
+}
+
 type user {
   id: Int!,
   name: String!,

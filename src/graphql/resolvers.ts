@@ -25,12 +25,6 @@ export const resolvers = {
     emailUser: async (_: any, { email }: any) => {
       return FindUserByEmail(email);
     },
-    /** MyPage Detail에서 사용할 카페 조회 Query (21-8-13:지성현) */
-    getCafeByName: async (_: any, { name }: any) => {
-      console.log(`call cafe name`);
-      console.log(name);
-      return await FindCafeByName(name);
-    },
     /**
      * 인증 테스트용 쿼리
      * Client에서 인증 요청 보낼때

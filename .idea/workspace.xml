@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1165ae2e-83e9-4c31-866f-d8912e27e67c" name="Changes" comment="123">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graphql/resolvers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/resolvers.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/graphql/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/schema.graphql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +73,12 @@
       <workItem from="1628827919363" duration="1146000" />
       <workItem from="1628829777069" duration="44000" />
       <workItem from="1628852563995" duration="1698000" />
-      <workItem from="1628854800895" duration="2463000" />
+      <workItem from="1628854800895" duration="3119000" />
+      <workItem from="1628986391050" duration="657000" />
+      <workItem from="1629165930922" duration="605000" />
+      <workItem from="1629247881710" duration="1575000" />
+      <workItem from="1629286410674" duration="3477000" />
+      <workItem from="1629349462172" duration="3417000" />
     </task>
     <task id="LOCAL-00001" summary="123">
       <created>1628713925319</created>
