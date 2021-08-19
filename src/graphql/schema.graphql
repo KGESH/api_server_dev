@@ -6,6 +6,7 @@ type Query {
   getUserById(id: Int!): user
   getCafeByName(name: String!): cafe
   getCafeById(id: Int!): cafe
+  getKakaoUserByJwt(jwt: String!): user
 }
 
 type user {

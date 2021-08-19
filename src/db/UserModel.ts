@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-export interface User {
+export interface IUser {
   id: number;
   name: string;
   email: string;
@@ -9,7 +9,7 @@ export interface User {
   point?: number;
 }
 
-const userSchema = new Schema<User>({
+const userSchema = new Schema<IUser>({
   id: Number,
   name: String,
   email: String,

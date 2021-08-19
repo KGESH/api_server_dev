@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '@auth/JwtConfig';
-import { User } from '@src/db/UserModel';
-import { FindUserById } from '@db/FindUser';
+import { IUser } from '@src/db/UserModel';
+import { CheckExistUserById, FindUserById } from '@db/FindUser';
 
-export const CreateToken = (user: User): string => {
+export const CreateToken = (user: IUser): string => {
   const { id, name, email } = user;
   const token = jwt.sign(
     {
@@ -27,7 +27,7 @@ export const CreateToken = (user: User): string => {
 /**
  * token 검증
  */
-export const VerifyToken = (token: string) =>
+export const VerifyToken = (token: string): IUser | void =>
   jwt.verify(token, jwtSecret, (err: any, payload: any) => {
     console.log(`payload`);
     console.log(payload);
@@ -48,19 +48,7 @@ export const VerifyToken = (token: string) =>
           return;
       }
     }
-    const isExist = FindUserById(payload.id);
-    const user: User = {
-      id: payload.id,
-      name: payload.name,
-      email: payload.email,
-    };
-
-    if (!isExist) {
-      console.log(`new user`);
-      /**
-       * new user logic
-       */
-    }
+    const user = FindUserById(payload.id);
 
     return user;
   });
