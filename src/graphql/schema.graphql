@@ -1,13 +1,28 @@
 type Query {
   getAllUser: [user]
+  getAllCafe: [cafe]
   emailUser(email: String!): user
   authUser: user
-
+  getUserById(id: Int!): user
+  getCafeByName(name: String!): cafe
+  getCafeById(id: Int!): cafe
 }
-
 
 type user {
   id: Int!,
   name: String!,
-  email: String!
+  email: String!,
+  auth: String!,
+  qr_list: [String],
+  point: Int!
+}
+
+type cafe {
+  id: Int,
+  cafe_name: String,
+  cafe_info: String,
+  bean_info: String,
+  point_fluctuation: Int,
+  discount_reate: Int
+
 }
