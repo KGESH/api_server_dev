@@ -1,9 +1,8 @@
 import { UserModel } from '@db/UserModel';
 import { CafeModel } from '@db/CafeModel';
-import { FindUserByEmail } from '@db/FindUser';
+import { CheckExistUserByEmail } from '@db/FindUser';
 import { FindCafeByName, FindCafeById } from '@db/FindCafe';
-import { Cafe } from '@db/CafeModel';
-import { SaveCafe } from '@db/SaveCafe';
+import { VerifyToken } from '@auth/Jwt';
 
 export const resolvers = {
   Query: {
@@ -23,13 +22,22 @@ export const resolvers = {
     },
     /** email로 db에서 유저 조회 */
     emailUser: async (_: any, { email }: any) => {
-      return FindUserByEmail(email);
+      return CheckExistUserByEmail(email);
     },
     /** MyPage Detail에서 사용할 카페 조회 Query (21-8-13:지성현) */
     getCafeByName: async (_: any, { name }: any) => {
       console.log(`call cafe name`);
       console.log(name);
       return await FindCafeByName(name);
+    },
+    getKakaoUserByJwt: async (_: any, { jwt }: any) => {
+      console.log(`call jwt resolver`);
+      console.log(jwt);
+      const user = await VerifyToken(jwt);
+      console.log(`kakao user result`);
+      console.log(user);
+
+      return user;
     },
     /**
      * 인증 테스트용 쿼리

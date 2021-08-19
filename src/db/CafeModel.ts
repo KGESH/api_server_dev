@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-export interface Cafe {
+export interface ICafe {
   id: number;
   cafe_name: string;
   cafe_info: string;
@@ -9,7 +9,7 @@ export interface Cafe {
   discount_rate: number;
 }
 
-const cafeSchema = new Schema<Cafe>({
+const cafeSchema = new Schema<ICafe>({
   id: Number,
   cafe_name: String,
   cafe_info: String,
