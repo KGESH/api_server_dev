@@ -6,10 +6,11 @@ type Query {
   getUserById(id: Int!): user
   getCafeByName(cafe_name: String!): cafe
   getCafeById(id: Int!): cafe
+  getQR: [Qr_data]
 }
 
 type Mutation {
-  addCode(codeInput: String!): user
+  addQR(cafeName: String!, code: String!): Qr_data
 }
 
 type user {
@@ -29,4 +30,9 @@ type cafe {
   point_fluctuation: Int,
   discount_reate: Int
 
+}
+
+type Qr_data {
+  cafeName: String,
+  code: String
 }

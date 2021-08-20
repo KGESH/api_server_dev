@@ -1,5 +1,5 @@
-import { UserModel } from '@db/UserModel';
-import type { User } from '@db/UserModel';
+import { UserModel } from '@db/user/UserModel';
+import type { User } from '@db/user/UserModel';
 
 export const SaveUser = ({ id, name, email }: User) => {
   const user = new UserModel({ id, name, email });

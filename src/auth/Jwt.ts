@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '@auth/JwtConfig';
-import { User } from '@src/db/UserModel';
-import { FindUserById } from '@db/FindUser';
+import { User } from '@db/user/UserModel';
+import { FindUserById } from '@db/user/FindUser';
 
 export const CreateToken = (user: User): string => {
   const { id, name, email } = user;

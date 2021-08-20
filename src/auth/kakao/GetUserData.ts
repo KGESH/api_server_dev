@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import type { User } from '@db/UserModel';
+import type { User } from '@db/user/UserModel';
 export const GetUserData = async (kakaoAccessToken: string) => {
   const kakaoRequestUrl = 'https://kapi.kakao.com/v2/user/me';
   const formData = {

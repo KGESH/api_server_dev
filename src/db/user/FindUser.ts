@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { UserModel } from '@db/UserModel';
+import { UserModel } from '@db/user/UserModel';
 
 export const FindUserById = async (id: number) =>
   await UserModel.exists({ id });

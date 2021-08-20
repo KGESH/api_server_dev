@@ -1,7 +1,7 @@
 import { KakaoAuth } from '@auth/kakao/KakaoAuth';
 import { GetUserData } from '@auth/kakao/GetUserData';
-import { SaveUser } from '@db/SaveUser';
-import { FindUserById } from '@db/FindUser';
+import { SaveUser } from '@db/user/SaveUser';
+import { FindUserById } from '@db/user/FindUser';
 import { CreateToken } from '@auth/Jwt';
 
 /**

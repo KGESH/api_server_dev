@@ -1,9 +1,10 @@
-import { UserModel } from '@db/UserModel';
-import { CafeModel } from '@db/CafeModel';
-import { FindUserByEmail } from '@db/FindUser';
-import { FindCafeByName, FindCafeById } from '@db/FindCafe';
-import { Cafe } from '@db/CafeModel';
-import { SaveCafe } from '@db/SaveCafe';
+import { UserModel } from '@db/user/UserModel';
+import { CafeModel } from '@db/cafe/CafeModel';
+import { FindUserByEmail } from '@db/user/FindUser';
+import { FindCafeByName, FindCafeById } from '@db/cafe/FindCafe';
+import { Cafe } from '@db/cafe/CafeModel';
+import { SaveCafe } from '@db/cafe/SaveCafe';
+import { Iqr, qrModel } from '@db/user/testQRModel';
 
 export const resolvers = {
   Query: {
@@ -35,6 +36,18 @@ export const resolvers = {
     authUser: (_: any, __: any, { user }: any) => {
       console.log(user);
       return user;
+    },
+    async getQR(_: any, __: any) {
+      return await qrModel.find({});
+    },
+  },
+  Mutation: {
+    /**
+     * QR코드를 촬영하고 링크를 들어가면 카드정보가 db에 저장되는 mutation(test-version)
+     * (2021-08-20:유성현)
+     * */
+    async addQR(_: any, { cafeName, code }: Iqr) {
+      return await qrModel.create({ cafeName, code });
     },
   },
 };
