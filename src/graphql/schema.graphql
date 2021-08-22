@@ -2,7 +2,6 @@ type Query {
   getAllUser: [user]
   getAllCafe: [cafe]
   emailUser(email: String!): user
-  authUser: user
   getUserById(id: Int!): user
   getCafeByName(cafe_name: String!): cafe
   getCafeById(id: Int!): cafe
@@ -11,6 +10,21 @@ type Query {
 
 type Mutation {
   addQR(cafeName: String!, code: String!): Qr_data
+  getKakaoUserByJwt(jwt: String!): user
+  authUser: user
+  addStory(owner_email: String!)
+}
+
+
+type story {
+  owner_email: String!,
+  owner: String!,
+  image_list: [String]!,
+  like_count: Int!,
+  liker_list: [user],
+  location: String,
+  comment_list: [String],
+  hash_tag_list: [String],
 }
 
 type user {
@@ -18,8 +32,9 @@ type user {
   name: String!,
   email: String!,
   auth: String!,
+  point: Int!,
   qr_list: [String],
-  point: Int!
+  story_list: [story]
 }
 
 type cafe {

@@ -1,10 +1,11 @@
 import { UserModel } from '@db/user/UserModel';
 import { CafeModel } from '@db/cafe/CafeModel';
-import { FindUserByEmail } from '@db/user/FindUser';
+import { CheckExistUserByEmail } from '@db/user/FindUser';
 import { FindCafeByName, FindCafeById } from '@db/cafe/FindCafe';
 import { Cafe } from '@db/cafe/CafeModel';
 import { SaveCafe } from '@db/cafe/SaveCafe';
 import { Iqr, qrModel } from '@db/user/testQRModel';
+import { VerifyToken } from '@auth/Jwt';
 
 export const resolvers = {
   Query: {
@@ -24,19 +25,9 @@ export const resolvers = {
     },
     /** email로 db에서 유저 조회 */
     emailUser: async (_: any, { email }: any) => {
-      return FindUserByEmail(email);
+      return CheckExistUserByEmail(email);
     },
-    /**
-     * 인증 테스트용 쿼리
-     * Client에서 인증 요청 보낼때
-     * AuthContext 미들웨어에서 토큰을 검사
-     * 토큰이 유효하면 user 정보 넘어옴
-     * 유효하지 않으면 undefined 넘어옴
-     */
-    authUser: (_: any, __: any, { user }: any) => {
-      console.log(user);
-      return user;
-    },
+
     async getQR(_: any, __: any) {
       return await qrModel.find({});
     },
@@ -48,6 +39,27 @@ export const resolvers = {
      * */
     async addQR(_: any, { cafeName, code }: Iqr) {
       return await qrModel.create({ cafeName, code });
+    },
+    /**
+     * 처음 카카오 로그인 할때 호출되는 mutation
+     * (2021-08-20:지성현)
+     */
+    getKakaoUserByJwt: async (_: any, { jwt }: any) => {
+      const user = VerifyToken(jwt);
+      console.log(`get kakao user by jwt resolver`);
+      console.log(user);
+      return await user;
+    },
+    /**
+     * 인증 mutation
+     * Client에서 인증 요청 보낼때
+     * AuthContext 미들웨어에서 토큰을 검사
+     * 토큰이 유효하면 user 정보 넘어옴
+     * 유효하지 않으면 undefined 넘어옴
+     */
+    authUser: async (_: any, __: any, { user }: any) => {
+      console.log(user);
+      return await user;
     },
   },
 };
