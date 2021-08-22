@@ -5,6 +5,7 @@ import { FindCafeByName, FindCafeById } from '@db/cafe/FindCafe';
 import { Cafe } from '@db/cafe/CafeModel';
 import { SaveCafe } from '@db/cafe/SaveCafe';
 import { Iqr, qrModel } from '@db/user/testQRModel';
+import { ReviewModel } from '@db/review/ReviewModel';
 import { VerifyToken } from '@auth/Jwt';
 
 export const resolvers = {
@@ -27,18 +28,17 @@ export const resolvers = {
     emailUser: async (_: any, { email }: any) => {
       return CheckExistUserByEmail(email);
     },
-
-    async getQR(_: any, __: any) {
-      return await qrModel.find({});
+    async getReview(_: any, args: any) {
+      return await ReviewModel.find({ key: args.key });
     },
   },
   Mutation: {
     /**
      * QR코드를 촬영하고 링크를 들어가면 카드정보가 db에 저장되는 mutation(test-version)
-     * (2021-08-20:유성현)
+     * (21-08-20:유성현)
      * */
-    async addQR(_: any, { cafeName, code }: Iqr) {
-      return await qrModel.create({ cafeName, code });
+    async addQR(_: any, { cafe_name, code }: Iqr) {
+      return await qrModel.create({ cafe_name, code });
     },
     /**
      * 처음 카카오 로그인 할때 호출되는 mutation

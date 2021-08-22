@@ -1,3 +1,4 @@
+#### Query ####
 type Query {
   getAllUser: [user]
   getAllCafe: [cafe]
@@ -5,9 +6,10 @@ type Query {
   getUserById(id: Int!): user
   getCafeByName(cafe_name: String!): cafe
   getCafeById(id: Int!): cafe
-  getQR: [Qr_data]
+  getReview(key: String!): [review]
 }
 
+#### Mutation ####
 type Mutation {
   addQR(cafeName: String!, code: String!): Qr_data
   getKakaoUserByJwt(jwt: String!): user
@@ -15,7 +17,29 @@ type Mutation {
   addStory(owner_email: String!)
 }
 
+### 유저 ###
+type user {
+  _id: ID!,
+  id: Int!,
+  name: String!,
+  email: String!,
+  auth: String!,
+  point: Int!,
+  story_list: [story]
+  rating: String!,
+  cafe_list: [QR_data],
+  point: Int!
+  average_star: Float,
+}
 
+# 유저 하위 데이터 (소지한 카드 정보) #
+type QR_data {
+  cafe_name: String!,
+  code: String!,
+  visit_times: It!,
+}
+
+#### SNS 게시물 ####
 type story {
   owner_email: String!,
   owner: String!,
@@ -27,27 +51,66 @@ type story {
   hash_tag_list: [String],
 }
 
-type user {
-  id: Int!,
-  name: String!,
-  email: String!,
-  auth: String!,
-  point: Int!,
-  qr_list: [String],
-  story_list: [story]
-}
-
+### 카페 ###
 type cafe {
-  id: Int,
-  cafe_name: String,
-  cafe_info: String,
-  bean_info: String,
-  point_fluctuation: Int,
-  discount_reate: Int
-
+  _id: ID!,
+  owner_id: String!,
+  cafe_info: Cafe_info_data!,
+  discount_rate: Cafe_discount_rate!,
+  point_fluc: Int!,
 }
 
-type Qr_data {
-  cafeName: String,
-  code: String
+# 카페 하위 데이터 (카페 정보) #
+type Cafe_info_data {
+  name: String!,
+  beans: String,
+  position: String!,
+  address: String!,
+  phone: String!
+}
+
+# 카페 하위 데이터 (등급별 할인율) #
+type Cafe_discount_rate {
+  silver: Int!,
+  gold: Int!,
+  vip: Int!,
+}
+
+### 리뷰 ###
+type review {
+  _id: ID!,
+  key: String!,
+  user_name: String!,
+  content: String,
+  like: Int!,
+  map: Int!,
+  star: Star!,
+  comment: [Comment],
+  hash_tag: [String],
+}
+
+# 리뷰 하위 데이터 (평점) #
+type Star {
+  flavor: Float!,
+  atmosphere: Float!,
+  price: Float!,
+}
+
+# 리뷰 하위 데이터 (댓글) #
+type Comment {
+  date: String!,
+  user_name: String!,
+  content: String!,
+}
+
+### 마일리지 로그 ###
+type mileage_log {
+  _id: ID!,
+  date: String!,
+  staff_id: String!,
+  client_id: String!,
+  cafe_name: String!,
+  menu_name: String!,
+  price: Int!,
+  mileage: Int!,
 }
