@@ -1,8 +1,12 @@
-import { UserModel } from '@db/UserModel';
-import { CafeModel } from '@db/CafeModel';
-import { CheckExistUserByEmail } from '@db/FindUser';
-import { FindCafeByName, FindCafeById } from '@db/FindCafe';
-import { VerifyToken } from '@auth/Jwt';
+import { UserModel } from '@db/user/UserModel';
+import { CafeModel } from '@db/cafe/CafeModel';
+import { FindUserByEmail } from '@db/user/FindUser';
+import { FindCafeByName, FindCafeById } from '@db/cafe/FindCafe';
+import { Cafe } from '@db/cafe/CafeModel';
+import { SaveCafe } from '@db/cafe/SaveCafe';
+import { Iqr, qrModel } from '@db/user/testQRModel';
+import { ReviewModel } from '@db/review/ReviewModel';
+import { MileageModel } from '@db/mileage/MileageModel';
 
 export const resolvers = {
   Query: {
@@ -22,22 +26,7 @@ export const resolvers = {
     },
     /** email로 db에서 유저 조회 */
     emailUser: async (_: any, { email }: any) => {
-      return CheckExistUserByEmail(email);
-    },
-    /** MyPage Detail에서 사용할 카페 조회 Query (21-8-13:지성현) */
-    getCafeByName: async (_: any, { name }: any) => {
-      console.log(`call cafe name`);
-      console.log(name);
-      return await FindCafeByName(name);
-    },
-    getKakaoUserByJwt: async (_: any, { jwt }: any) => {
-      console.log(`call jwt resolver`);
-      console.log(jwt);
-      const user = await VerifyToken(jwt);
-      console.log(`kakao user result`);
-      console.log(user);
-
-      return user;
+      return FindUserByEmail(email);
     },
     /**
      * 인증 테스트용 쿼리
@@ -49,6 +38,27 @@ export const resolvers = {
     authUser: (_: any, __: any, { user }: any) => {
       console.log(user);
       return user;
+    },
+    /** 유성현. test하려고 만든거에요 */
+    async getReview(_: any, args: any) {
+      return await ReviewModel.find({ key: args.key });
+    },
+    /** 유성현. test하려고 만든거에요 */
+    async getCafeBy(_: any, { name }: any) {
+      return await CafeModel.findOne({ 'cafe_info.name': name });
+    },
+    /** 유성현. test하려고 만든거에요 */
+    async getMileageByClientId(_: any, { client_id }: any) {
+      return await MileageModel.findOne({ client_id: client_id });
+    },
+  },
+  Mutation: {
+    /**
+     * QR코드를 촬영하고 링크를 들어가면 카드정보가 db에 저장되는 mutation(test-version)
+     * (21-08-20:유성현)
+     * */
+    async addQR(_: any, { cafe_name, code }: Iqr) {
+      return await qrModel.create({ cafe_name, code });
     },
   },
 };

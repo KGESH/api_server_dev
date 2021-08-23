@@ -1,4 +1,4 @@
-import { CafeModel } from '@db/CafeModel';
+import { CafeModel } from '@db/cafe/CafeModel';
 
 /**
  * 카페 이름으로 db에서 해당 카페 1개 찾음.

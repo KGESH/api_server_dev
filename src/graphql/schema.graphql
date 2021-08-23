@@ -1,29 +1,114 @@
+#### Query ####
 type Query {
   getAllUser: [user]
   getAllCafe: [cafe]
   emailUser(email: String!): user
   authUser: user
   getUserById(id: Int!): user
-  getCafeByName(name: String!): cafe
+  getCafeByName(cafe_name: String!): cafe
   getCafeById(id: Int!): cafe
-  getKakaoUserByJwt(jwt: String!): user
+  getReview(key: String!): [review]
+  getCafeBy(name: String!): cafe
+  getMileageByClientId(client_id: String!): mileage_log
 }
 
+#### Mutation ####
+type Mutation {
+  addQR(cafeName: String!, code: String!): QR_data
+}
+
+
+
+
+
+### 유저 ###
 type user {
+  _id: ID!,
   id: Int!,
   name: String!,
   email: String!,
   auth: String!,
-  qr_list: [String],
+  rating: String!,
+  cafe_list: [QR_data],
   point: Int!
+  average_star: Float,
+}
+# 유저 하위 데이터 (소지한 카드 정보) #
+type QR_data {
+  cafe_name: String!,
+  code: String!,
+  visit_times: Int!,
 }
 
-type cafe {
-  id: Int,
-  cafe_name: String,
-  cafe_info: String,
-  bean_info: String,
-  point_fluctuation: Int,
-  discount_reate: Int
 
+
+
+### 카페 ###
+type cafe {
+  _id: ID!,
+  owner_id: String!,
+  cafe_info: Cafe_info_data!,
+  discount_rate: Cafe_discount_rate!,
+  point_fluc: Int!,
+}
+# 카페 하위 데이터 (카페 정보) #
+type Cafe_info_data {
+  name: String!,
+  beans: String,
+  position: String!,
+  address: String!,
+  phone: String!,
+  card_img: String!,
+}
+# 카페 하위 데이터 (등급별 할인율) #
+type Cafe_discount_rate {
+  silver: Int!,
+  gold: Int!,
+  vip: Int!,
+}
+
+
+
+
+### 리뷰 ###
+type review {
+  _id: ID!,
+  key: String!,
+  user_name: String!,
+  content: String,
+  like: Int!,
+  map: Int!,
+  star: Star!,
+  comment: [Comment],
+  hash_tag: [String],
+}
+# 리뷰 하위 데이터 (평점) #
+type Star {
+  flavor: Float!,
+  atmosphere: Float!,
+  price: Float!,
+}
+# 리뷰 하위 데이터 (댓글) #
+type Comment {
+  date: String!,
+  user_name: String!,
+  content: String!,
+}
+
+
+
+
+
+### 마일리지 로그 ###
+type mileage_log {
+  _id: ID!,
+  date: String!,
+  staff_id: String!,
+  client_id: String!,
+  cafe_name: String!,
+  menu_name: String!,
+  price: Int!,
+  mileage: Int!,
+  review: String,
+  visit_times: Int!,
 }

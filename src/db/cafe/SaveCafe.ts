@@ -1,7 +1,7 @@
-import { CafeModel } from '@db/CafeModel';
-import type { ICafe } from '@db/CafeModel';
+import { CafeModel } from '@db/cafe/CafeModel';
+import type { Cafe } from '@db/cafe/CafeModel';
 
-export const SaveCafe = (cafe: ICafe) => {
+export const SaveCafe = (cafe: Cafe) => {
   const newCafe = new CafeModel(cafe);
   newCafe.save((err: any, cafe: any) => {
     if (err) {
