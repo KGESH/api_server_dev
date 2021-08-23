@@ -5,16 +5,16 @@ type Query {
   emailUser(email: String!): user
   authUser: user
   getUserById(id: Int!): user
-  getCafeByName(cafe_name: String!): cafe
   getCafeById(id: Int!): cafe
-  getReview(key: String!): [review]
-  getCafeBy(name: String!): cafe
+  getReviewByKey(key: String!): [review]
+  getCafeByName(name: String!): cafe
   getMileageByClientId(client_id: String!): mileage_log
+  existCafeNameInMyDB(id:Int! cafe_name: String!): user
 }
 
 #### Mutation ####
 type Mutation {
-  addQR(cafeName: String!, code: String!): QR_data
+  addCard(id: Int!, cafe_name: String!, code: String!): user
 }
 
 
@@ -37,7 +37,7 @@ type user {
 type QR_data {
   cafe_name: String!,
   code: String!,
-  visit_times: Int!,
+  visit_times: Int,
 }
 
 
