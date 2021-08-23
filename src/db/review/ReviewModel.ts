@@ -1,9 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface IComment {
-  data: string;
   user_name: string;
   content: string;
+  post_date: Date;
 }
 export interface IStar {
   flavor: number;
@@ -11,39 +11,49 @@ export interface IStar {
   price: number;
 }
 
-export interface Review {
+/** 필요하다고 생각해서 추가, 변경한 부분
+ * 확인 후, 주석 지워주세요
+ * (21-08-23:지성현)
+ */
+export interface IReview {
   _id: string;
   key: string;
   user_name: string;
-  content: string;
-  like: number;
-  map: number;
+  like_count: number;
   star: IStar;
-  comment: [IComment];
-  hash_tag: [string];
+  content: string;
+  comment_list: [IComment];
+  hash_tag_list: [string];
+  liker_list: [string];
+  image_list: [string];
+  location: string;
+  post_date: Date;
 }
 
-const Star = new Schema({
+const starSchema = new Schema({
   flavor: Number,
   atmosphere: Number,
   price: Number,
 });
-const Comment = new Schema({
-  data: String,
+const commentSchema = new Schema({
   user_name: String,
   content: String,
+  post_date: Date,
 });
 
-const reviewSchema = new Schema<Review>({
+const reviewSchema = new Schema<IReview>({
   _id: String,
   key: String,
-  user_name: String,
+  user_name: String!,
   content: String,
-  like: Number,
-  map: Number,
-  star: Star,
-  comment: [Comment],
-  hash_tag: [String],
+  location: String!,
+  star: starSchema!,
+  image_list: [String]!,
+  like_count: { type: Number, default: 0 },
+  comment_list: { type: [commentSchema], default: [] },
+  hash_tag_list: { type: [String], default: [] },
+  liker_list: { type: [String], default: [] },
+  post_date: { type: Date, default: Date.now },
 });
 
 export const ReviewModel = mongoose.model('review', reviewSchema, 'review');

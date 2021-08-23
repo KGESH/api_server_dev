@@ -13,10 +13,8 @@ type Query {
 
 #### Mutation ####
 type Mutation {
-  addQR(cafeName: String!, code: String!): Qr_data
   getKakaoUserByJwt(jwt: String!): user
   authUser: user
-  addStory(owner_email: String!)
   addCard(id: Int!, cafe_name: String!, code: String!): user
 }
 
@@ -28,10 +26,8 @@ type user {
   email: String!,
   auth: String!,
   point: Int!,
-  story_list: [story]
   rating: String!,
   cafe_list: [QR_data],
-  point: Int!
   average_star: Float,
 }
 
@@ -42,17 +38,7 @@ type QR_data {
   visit_times: Int,
 }
 
-#### SNS 게시물 ####
-type story {
-  owner_email: String!,
-  owner: String!,
-  image_list: [String]!,
-  like_count: Int!,
-  liker_list: [user],
-  location: String,
-  comment_list: [String],
-  hash_tag_list: [String],
-}
+
 
 ### 카페 ###
 type cafe {
