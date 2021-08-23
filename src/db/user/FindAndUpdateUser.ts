@@ -8,6 +8,7 @@ export const FindUser_InsertCard = async (args: any) => {
         cafe_list: {
           cafe_name: args.cafe_name,
           code: args.code,
+          card_img: args.card_img,
         },
       },
     },

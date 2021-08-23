@@ -14,7 +14,7 @@ type Query {
 
 #### Mutation ####
 type Mutation {
-  addCard(id: Int!, cafe_name: String!, code: String!): user
+  addCard(id: Int!, cafe_name: String!, code: String! card_img: String!): user
 }
 
 
@@ -37,6 +37,7 @@ type user {
 type QR_data {
   cafe_name: String!,
   code: String!,
+  card_img: String!,
   visit_times: Int,
 }
 
