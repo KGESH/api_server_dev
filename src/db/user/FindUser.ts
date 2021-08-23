@@ -7,8 +7,8 @@ export const CheckExistUserById = async (id: number) =>
 export const CheckExistUserByEmail = async (email: string) =>
   await UserModel.exists({ email });
 
-export const GetUserById = async (id: number) =>
-  await UserModel.findOne({ id });
-
-export const GetUserByEmail = async (email: string) =>
-  await UserModel.findOne({ email });
+export const FindUser_CafeList = async (args: any) => {
+  return await UserModel.findOne({ id: args.id })
+    .where('cafe_list')
+    .equals({ $elemMatch: { cafe_name: args.cafe_name } });
+};

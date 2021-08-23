@@ -4,9 +4,11 @@ type Query {
   getAllCafe: [cafe]
   emailUser(email: String!): user
   getUserById(id: Int!): user
-  getCafeByName(cafe_name: String!): cafe
   getCafeById(id: Int!): cafe
-  getReview(key: String!): [review]
+  getReviewByKey(key: String!): [review]
+  getCafeByName(name: String!): cafe
+  getMileageByClientId(client_id: String!): mileage_log
+  existCafeNameInMyDB(id:Int! cafe_name: String!): user
 }
 
 #### Mutation ####
@@ -15,6 +17,7 @@ type Mutation {
   getKakaoUserByJwt(jwt: String!): user
   authUser: user
   addStory(owner_email: String!)
+  addCard(id: Int!, cafe_name: String!, code: String!): user
 }
 
 ### 유저 ###
@@ -36,7 +39,7 @@ type user {
 type QR_data {
   cafe_name: String!,
   code: String!,
-  visit_times: It!,
+  visit_times: Int,
 }
 
 #### SNS 게시물 ####
@@ -66,7 +69,8 @@ type Cafe_info_data {
   beans: String,
   position: String!,
   address: String!,
-  phone: String!
+  phone: String!,
+  card_img: String!,
 }
 
 # 카페 하위 데이터 (등급별 할인율) #
@@ -113,4 +117,6 @@ type mileage_log {
   menu_name: String!,
   price: Int!,
   mileage: Int!,
+  review: String,
+  visit_times: Int!,
 }
