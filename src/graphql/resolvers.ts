@@ -6,6 +6,7 @@ import { Cafe } from '@db/cafe/CafeModel';
 import { SaveCafe } from '@db/cafe/SaveCafe';
 import { Iqr, qrModel } from '@db/user/testQRModel';
 import { ReviewModel } from '@db/review/ReviewModel';
+import { MileageModel } from '@db/mileage/MileageModel';
 
 export const resolvers = {
   Query: {
@@ -38,8 +39,17 @@ export const resolvers = {
       console.log(user);
       return user;
     },
+    /** 유성현. test하려고 만든거에요 */
     async getReview(_: any, args: any) {
       return await ReviewModel.find({ key: args.key });
+    },
+    /** 유성현. test하려고 만든거에요 */
+    async getCafeBy(_: any, { name }: any) {
+      return await CafeModel.findOne({ 'cafe_info.name': name });
+    },
+    /** 유성현. test하려고 만든거에요 */
+    async getMileageByClientId(_: any, { client_id }: any) {
+      return await MileageModel.findOne({ client_id: client_id });
     },
   },
   Mutation: {

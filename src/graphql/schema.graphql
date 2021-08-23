@@ -8,6 +8,8 @@ type Query {
   getCafeByName(cafe_name: String!): cafe
   getCafeById(id: Int!): cafe
   getReview(key: String!): [review]
+  getCafeBy(name: String!): cafe
+  getMileageByClientId(client_id: String!): mileage_log
 }
 
 #### Mutation ####
@@ -55,7 +57,8 @@ type Cafe_info_data {
   beans: String,
   position: String!,
   address: String!,
-  phone: String!
+  phone: String!,
+  card_img: String!,
 }
 # 카페 하위 데이터 (등급별 할인율) #
 type Cafe_discount_rate {
@@ -106,4 +109,6 @@ type mileage_log {
   menu_name: String!,
   price: Int!,
   mileage: Int!,
+  review: String,
+  visit_times: Int!,
 }
