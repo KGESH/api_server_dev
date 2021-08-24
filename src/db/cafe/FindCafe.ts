@@ -11,7 +11,7 @@ import { CafeModel } from '@db/cafe/CafeModel';
  */
 
 /* 현재 사용중 */
-export const FindCafeByName = async ({ cafe_name }: any) =>
+export const FindCafeByName = async (cafe_name: string) =>
   await CafeModel.findOne({ 'cafe_info.cafe_name': cafe_name });
 
 // 사용 하지 않음

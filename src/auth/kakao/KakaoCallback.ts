@@ -25,7 +25,9 @@ export const KakaoCallback = async (req: any, res: any) => {
     const user = await GetUserData(access_token);
     const userExist = await CheckExistUserById(user.id);
 
+    console.log(`user exist = ${userExist}`);
     if (!userExist) {
+      console.log(`call user exist`);
       SaveUser(user);
     }
 

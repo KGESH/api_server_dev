@@ -1,11 +1,11 @@
 import { UserModel } from '@db/user/UserModel';
 
-export const SaveCardToUser = async ({
-  id,
-  cafe_name,
-  code,
-  card_img,
-}: any) => {
+export const SaveCardToUser = async (
+  id: number,
+  cafe_name: string,
+  code: string,
+  card_img: string,
+) => {
   return await UserModel.findOneAndUpdate(
     { id },
     {
