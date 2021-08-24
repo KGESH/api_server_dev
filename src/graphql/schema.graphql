@@ -29,12 +29,12 @@ type user {
   email: String!,
   auth: String!,
   rating: String!,
-  cafe_list: [QR_data],
+  cafe_list: [QR],
   point: Int!
   average_star: Float,
 }
 # 유저 하위 데이터 (소지한 카드 정보) #
-type QR_data {
+type QR {
   cafe_name: String!,
   code: String!,
   card_img: String!,
