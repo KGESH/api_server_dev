@@ -1,25 +1,25 @@
 #### Query ####
 type Query {
-  getAllUser: [user]
-  getAllCafe: [cafe]
-  emailUser(email: String!): user
-  getUserById(id: Int!): user
-  getCafeById(id: Int!): cafe
-  getReviewByKey(key: String!): [review]
-  getCafeByName(name: String!): cafe
-  getMileageByClientId(client_id: String!): mileage_log
-  existCafeNameInMyDB(id:Int! cafe_name: String!): user
+  getAllUser: [User]
+  getAllCafe: [Cafe]
+  emailUser(email: String!): User
+  getUserById(id: Int!): User
+  getCafeById(id: Int!): Cafe
+  getReviewByKey(key: String!): [Review]
+  getCafeByName(name: String!): Cafe
+  getMileageByClientId(client_id: String!): MileageLog
+  existCafeNameInMyDB(id:Int! cafe_name: String!): User
 }
 
 #### Mutation ####
 type Mutation {
-  getKakaoUserByJwt(jwt: String!): user
-  authUser: user
-  addCard(id: Int!, cafe_name: String!, code: String! card_img: String!): user
+  getKakaoUserByJwt(jwt: String!): User
+  authUser: User
+  addCard(id: Int!, cafe_name: String!, code: String! card_img: String!): User
 }
 
 ### 유저 ###
-type user {
+type User {
   id: Int!,
   name: String!,
   email: String!,
@@ -41,15 +41,15 @@ type QR {
 
 
 ### 카페 ###
-type cafe {
+type Cafe {
   owner_id: String!,
-  cafe_info: Cafe_info_data!,
-  discount_rate: Cafe_discount_rate!,
+  cafe_info: CafeInfo!,
+  discount_rate: CafeDiscountRate!,
   point_fluc: Int!,
 }
 
 # 카페 하위 데이터 (카페 정보) #
-type Cafe_info_data {
+type CafeInfo {
   name: String!,
   beans: String,
   position: String!,
@@ -59,14 +59,14 @@ type Cafe_info_data {
 }
 
 # 카페 하위 데이터 (등급별 할인율) #
-type Cafe_discount_rate {
+type CafeDiscountRate {
   silver: Int!,
   gold: Int!,
   vip: Int!,
 }
 
 ### 리뷰 ###
-type review {
+type Review {
   key: String!,
   user_name: String!,
   content: String,
@@ -92,7 +92,7 @@ type Comment {
 }
 
 ### 마일리지 로그 ###
-type mileage_log {
+type MileageLog {
   date: String!,
   staff_id: String!,
   client_id: String!,
