@@ -1,64 +1,96 @@
 import { UserModel } from '@db/user/UserModel';
 import { CafeModel } from '@db/cafe/CafeModel';
-import { FindUserByEmail } from '@db/user/FindUser';
-import { FindCafeByName, FindCafeById } from '@db/cafe/FindCafe';
-import { Cafe } from '@db/cafe/CafeModel';
-import { SaveCafe } from '@db/cafe/SaveCafe';
-import { Iqr, qrModel } from '@db/user/testQRModel';
-import { ReviewModel } from '@db/review/ReviewModel';
-import { MileageModel } from '@db/mileage/MileageModel';
+import { ExistCafeNameInUser, FindUserById } from '@db/user/FindUser';
+import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
+import { VerifyToken } from '@auth/Jwt';
+import { FindCafeByName } from '@db/cafe/FindCafe';
+import { testFindReviewByKey } from '@db/review/FindReview';
+import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 
+/**
+ * Resolver 2번째 인자 args 제거하고
+ * 스키마에 정의된 데이터 형식 그대로 분해해서
+ * 사용하는게 좋아보여서 수정합니다.
+ * 지금 초기 단계라 스키마가 자주 바뀌어서 불편할 수 있겠지만
+ * 이렇게 해야 타입 안정성이 높아져서 좋아보입니다.
+ * 확인후 주석 제거 바랍니다.
+ * (21-08-24:지성현)
+ */
 export const resolvers = {
   Query: {
-    /** db 유저 조회 테스트용 쿼리 */
+    /*
+     *
+     * 유저관련 Query [ Cntrl + F : 유저쿼리 ]
+     *
+     * */
+    /** 유저 전체 조회 [params: none] */
     getAllUser: async (_: any, __: any) => {
-      console.log(`query request`);
       return await UserModel.find({});
     },
-    /** db 카페 조회 테스트용 쿼리 (21-8-13:지성현) */
+    /** 해당 id를 갖고있는 유저 조회 [params: id] (21-8-23:유성현) */
+    getUserById: async (_: any, { id }: any) => {
+      return await FindUserById(id);
+    },
+    /** 해당 user가 card를 갖고있는지 조회 [params: id, cafe_name] (21-8-23:유성현) */
+    existCafeNameInUser: async (_: any, { id, cafe_name }: any) => {
+      return await ExistCafeNameInUser(id, cafe_name);
+    },
+    /*
+     *
+     * 카페관련 Query [ Cntrl + F : 카페쿼리 ]
+     *
+     * */
+    /** 카페 전체 조회 [params: none](21-8-13:지성현) */
     getAllCafe: async (_: any, __: any) => {
-      console.log(`query req`);
       return await CafeModel.find({});
     },
-    /** MyPage에서 사용할 사용자 조회 Query (21-8-12:유성현) */
-    getUserById: async (_: any, args: any) => {
-      return await UserModel.findOne({ id: args.id });
+    /** 해당 name을 갖고있는 카페 조회 [params: name](21-8-23:유성현) */
+    getCafeByName: async (_: any, { name }: any) => {
+      return await FindCafeByName(name);
     },
-    /** email로 db에서 유저 조회 */
-    emailUser: async (_: any, { email }: any) => {
-      return FindUserByEmail(email);
+    /*
+     *
+     * 리뷰, 게시물관련 Query [ Cntrl + F : 리뷰쿼리, 게시물쿼리 ]
+     *
+     * */
+    /** test용 - 삭제 예정 */
+    getReviewByKey: async (_: any, { key }: any) => {
+      return await testFindReviewByKey(key);
+    },
+    /*
+     *
+     * 마일리지관련 Query [ Cntrl + F : 마일리지쿼리 ]
+     *
+     * */
+    /** 해당 id를 보유한 유저의 마일리지Log를 조회 [args: client_id](21-8-24:유성현) */
+    getMileageLogByClientId: async (_: any, { client_id }: any) => {
+      return await FindMileageLogByClientId(client_id);
+    },
+  },
+  Mutation: {
+    /**
+     * 처음 카카오 로그인 할때 호출되는 mutation
+     * (2021-08-20:지성현)
+     */
+    getKakaoUserByJwt: (_: any, { jwt }: any) => {
+      const user = VerifyToken(jwt);
+      console.log(`get kakao user by jwt resolver`);
+      return user;
     },
     /**
-     * 인증 테스트용 쿼리
+     * 인증 mutation
      * Client에서 인증 요청 보낼때
      * AuthContext 미들웨어에서 토큰을 검사
      * 토큰이 유효하면 user 정보 넘어옴
      * 유효하지 않으면 undefined 넘어옴
      */
-    authUser: (_: any, __: any, { user }: any) => {
+    authUser: async (_: any, __: any, { user }: any) => {
       console.log(user);
-      return user;
+      return await user;
     },
-    /** 유성현. test하려고 만든거에요 */
-    async getReview(_: any, args: any) {
-      return await ReviewModel.find({ key: args.key });
-    },
-    /** 유성현. test하려고 만든거에요 */
-    async getCafeBy(_: any, { name }: any) {
-      return await CafeModel.findOne({ 'cafe_info.name': name });
-    },
-    /** 유성현. test하려고 만든거에요 */
-    async getMileageByClientId(_: any, { client_id }: any) {
-      return await MileageModel.findOne({ client_id: client_id });
-    },
-  },
-  Mutation: {
-    /**
-     * QR코드를 촬영하고 링크를 들어가면 카드정보가 db에 저장되는 mutation(test-version)
-     * (21-08-20:유성현)
-     * */
-    async addQR(_: any, { cafe_name, code }: Iqr) {
-      return await qrModel.create({ cafe_name, code });
+    /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
+    async saveCardToUser(_: any, { id, cafe_name, code, card_img }: any) {
+      return await SaveCardToUser(id, cafe_name, code, card_img);
     },
   },
 };

@@ -1,7 +1,7 @@
 import { KakaoAuth } from '@auth/kakao/KakaoAuth';
 import { GetUserData } from '@auth/kakao/GetUserData';
 import { SaveUser } from '@db/user/SaveUser';
-import { FindUserById } from '@db/user/FindUser';
+import { CheckExistUserById } from '@db/user/FindUser';
 import { CreateToken } from '@auth/Jwt';
 
 /**
@@ -23,9 +23,11 @@ export const KakaoCallback = async (req: any, res: any) => {
       .then((result) => result.access_token);
 
     const user = await GetUserData(access_token);
-    const userExist = await FindUserById(user.id);
+    const userExist = await CheckExistUserById(user.id);
 
+    console.log(`user exist = ${userExist}`);
     if (!userExist) {
+      console.log(`call user exist`);
       SaveUser(user);
     }
 
