@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface ICafe_info {
-  name: string;
+  cafe_name: string;
   beans: string;
   position: string;
   address: string;
