@@ -1,10 +1,6 @@
 import { UserModel } from '@db/user/UserModel';
 
-/**
- * args 수정
- * (21-08-24:지성현)
- */
-export const FindUser_InsertCard = async ({
+export const SaveCardToUser = async ({
   id,
   cafe_name,
   code,
