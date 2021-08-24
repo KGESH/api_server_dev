@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-export interface ICafe_info {
+export interface ICafeInfo {
   name: string;
   beans: string;
   position: string;
@@ -9,21 +9,21 @@ export interface ICafe_info {
   card_img: string;
 }
 
-export interface IDiscount_rate {
+export interface IDiscountRate {
   silver: number;
   gold: number;
   vip: number;
 }
 
-export interface Cafe {
+export interface ICafe {
   id: number;
-  cafe_info: ICafe_info;
-  discount_rate: IDiscount_rate;
+  cafe_info: ICafeInfo;
+  discount_rate: IDiscountRate;
   owner_id: string;
   point_fluc: number;
 }
 
-const cafe_infoSchema = new Schema<ICafe_info>({
+const cafeInfoSchema = new Schema<ICafeInfo>({
   name: String,
   beans: String,
   position: String,
@@ -31,15 +31,16 @@ const cafe_infoSchema = new Schema<ICafe_info>({
   phone: String,
   card_img: String,
 });
-const discount_rateSchema = new Schema<IDiscount_rate>({
+
+const discountRateSchema = new Schema<IDiscountRate>({
   silver: Number,
   gold: Number,
   vip: Number,
 });
-const cafeSchema = new Schema<Cafe>({
+const cafeSchema = new Schema<ICafe>({
   id: Number,
-  cafe_info: cafe_infoSchema,
-  discount_rate: discount_rateSchema,
+  cafe_info: cafeInfoSchema,
+  discount_rate: discountRateSchema,
   owner_id: String,
   point_fluc: Number,
 });

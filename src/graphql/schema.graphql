@@ -1,38 +1,35 @@
 #### Query ####
 type Query {
-  getAllUser: [user]
-  getAllCafe: [cafe]
-  emailUser(email: String!): user
-  authUser: user
-  getUserById(id: Int!): user
-  getCafeById(id: Int!): cafe
-  getReviewByKey(key: String!): [review]
-  getCafeByName(name: String!): cafe
-  getMileageByClientId(client_id: String!): mileage_log
-  existCafeNameInMyDB(id:Int! cafe_name: String!): user
+  getAllUser: [User]
+  getAllCafe: [Cafe]
+  emailUser(email: String!): User
+  getUserById(id: Int!): User
+  getCafeById(id: Int!): Cafe
+  getReviewByKey(key: String!): [Review]
+  getCafeByName(name: String!): Cafe
+  getMileageByClientId(client_id: String!): MileageLog
+  existCafeNameInMyDB(id:Int! cafe_name: String!): User
 }
 
 #### Mutation ####
 type Mutation {
-  addCard(id: Int!, cafe_name: String!, code: String! card_img: String!): user
+  getKakaoUserByJwt(jwt: String!): User
+  authUser: User
+  addCard(id: Int!, cafe_name: String!, code: String! card_img: String!): User
 }
 
-
-
-
-
 ### 유저 ###
-type user {
-  _id: ID!,
+type User {
   id: Int!,
   name: String!,
   email: String!,
   auth: String!,
+  point: Int!,
   rating: String!,
   cafe_list: [QR],
-  point: Int!
   average_star: Float,
 }
+
 # 유저 하위 데이터 (소지한 카드 정보) #
 type QR {
   cafe_name: String!,
@@ -43,17 +40,16 @@ type QR {
 
 
 
-
 ### 카페 ###
-type cafe {
-  _id: ID!,
+type Cafe {
   owner_id: String!,
-  cafe_info: Cafe_info_data!,
-  discount_rate: Cafe_discount_rate!,
+  cafe_info: CafeInfo!,
+  discount_rate: CafeDiscountRate!,
   point_fluc: Int!,
 }
+
 # 카페 하위 데이터 (카페 정보) #
-type Cafe_info_data {
+type CafeInfo {
   name: String!,
   beans: String,
   position: String!,
@@ -61,19 +57,16 @@ type Cafe_info_data {
   phone: String!,
   card_img: String!,
 }
+
 # 카페 하위 데이터 (등급별 할인율) #
-type Cafe_discount_rate {
+type CafeDiscountRate {
   silver: Int!,
   gold: Int!,
   vip: Int!,
 }
 
-
-
-
 ### 리뷰 ###
-type review {
-  _id: ID!,
+type Review {
   key: String!,
   user_name: String!,
   content: String,
@@ -83,12 +76,14 @@ type review {
   comment: [Comment],
   hash_tag: [String],
 }
+
 # 리뷰 하위 데이터 (평점) #
 type Star {
   flavor: Float!,
   atmosphere: Float!,
   price: Float!,
 }
+
 # 리뷰 하위 데이터 (댓글) #
 type Comment {
   date: String!,
@@ -96,13 +91,8 @@ type Comment {
   content: String!,
 }
 
-
-
-
-
 ### 마일리지 로그 ###
-type mileage_log {
-  _id: ID!,
+type MileageLog {
   date: String!,
   staff_id: String!,
   client_id: String!,

@@ -29,5 +29,5 @@ server.express.use(logger('dev'));
  */
 server.express.get('/auth/kakao/KakaoCallback', KakaoCallback);
 server.start(options, ({ port }) =>
-  console.log(`서버구동🚀 playground: http://localhost:${port}/playground`),
+  console.log(`서버구동🚀🚀🚀 playground: http://localhost:${port}/playground`),
 );

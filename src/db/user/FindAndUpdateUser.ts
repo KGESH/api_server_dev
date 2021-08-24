@@ -1,14 +1,23 @@
 import { UserModel } from '@db/user/UserModel';
 
-export const FindUser_InsertCard = async (args: any) => {
+/**
+ * args 수정
+ * (21-08-24:지성현)
+ */
+export const FindUser_InsertCard = async ({
+  id,
+  cafe_name,
+  code,
+  card_img,
+}: any) => {
   return await UserModel.findOneAndUpdate(
-    { id: args.id },
+    { id },
     {
       $push: {
         cafe_list: {
-          cafe_name: args.cafe_name,
-          code: args.code,
-          card_img: args.card_img,
+          cafe_name,
+          code,
+          card_img,
         },
       },
     },
