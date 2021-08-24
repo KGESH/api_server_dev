@@ -19,14 +19,14 @@ export interface IStar {
 export interface IReview {
   key: string;
   user_name: string;
-  like_count: number;
-  star: IStar;
   content: string;
+  location: string;
+  star: IStar;
+  image_list: [string];
+  like_count: number;
   comment_list: [IComment];
   hash_tag_list: [string];
   liker_list: [string];
-  image_list: [string];
-  location: string;
   post_date: Date;
 }
 

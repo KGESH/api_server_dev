@@ -1,74 +1,67 @@
 import { UserModel } from '@db/user/UserModel';
 import { CafeModel } from '@db/cafe/CafeModel';
-import { FindUser_CafeList } from '@db/user/FindUser';
-import { ReviewModel } from '@db/review/ReviewModel';
-import { MileageModel } from '@db/mileage/MileageModel';
-import { FindUser_InsertCard } from '@db/user/FindAndUpdateUser';
+import { ExistCafeNameInUser, FindUserById } from '@db/user/FindUser';
+import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
 import { VerifyToken } from '@auth/Jwt';
+import { FindCafeByName } from '@db/cafe/FindCafe';
+import { testFindReviewByKey } from '@db/review/FindReview';
+import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 
+/**
+ *
+ * */
 export const resolvers = {
   Query: {
-    /** 유저관련 Query [ Cntrl + F : 유저쿼리 ]
+    /*
      *
-     *
-     *
-     *
+     * 유저관련 Query [ Cntrl + F : 유저쿼리 ]
      *
      * */
-    /** 모든 유저 조회 [params: none] */
+    /** 유저 전체 조회 [params: none] */
     getAllUser: async (_: any, __: any) => {
-      console.log(`query request`);
       return await UserModel.find({});
     },
-
-    /** db 카페 조회 테스트용 쿼리 [params: none](21-8-13:지성현) */
-    getAllCafe: async (_: any, __: any) => {
-      console.log(`query req`);
-      return await CafeModel.find({});
+    /** 해당 id를 갖고있는 유저 조회 [params: id] (21-8-23:유성현) */
+    getUserById: async (_: any, args: any) => {
+      return await FindUserById(args);
     },
     /** 해당 user가 card를 갖고있는지 조회 [params: id, cafe_name] (21-8-23:유성현) */
-    async existCafeNameInMyDB(_: any, args: any) {
-      return FindUser_CafeList(args);
+    existCafeNameInUser: async (_: any, args: any) => {
+      return await ExistCafeNameInUser(args);
     },
-    /** 카페관련 Query [ Cntrl + F : 카페쿼리 ]
+    /*
      *
-     *
-     *
-     *
+     * 카페관련 Query [ Cntrl + F : 카페쿼리 ]
      *
      * */
+    /** 카페 전체 조회 [params: none](21-8-13:지성현) */
+    getAllCafe: async (_: any, __: any) => {
+      return await CafeModel.find({});
+    },
     /** 해당 name를 갖고있는 카페 조회 [params: name](21-8-23:유성현) */
-    async getCafeByName(_: any, { name }: any) {
-      return await CafeModel.findOne({ 'cafe_info.name': name });
+    getCafeByName: async (_: any, args: any) => {
+      return await FindCafeByName(args);
     },
-    /** 리뷰, 게시물관련 Query [ Cntrl + F : 리뷰쿼리, 게시물쿼리 ]
+    /*
      *
-     *
-     *
-     *
+     * 리뷰, 게시물관련 Query [ Cntrl + F : 리뷰쿼리, 게시물쿼리 ]
      *
      * */
-    /** 유성현. test하려고 만든거에요 UserModel에 review 참조변수 추가 후 삭제*/
-    async getReviewByKey(_: any, args: any) {
-      return await ReviewModel.find({ key: args.key });
+    /** test용 - 삭제 예정 */
+    getReviewByKey: async (_: any, args: any) => {
+      return await testFindReviewByKey(args);
     },
-    /** 마일리지관련 Query [ Cntrl + F : 마일리지쿼리 ]
+    /*
      *
-     *
-     *
-     *
+     * 마일리지관련 Query [ Cntrl + F : 마일리지쿼리 ]
      *
      * */
-    /** 유성현. test하려고 만든거에요 */
-    async getMileageByClientId(_: any, { client_id }: any) {
-      return await MileageModel.findOne({ client_id });
+    /** 해당 id를 보유한 유저의 마일리지Log를 조회 [args: client_id](21-8-24:유성현) */
+    getMileageLogByClientId: async (_: any, args: any) => {
+      return await FindMileageLogByClientId(args);
     },
   },
   Mutation: {
-    /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code](21-08-20:유성현) */
-    async addCard(_: any, args: any) {
-      return FindUser_InsertCard(args);
-    },
     /**
      * 처음 카카오 로그인 할때 호출되는 mutation
      * (2021-08-20:지성현)
@@ -89,6 +82,10 @@ export const resolvers = {
     authUser: async (_: any, __: any, { user }: any) => {
       console.log(user);
       return await user;
+    },
+    /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code](21-08-20:유성현) */
+    async saveCardToUser(_: any, args: any) {
+      return await SaveCardToUser(args);
     },
   },
 };

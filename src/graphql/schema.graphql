@@ -1,21 +1,29 @@
 #### Query ####
 type Query {
+
+#  유저
   getAllUser: [User]
-  getAllCafe: [Cafe]
-  emailUser(email: String!): User
   getUserById(id: Int!): User
-  getCafeById(id: Int!): Cafe
+  existCafeNameInUser(id:Int! cafe_name: String!): User
+
+#  카페
+  getAllCafe: [Cafe]
+  getCafeByName(cafe_name: String!): Cafe
+
+#  리뷰
   getReviewByKey(key: String!): [Review]
-  getCafeByName(name: String!): Cafe
-  getMileageByClientId(client_id: String!): MileageLog
-  existCafeNameInMyDB(id:Int! cafe_name: String!): User
+
+#  마일리지
+  getMileageLogByClientId(client_id: Int!): [MileageLog]
 }
 
 #### Mutation ####
 type Mutation {
+
+#  유저
   getKakaoUserByJwt(jwt: String!): User
   authUser: User
-  addCard(id: Int!, cafe_name: String!, code: String! card_img: String!): User
+  saveCardToUser(id: Int!, cafe_name: String!, code: String! card_img: String!): User
 }
 
 ### 유저 ###
@@ -42,7 +50,8 @@ type QR {
 
 ### 카페 ###
 type Cafe {
-  owner_id: String!,
+  cafe_id: Int!,
+  owner_id: Int!,
   cafe_info: CafeInfo!,
   discount_rate: CafeDiscountRate!,
   point_fluc: Int!,
@@ -50,7 +59,7 @@ type Cafe {
 
 # 카페 하위 데이터 (카페 정보) #
 type CafeInfo {
-  name: String!,
+  cafe_name: String!,
   beans: String,
   position: String!,
   address: String!,
@@ -67,14 +76,17 @@ type CafeDiscountRate {
 
 ### 리뷰 ###
 type Review {
-  key: String!,
+  key: String,
   user_name: String!,
   content: String,
-  like: Int!,
-  map: Int!,
+  location: String!,
   star: Star!,
-  comment: [Comment],
-  hash_tag: [String],
+  image_list: [String]!,
+  like_count: Int,
+  comment_list: [Comment],
+  hash_tag_list: String,
+  liker_list: [String],
+  post_date: String,
 }
 
 # 리뷰 하위 데이터 (평점) #
@@ -86,16 +98,16 @@ type Star {
 
 # 리뷰 하위 데이터 (댓글) #
 type Comment {
-  date: String!,
-  user_name: String!,
-  content: String!,
+  user_name: String,
+  content: String,
+  post_date: String,
 }
 
 ### 마일리지 로그 ###
 type MileageLog {
   date: String!,
-  staff_id: String!,
-  client_id: String!,
+  staff_id: Int!,
+  client_id: Int!,
   cafe_name: String!,
   menu_name: String!,
   price: Int!,

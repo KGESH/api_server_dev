@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface ICafeInfo {
-  name: string;
+  cafe_name: string;
   beans: string;
   position: string;
   address: string;
@@ -16,33 +16,33 @@ export interface IDiscountRate {
 }
 
 export interface ICafe {
-  id: number;
+  cafe_id: number;
+  owner_id: number;
   cafe_info: ICafeInfo;
   discount_rate: IDiscountRate;
-  owner_id: string;
   point_fluc: number;
 }
 
 const cafeInfoSchema = new Schema<ICafeInfo>({
-  name: String,
+  cafe_name: String!,
   beans: String,
   position: String,
-  address: String,
-  phone: String,
-  card_img: String,
+  address: String!,
+  phone: String!,
+  card_img: String!,
 });
 
 const discountRateSchema = new Schema<IDiscountRate>({
-  silver: Number,
-  gold: Number,
-  vip: Number,
+  silver: { type: Number, default: 0 },
+  gold: { type: Number, default: 0 },
+  vip: { type: Number, default: 0 },
 });
 const cafeSchema = new Schema<ICafe>({
-  id: Number,
-  cafe_info: cafeInfoSchema,
-  discount_rate: discountRateSchema,
-  owner_id: String,
-  point_fluc: Number,
+  cafe_id: Number!,
+  owner_id: Number!,
+  cafe_info: cafeInfoSchema!,
+  discount_rate: discountRateSchema!,
+  point_fluc: { type: Number, default: 0 },
 });
 
 export const CafeModel = mongoose.model('cafe', cafeSchema, 'cafes');

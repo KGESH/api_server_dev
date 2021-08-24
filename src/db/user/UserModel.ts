@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 export interface IQR {
   cafe_name: string;
   code: string;
+  card_img: string;
   visit_times: number;
 }
 
@@ -19,6 +20,7 @@ export interface IUser {
 const qrSchema = new Schema<IQR>({
   cafe_name: String,
   code: String,
+  card_img: String,
   visit_times: Number,
 });
 
