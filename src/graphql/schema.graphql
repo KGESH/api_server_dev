@@ -11,7 +11,7 @@ type Query {
   getCafeByName(cafe_name: String!): Cafe
 
 #  리뷰
-  getReviewByKey(key: String!): [Review]
+  getReviewByKey(key: String!): Review
 
 #  마일리지
   getMileageLogByClientId(client_id: Int!): [MileageLog]

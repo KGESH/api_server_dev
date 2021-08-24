@@ -13,5 +13,5 @@ export const GetRecentReviewsByHashTags = async (tags: string[]) => {
 
 // mypage-detail-review에 임시로 출력할 test 데이터 (대체함수가 생성되면 삭제)
 export const testFindReviewByKey = async ({ key }: any) => {
-  await ReviewModel.find({ key });
+  await ReviewModel.findOne({ key });
 };

@@ -7,9 +7,6 @@ import { FindCafeByName } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 
-/**
- *
- * */
 export const resolvers = {
   Query: {
     /*
@@ -38,7 +35,7 @@ export const resolvers = {
     getAllCafe: async (_: any, __: any) => {
       return await CafeModel.find({});
     },
-    /** 해당 name를 갖고있는 카페 조회 [params: name](21-8-23:유성현) */
+    /** 해당 name을 갖고있는 카페 조회 [params: name](21-8-23:유성현) */
     getCafeByName: async (_: any, args: any) => {
       return await FindCafeByName(args);
     },
