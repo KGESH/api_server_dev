@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 export interface QR_data {
   cafe_name: string;
   code: string;
+  card_img: string;
   visit_times: number;
 }
 
@@ -20,6 +21,7 @@ export interface User {
 const QR_data = new Schema<QR_data>({
   cafe_name: String,
   code: String,
+  card_img: String,
   visit_times: Number,
 });
 
