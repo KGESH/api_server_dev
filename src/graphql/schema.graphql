@@ -13,24 +13,25 @@ type Query {
 
 #### Mutation ####
 type Mutation {
+  getKakaoUserByJwt(jwt: String!): user
+  authUser: user
   addCard(id: Int!, cafe_name: String!, code: String! card_img: String!): user
 }
 
 ### 유저 ###
 type user {
-  _id: ID!,
   id: Int!,
   name: String!,
   email: String!,
   auth: String!,
   point: Int!,
   rating: String!,
-  cafe_list: [QR_data],
+  cafe_list: [QR],
   average_star: Float,
 }
 
 # 유저 하위 데이터 (소지한 카드 정보) #
-type QR_data {
+type QR {
   cafe_name: String!,
   code: String!,
   card_img: String!,
@@ -41,7 +42,6 @@ type QR_data {
 
 ### 카페 ###
 type cafe {
-  _id: ID!,
   owner_id: String!,
   cafe_info: Cafe_info_data!,
   discount_rate: Cafe_discount_rate!,
@@ -67,7 +67,6 @@ type Cafe_discount_rate {
 
 ### 리뷰 ###
 type review {
-  _id: ID!,
   key: String!,
   user_name: String!,
   content: String,
@@ -94,7 +93,6 @@ type Comment {
 
 ### 마일리지 로그 ###
 type mileage_log {
-  _id: ID!,
   date: String!,
   staff_id: String!,
   client_id: String!,

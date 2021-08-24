@@ -61,7 +61,7 @@ export const resolvers = {
      * */
     /** 유성현. test하려고 만든거에요 */
     async getMileageByClientId(_: any, { client_id }: any) {
-      return await MileageModel.findOne({ client_id: client_id });
+      return await MileageModel.findOne({ client_id });
     },
   },
   Mutation: {

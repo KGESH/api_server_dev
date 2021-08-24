@@ -5,6 +5,7 @@ export interface IComment {
   content: string;
   post_date: Date;
 }
+
 export interface IStar {
   flavor: number;
   atmosphere: number;
@@ -16,7 +17,6 @@ export interface IStar {
  * (21-08-23:지성현)
  */
 export interface IReview {
-  _id: string;
   key: string;
   user_name: string;
   like_count: number;
@@ -35,6 +35,7 @@ const starSchema = new Schema({
   atmosphere: Number,
   price: Number,
 });
+
 const commentSchema = new Schema({
   user_name: String,
   content: String,
@@ -42,7 +43,6 @@ const commentSchema = new Schema({
 });
 
 const reviewSchema = new Schema<IReview>({
-  _id: String,
   key: String,
   user_name: String!,
   content: String,
