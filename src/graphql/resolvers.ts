@@ -1,9 +1,13 @@
 import { UserModel } from '@db/user/UserModel';
 import { CafeModel } from '@db/cafe/CafeModel';
-import { ExistCafeNameInUser, FindUserById } from '@db/user/FindUser';
+import {
+  ExistCafeNameInUser,
+  FindAllUser,
+  FindUserById,
+} from '@db/user/FindUser';
 import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
 import { VerifyToken } from '@auth/Jwt';
-import { FindCafeByName } from '@db/cafe/FindCafe';
+import { FindAllCafe, FindCafeByName } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 
@@ -25,7 +29,7 @@ export const resolvers = {
      * */
     /** 유저 전체 조회 [params: none] */
     getAllUser: async (_: any, __: any) => {
-      return await UserModel.find({});
+      return await FindAllUser();
     },
     /** 해당 id를 갖고있는 유저 조회 [params: id] (21-8-23:유성현) */
     getUserById: async (_: any, { id }: any) => {
@@ -42,18 +46,18 @@ export const resolvers = {
      * */
     /** 카페 전체 조회 [params: none](21-8-13:지성현) */
     getAllCafe: async (_: any, __: any) => {
-      return await CafeModel.find({});
+      return await FindAllCafe();
     },
     /** 해당 name을 갖고있는 카페 조회 [params: name](21-8-23:유성현) */
-    getCafeByName: async (_: any, { name }: any) => {
-      return await FindCafeByName(name);
+    getCafeByName: async (_: any, { cafe_name }: any) => {
+      return await FindCafeByName(cafe_name);
     },
     /*
      *
      * 리뷰, 게시물관련 Query [ Cntrl + F : 리뷰쿼리, 게시물쿼리 ]
      *
      * */
-    /** test용 - 삭제 예정 */
+    /** test용 - 삭제 예정 (21-8-23:유성현) */
     getReviewByKey: async (_: any, { key }: any) => {
       return await testFindReviewByKey(key);
     },

@@ -1,6 +1,8 @@
 import { UserModel } from '@db/user/UserModel';
 
 /* 현재 사용중 */
+export const FindAllUser = async () => await UserModel.find({});
+
 export const FindUserById = async (id: number) =>
   await UserModel.findOne({ id });
 

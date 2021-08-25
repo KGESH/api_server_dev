@@ -11,6 +11,8 @@ import { CafeModel } from '@db/cafe/CafeModel';
  */
 
 /* 현재 사용중 */
+export const FindAllCafe = async () => await CafeModel.find({});
+
 export const FindCafeByName = async (cafe_name: string) =>
   await CafeModel.findOne({ 'cafe_info.cafe_name': cafe_name });
 
