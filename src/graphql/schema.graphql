@@ -24,15 +24,22 @@ type Mutation {
   getKakaoUserByJwt(jwt: String!): User
   authUser: User
   saveCardToUser(id: Int!, cafe_name: String!, code: String! card_img: String!): User
+
+#  리뷰
+  postReview(review: ReviewInput!): Boolean
+
 }
 
 ### 유저 ###
+### 카카오 프로필 이미지 속성 추가 ###
+### 확인후 주석 제거 바랍니다 (21-08-25:지성현) ###
 type User {
   id: Int!,
   name: String!,
   email: String!,
   auth: String!,
   point: Int!,
+  profile_img: String,
   rating: String!,
   cafe_list: [QR],
   average_star: Float,
@@ -74,13 +81,31 @@ type CafeDiscountRate {
   vip: Int!,
 }
 
+# review 뮤테이션 인자
+input ReviewInput {
+  user_name: String!,
+  content: String,
+  location: String!,
+  star: StarInput!,  
+  image_list: [String]!,
+  hash_tag_list: String,
+  post_date: String,
+}
+
+# review input에서 쓰일 타입
+input StarInput {
+  flavor: Float!,
+  atmosphere: Float!,
+  price: Float!,
+}
+
 ### 리뷰 ###
 type Review {
   key: String,
   user_name: String!,
   content: String,
   location: String!,
-  star: Star!,
+  star: Star!,  
   image_list: [String]!,
   like_count: Int,
   comment_list: [Comment],

@@ -4,6 +4,7 @@ import { MongoDB } from '@db/MongoDB';
 import { KakaoCallback } from '@auth/kakao/KakaoCallback';
 import logger from 'morgan';
 import { AuthContext } from '@auth/middle-ware/AuthContext';
+import { CloudStorage } from './gcp/CloudStorage';
 MongoDB();
 
 const options = {
@@ -28,6 +29,7 @@ server.express.use(logger('dev'));
  * 라우팅 구조 변경예정
  */
 server.express.get('/auth/kakao/KakaoCallback', KakaoCallback);
+server.express.get('/upload', CloudStorage);
 server.start(options, ({ port }) =>
   console.log(`서버구동🚀🚀🚀 playground: http://localhost:${port}/playground`),
 );

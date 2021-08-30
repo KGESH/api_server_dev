@@ -1,10 +1,11 @@
 import { UserModel } from '@db/user/UserModel';
-import { CafeModel } from '@db/cafe/CafeModel';
+import { GetAllCafe } from '@db/cafe/FindCafe';
 import { ExistCafeNameInUser, FindUserById } from '@db/user/FindUser';
 import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
 import { VerifyToken } from '@auth/Jwt';
 import { FindCafeByName } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
+import { SaveReview } from '@db/review/SaveReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 
 /**
@@ -42,7 +43,7 @@ export const resolvers = {
      * */
     /** 카페 전체 조회 [params: none](21-8-13:지성현) */
     getAllCafe: async (_: any, __: any) => {
-      return await CafeModel.find({});
+      return await GetAllCafe();
     },
     /** 해당 name을 갖고있는 카페 조회 [params: name](21-8-23:유성현) */
     getCafeByName: async (_: any, { name }: any) => {
@@ -70,12 +71,12 @@ export const resolvers = {
   Mutation: {
     /**
      * 처음 카카오 로그인 할때 호출되는 mutation
+     * 토큰이 유효하면 user 정보 넘어옴
+     * 유효하지 않으면 undefined 넘어옴
      * (2021-08-20:지성현)
      */
     getKakaoUserByJwt: (_: any, { jwt }: any) => {
-      const user = VerifyToken(jwt);
-      console.log(`get kakao user by jwt resolver`);
-      return user;
+      return VerifyToken(jwt);
     },
     /**
      * 인증 mutation
@@ -85,12 +86,22 @@ export const resolvers = {
      * 유효하지 않으면 undefined 넘어옴
      */
     authUser: async (_: any, __: any, { user }: any) => {
-      console.log(user);
       return await user;
     },
     /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
     async saveCardToUser(_: any, { id, cafe_name, code, card_img }: any) {
       return await SaveCardToUser(id, cafe_name, code, card_img);
+    },
+
+    /**
+     * 리뷰 작성 mutation
+     */
+    postReview: async (_: any, { review }: any, { user }: any) => {
+      console.log(`call post review mutation`);
+      if (!user) {
+        return false;
+      }
+      return await SaveReview(review);
     },
   },
 };
