@@ -1,5 +1,3 @@
-import { UserModel } from '@db/user/UserModel';
-import { CafeModel } from '@db/cafe/CafeModel';
 import {
   ExistCafeNameInUser,
   FindAllUser,
