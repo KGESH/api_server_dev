@@ -24,6 +24,8 @@ type Mutation {
   getKakaoUserByJwt(jwt: String!): User
   authUser: User
   saveCardToUser(id: Int!, cafe_name: String!, code: String! card_img: String!): User
+
+  saveMileage(cafe_name:String!, menu_name: String!, price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
 }
 
 ### 유저 ###
@@ -130,5 +132,5 @@ type MileageLog {
   price: Int!,
   mileage: Int!,
   review: String,
-  visit_times: Int!,
+  visit_times: Int,
 }

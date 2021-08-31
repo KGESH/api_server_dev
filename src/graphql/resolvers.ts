@@ -8,6 +8,8 @@ import { VerifyToken } from '@auth/Jwt';
 import { FindAllCafe, FindCafeByName } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
+import { SaveMileageLog } from '@db/mileage/SaveMileage';
+import { IMileage } from '@db/mileage/MileageModel';
 
 /**
  * Resolver 2번째 인자 args 제거하고
@@ -93,6 +95,9 @@ export const resolvers = {
     /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
     async saveCardToUser(_: any, { id, cafe_name, code, card_img }: any) {
       return await SaveCardToUser(id, cafe_name, code, card_img);
+    },
+    saveMileage: async (_: any, mileageData: IMileage) => {
+      return await SaveMileageLog(mileageData);
     },
   },
 };
