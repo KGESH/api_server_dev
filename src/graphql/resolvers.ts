@@ -32,7 +32,7 @@ export const resolvers = {
       return await FindAllUser();
     },
     /** 해당 id를 갖고있는 유저 조회 [params: id] (21-8-23:유성현) */
-    getUserById: async (_: any, { id }: any) => {
+    getUserById: async (_: any, id: any) => {
       return await FindUserById(id);
     },
     /** 해당 user가 card를 갖고있는지 조회 [params: id, cafe_name] (21-8-23:유성현) */
@@ -49,7 +49,7 @@ export const resolvers = {
       return await FindAllCafe();
     },
     /** 해당 name을 갖고있는 카페 조회 [params: name](21-8-23:유성현) */
-    getCafeByName: async (_: any, { cafe_name }: any) => {
+    getCafeByName: async (_: any, { cafe_name }: string) => {
       return await FindCafeByName(cafe_name);
     },
     /*
@@ -93,7 +93,7 @@ export const resolvers = {
       return await user;
     },
     /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
-    async saveCardToUser(_: any, { id, cafe_name, code, card_img }: any) {
+    saveCardToUser: async (_: any, { id, cafe_name, code, card_img }: any) => {
       return await SaveCardToUser(id, cafe_name, code, card_img);
     },
     saveMileage: async (_: any, mileageData: IMileage) => {
