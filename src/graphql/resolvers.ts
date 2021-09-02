@@ -7,6 +7,7 @@ import { FindCafeByName } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { SaveReview } from '@db/review/SaveReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
+import { UploadReviewImage } from '../gcp/CloudStorage';
 
 /**
  * Resolver 2번째 인자 args 제거하고
@@ -102,6 +103,19 @@ export const resolvers = {
         return false;
       }
       return await SaveReview(review);
+    },
+
+    uploadImage: async (
+      _: any,
+      { content, hash_tag_list, files }: any,
+      { user }: any,
+    ) => {
+      console.log(`call upload resolver`);
+      const fileList = await files;
+      console.log(content);
+      console.log(hash_tag_list);
+      console.log(fileList);
+      return await fileList[0];
     },
   },
 };

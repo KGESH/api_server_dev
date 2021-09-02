@@ -1,3 +1,4 @@
+
 #### Query ####
 type Query {
 
@@ -15,6 +16,8 @@ type Query {
 
 #  마일리지
   getMileageLogByClientId(client_id: Int!): [MileageLog]
+
+  uploads: [File]
 }
 
 #### Mutation ####
@@ -27,6 +30,10 @@ type Mutation {
 
 #  리뷰
   postReview(review: ReviewInput!): Boolean
+
+###  Cloud Storage에  업로드  ###
+###  Upload 타입은 아폴로 서버에 내장  ###
+  uploadImage(content: String!, hash_tag_list: [String], files: [Upload]!): File!
 
 }
 
@@ -88,7 +95,7 @@ input ReviewInput {
   location: String!,
   star: StarInput!,  
   image_list: [String]!,
-  hash_tag_list: String,
+  hash_tag_list: [String],
   post_date: String,
 }
 
@@ -109,7 +116,7 @@ type Review {
   image_list: [String]!,
   like_count: Int,
   comment_list: [Comment],
-  hash_tag_list: String,
+  hash_tag_list: [String],
   liker_list: [String],
   post_date: String,
 }
@@ -139,4 +146,13 @@ type MileageLog {
   mileage: Int!,
   review: String,
   visit_times: Int!,
+}
+
+# apollo 기본 탑재
+scalar Upload
+
+type File {
+  filename: String!,
+  mimetype: String!,
+  encoding: String!,
 }
