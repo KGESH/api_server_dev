@@ -18,8 +18,9 @@ export interface IUser {
 }
 
 const qrSchema = new Schema<IQR>({
-  cafe_name: String,
-  code: String,
+  cafe_name: String!,
+  code: String!,
+  card_img: String!,
   visit_times: Number,
 });
 

@@ -1,13 +1,20 @@
-import { UserModel } from '@db/user/UserModel';
-import { GetAllCafe } from '@db/cafe/FindCafe';
-import { ExistCafeNameInUser, FindUserById } from '@db/user/FindUser';
+import {
+  ExistCafeNameInUser,
+  FindAllUser,
+  FindUserById,
+} from '@db/user/FindUser';
 import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
 import { VerifyToken } from '@auth/Jwt';
-import { FindCafeByName } from '@db/cafe/FindCafe';
+import { FindAllCafe, FindCafeByCafeId } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { SaveReview } from '@db/review/SaveReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 import { UploadReviewImage } from '../gcp/CloudStorage';
+import { SaveMileageLog } from '@db/mileage/SaveMileage';
+import { IMileage } from '@db/mileage/MileageModel';
+import { ICafe } from '@db/cafe/CafeModel';
+import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
+import { ShiftStaff } from '@db/cafe/ReviceCafe';
 
 /**
  * Resolver 2번째 인자 args 제거하고
@@ -27,10 +34,10 @@ export const resolvers = {
      * */
     /** 유저 전체 조회 [params: none] */
     getAllUser: async (_: any, __: any) => {
-      return await UserModel.find({});
+      return await FindAllUser();
     },
     /** 해당 id를 갖고있는 유저 조회 [params: id] (21-8-23:유성현) */
-    getUserById: async (_: any, { id }: any) => {
+    getUserById: async (_: any, id: any) => {
       return await FindUserById(id);
     },
     /** 해당 user가 card를 갖고있는지 조회 [params: id, cafe_name] (21-8-23:유성현) */
@@ -44,18 +51,18 @@ export const resolvers = {
      * */
     /** 카페 전체 조회 [params: none](21-8-13:지성현) */
     getAllCafe: async (_: any, __: any) => {
-      return await GetAllCafe();
+      return await FindAllCafe();
     },
-    /** 해당 name을 갖고있는 카페 조회 [params: name](21-8-23:유성현) */
-    getCafeByName: async (_: any, { name }: any) => {
-      return await FindCafeByName(name);
+    /** 해당 cafe_id를 갖고있는 카페 조회 [params: cafe_id](수정21-9-3:유성현) */
+    getCafeByCafeId: async (_: any, { cafe_id }: ICafe) => {
+      return await FindCafeByCafeId(cafe_id);
     },
     /*
      *
      * 리뷰, 게시물관련 Query [ Cntrl + F : 리뷰쿼리, 게시물쿼리 ]
      *
      * */
-    /** test용 - 삭제 예정 */
+    /** test용 - 삭제 예정 (21-8-23:유성현) */
     getReviewByKey: async (_: any, { key }: any) => {
       return await testFindReviewByKey(key);
     },
@@ -90,7 +97,7 @@ export const resolvers = {
       return await user;
     },
     /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
-    async saveCardToUser(_: any, { id, cafe_name, code, card_img }: any) {
+    saveCardToUser: async (_: any, { id, cafe_name, code, card_img }: any) => {
       return await SaveCardToUser(id, cafe_name, code, card_img);
     },
 
@@ -116,6 +123,16 @@ export const resolvers = {
       console.log(hash_tag_list);
       console.log(fileList);
       return await fileList[0];
+    },
+    /** 마일리지Log 등록 [params: 마일리지 스키마의 모든 데이터](21-9-3:유성현) */
+    saveMileage: async (_: any, mileageData: IMileage) => {
+      return await SaveMileageLog(mileageData);
+    },
+    enrollStaff: async (_: any, staffData: ISaveStaff) => {
+      return await SaveStaff(staffData);
+    },
+    shiftStaff: async (_: any, staffData: ISaveStaff) => {
+      return await ShiftStaff(staffData);
     },
   },
 };
