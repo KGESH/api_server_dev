@@ -179,3 +179,13 @@ type File {
   mimetype: String!,
   encoding: String!,
 }
+
+type cafe {
+  id: Int,
+  cafe_name: String,
+  cafe_info: String,
+  bean_info: String,
+  point_fluctuation: Int,
+  discount_reate: Int
+
+}

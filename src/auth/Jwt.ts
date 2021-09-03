@@ -27,7 +27,7 @@ export const CreateToken = (user: IUser): string => {
 /**
  * token 검증
  */
-export const VerifyToken = (token: string) =>
+export const VerifyToken = (token: string): IUser | void =>
   jwt.verify(token, jwtSecret, (err: any, payload: any) => {
     console.log(`payload`);
     console.log(payload);
