@@ -106,8 +106,8 @@ export const resolvers = {
     enrollStaff: async (_: any, staffData: ISaveStaff) => {
       return await SaveStaff(staffData);
     },
-    shiftStaff: async (_: any, { cafe_id, staff_id }: any) => {
-      return await ShiftStaff(cafe_id, staff_id);
+    shiftStaff: async (_: any, staffData: ISaveStaff) => {
+      return await ShiftStaff(staffData);
     },
   },
 };

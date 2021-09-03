@@ -1,14 +1,21 @@
 import { CafeModel } from '@db/cafe/CafeModel';
 import { ISaveStaff } from '@db/cafe/SaveCafe';
 
-export const ShiftStaff = async (cafe_id: number, staff_id: number) => {
-  return CafeModel.findOneAndUpdate(
-    // 작동 성공 & 에러 발생 CODE: (node:51035) DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated. See: https://mongoosejs.com/docs/deprecations.html#findandmodify
-    { cafe_id },
+export const ShiftStaff = async (staffData: ISaveStaff) => {
+  return await CafeModel.findOneAndUpdate(
+    { cafe_id: staffData.cafe_id },
     {
+      $push: {
+        curr_staff: {
+          staff_id: staffData.staff_id,
+          staff_name: staffData.staff_name,
+          staff_phone: staffData.staff_phone,
+          staff_position: staffData.staff_position,
+        },
+      },
       $pull: {
         enroll_staff: {
-          staff_id: staff_id,
+          staff_id: staffData.staff_id,
         },
       },
     },
