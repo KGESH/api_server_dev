@@ -5,7 +5,7 @@ import {
 } from '@db/user/FindUser';
 import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
 import { VerifyToken } from '@auth/Jwt';
-import { FindAllCafe, FindCafeByCafeId } from '@db/cafe/FindCafe';
+import { FindAllCafe, FindCafeByCafeId, FindCafeByOwnerId } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 import { SaveMileageLog } from '@db/mileage/SaveMileage';
@@ -13,6 +13,7 @@ import { IMileage } from '@db/mileage/MileageModel';
 import { ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
 import { ShiftStaff } from '@db/cafe/ReviceCafe';
+import { DeleteCurrentStaff, DeleteEnrollStaff } from '@db/cafe/DeleteCafe';
 
 /**
  * Resolver 2번째 인자 args 제거하고
@@ -54,6 +55,9 @@ export const resolvers = {
     /** 해당 cafe_id를 갖고있는 카페 조회 [params: cafe_id](수정21-9-3:유성현) */
     getCafeByCafeId: async (_: any, { cafe_id }: ICafe) => {
       return await FindCafeByCafeId(cafe_id);
+    },
+    getCafeByOwnerId: async (_: any, { owner_id }: any) => {
+      return await FindCafeByOwnerId(owner_id);
     },
     /*
      *
@@ -103,11 +107,19 @@ export const resolvers = {
     saveMileage: async (_: any, mileageData: IMileage) => {
       return await SaveMileageLog(mileageData);
     },
+    /** 직원 등록 (21-9-4:유성현) */
     enrollStaff: async (_: any, staffData: ISaveStaff) => {
       return await SaveStaff(staffData);
     },
+    /** 직원 등록 승인 (21-9-4:유성현) */
     shiftStaff: async (_: any, staffData: ISaveStaff) => {
       return await ShiftStaff(staffData);
+    },
+    deleteCurrentStaff: async (_: any, { cafe_id, staff_id }: any) => {
+      return await DeleteCurrentStaff(cafe_id, staff_id);
+    },
+    deleteEnrollStaff: async (_: any, { cafe_id, staff_id }: any) => {
+      return await DeleteEnrollStaff(cafe_id, staff_id);
     },
   },
 };

@@ -8,8 +8,8 @@ type Query {
 
   #  카페
   getAllCafe: [Cafe]
-  # getCafeByName(cafe_name: String!): Cafe # 삭제 대기중
-  getCafeByCafeId(cafe_id: Int!): Cafe # getCafeByName을 대체할 스키마 (추가21-9-3:유성현)
+  getCafeByCafeId(cafe_id: Int!): Cafe
+  getCafeByOwnerId(owner_id: Int!): [Cafe]
 
   #  리뷰
   getReviewByKey(key: String!): Review
@@ -29,6 +29,8 @@ type Mutation {
   # 카페
   enrollStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
   shiftStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
+  deleteCurrentStaff(cafe_id: Int!, staff_id: Int!): Cafe
+  deleteEnrollStaff(cafe_id: Int!, staff_id: Int!): Cafe
 
   # 마일리지
   saveMileage(cafe_name:String!, menu_name: String!, price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
