@@ -1,4 +1,3 @@
-
 #### Query ####
 type Query {
 
@@ -101,15 +100,11 @@ type CafeDiscountRate {
   vip: Int!,
 }
 
-# review 뮤테이션 인자
+# postReview 뮤테이션 인자
 input ReviewInput {
-  user_name: String!,
-  content: String,
-  location: String!,
-  star: StarInput!,  
-  image_list: [String]!,
+  content: String!,
   hash_tag_list: [String],
-  post_date: String,
+  files: [Upload]!,
 }
 
 # review input에서 쓰일 타입
@@ -172,6 +167,7 @@ type MileageLog {
 }
 
 # apollo 기본 탑재
+# 파일 업로드시 필요
 scalar Upload
 
 type File {
@@ -189,3 +185,4 @@ type cafe {
   discount_reate: Int
 
 }
+

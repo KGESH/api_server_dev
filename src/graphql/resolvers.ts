@@ -3,6 +3,7 @@ import {
   FindAllUser,
   FindUserById,
 } from '@db/user/FindUser';
+import { GraphQLUpload } from 'graphql-upload';
 import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
 import { VerifyToken } from '@auth/Jwt';
 import { FindAllCafe, FindCafeByCafeId } from '@db/cafe/FindCafe';
@@ -15,23 +16,24 @@ import { IMileage } from '@db/mileage/MileageModel';
 import { ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
 import { ShiftStaff } from '@db/cafe/ReviceCafe';
+import { IPost } from '@src/db/review/ReviewModel';
 
-/**
- * Resolver 2번째 인자 args 제거하고
- * 스키마에 정의된 데이터 형식 그대로 분해해서
- * 사용하는게 좋아보여서 수정합니다.
- * 지금 초기 단계라 스키마가 자주 바뀌어서 불편할 수 있겠지만
- * 이렇게 해야 타입 안정성이 높아져서 좋아보입니다.
- * 확인후 주석 제거 바랍니다.
- * (21-08-24:지성현)
- */
 export const resolvers = {
+  /** File upload를 위한 스칼라
+   * apollo server 2.x에 기본 탑재되었지만,
+   * 3.x 부터 호환성 문제로 없어짐
+   * 외부 모듈 graphql-upload에 의존
+   * (21-09-04:지성현)
+   */
+  Upload: GraphQLUpload,
+
   Query: {
     /*
      *
      * 유저관련 Query [ Cntrl + F : 유저쿼리 ]
      *
      * */
+
     /** 유저 전체 조회 [params: none] */
     getAllUser: async (_: any, __: any) => {
       return await FindAllUser();
@@ -94,7 +96,9 @@ export const resolvers = {
      * 유효하지 않으면 undefined 넘어옴
      */
     authUser: async (_: any, __: any, { user }: any) => {
-      return await user;
+      const data = await user;
+      console.log(data);
+      return await data;
     },
     /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
     saveCardToUser: async (_: any, { id, cafe_name, code, card_img }: any) => {
@@ -103,34 +107,37 @@ export const resolvers = {
 
     /**
      * 리뷰 작성 mutation
+     * 추가 작업 예정
+     * (21-09-04:지성현)
      */
-    postReview: async (_: any, { review }: any, { user }: any) => {
+    postReview: async (_: any, review: IPost, { user }: any) => {
       console.log(`call post review mutation`);
       if (!user) {
         return false;
       }
-      return await SaveReview(review);
+      return await SaveReview(review, user);
     },
 
-    uploadImage: async (
-      _: any,
-      { content, hash_tag_list, files }: any,
-      { user }: any,
-    ) => {
-      console.log(`call upload resolver`);
+    /** test resolver, 삭제예정 (21-09-04:지성현) */
+    uploadImage: async (_: any, { content, hash_tag_list, files }: IPost) => {
       const fileList = await files;
-      console.log(content);
-      console.log(hash_tag_list);
       console.log(fileList);
+
+      //await Promise.all(file.map((file: any) => UploadReviewImage(file)));
+      console.log('done');
+
       return await fileList[0];
     },
+
     /** 마일리지Log 등록 [params: 마일리지 스키마의 모든 데이터](21-9-3:유성현) */
     saveMileage: async (_: any, mileageData: IMileage) => {
       return await SaveMileageLog(mileageData);
     },
+
     enrollStaff: async (_: any, staffData: ISaveStaff) => {
       return await SaveStaff(staffData);
     },
+
     shiftStaff: async (_: any, staffData: ISaveStaff) => {
       return await ShiftStaff(staffData);
     },

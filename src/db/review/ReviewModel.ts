@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { createReadStream } from 'fs';
 
 export interface IComment {
   user_name: string;
@@ -28,6 +29,18 @@ export interface IReview {
   hash_tag_list: [string];
   liker_list: [string];
   post_date: Date;
+}
+export interface IFile {
+  filename: string;
+  mimetype: string;
+  encoding: string;
+  createReadStream(): typeof createReadStream;
+}
+
+export interface IPost {
+  content: string;
+  hash_tag_list?: [string];
+  files: [IFile];
 }
 
 const starSchema = new Schema({

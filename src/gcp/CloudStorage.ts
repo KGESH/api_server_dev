@@ -1,5 +1,5 @@
 import { Storage } from '@google-cloud/storage';
-import { createReadStream } from 'fs';
+import { IFile } from '@db/review/ReviewModel';
 import fetch from 'node-fetch';
 
 const keyFilename = './collaboapiserver-b75c289ec7a9.json';
@@ -15,17 +15,19 @@ export const CloudStorage = async () => {
 };
 
 export const UploadReviewImage = async (file: any) => {
+  console.log(`call upload promise`);
   const { filename, createReadStream } = await file;
   await new Promise<void>((resolve, reject) => {
+    console.log(`promise in : ${filename}`);
     createReadStream().pipe(
       storage
         .bucket(bucketName)
-        .file(filename)
+        .file(`review/${filename}`)
         .createWriteStream()
         .on('finish', () => {
           storage
             .bucket(bucketName)
-            .file(filename)
+            .file(`review/${filename}`)
             .makePublic()
             .then(() => {
               console.log(`upload done!`);
