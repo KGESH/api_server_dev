@@ -16,7 +16,7 @@ import { IMileage } from '@db/mileage/MileageModel';
 import { ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
 import { ShiftStaff } from '@db/cafe/ReviceCafe';
-import { IPost } from '@src/db/review/ReviewModel';
+import { IFile, IPost } from '@src/db/review/ReviewModel';
 
 export const resolvers = {
   /** File upload를 위한 스칼라
@@ -108,25 +108,45 @@ export const resolvers = {
     /**
      * 리뷰 작성 mutation
      * 추가 작업 예정
-     * (21-09-04:지성현)
+     * 아직 안돌아감
+     * (21-09-05:지성현)
      */
     postReview: async (_: any, review: IPost, { user }: any) => {
-      console.log(`call post review mutation`);
       if (!user) {
-        return false;
+        /** handle login fail */
+        return;
       }
-      return await SaveReview(review, user);
+      const { id, review_count } = await user;
+      const { content, hash_tag_list, files } = review;
+
+      await Promise.all([
+        ...files.map((file: any) => UploadReviewImage(file, id, review_count)),
+      ])
+        .then((urlList) => {
+          SaveReview(content, hash_tag_list, urlList, user);
+        })
+        .catch((e) => console.log(e));
     },
 
     /** test resolver, 삭제예정 (21-09-04:지성현) */
-    uploadImage: async (_: any, { content, hash_tag_list, files }: IPost) => {
-      const fileList = await files;
-      console.log(fileList);
+    uploadImage: async (_: any, review: IPost, { user }: any) => {
+      if (!user) {
+        /** handle login fail */
+        return;
+      }
 
-      //await Promise.all(file.map((file: any) => UploadReviewImage(file)));
-      console.log('done');
+      const { id, review_count } = await user;
+      const { content, hash_tag_list, files } = review;
 
-      return await fileList[0];
+      await Promise.all([
+        ...files.map((file: any) => UploadReviewImage(file, id, review_count)),
+      ])
+        .then((urlList) => {
+          SaveReview(content, hash_tag_list, urlList, user);
+        })
+        .catch((e) => console.log(e));
+
+      return await files[0];
     },
 
     /** 마일리지Log 등록 [params: 마일리지 스키마의 모든 데이터](21-9-3:유성현) */

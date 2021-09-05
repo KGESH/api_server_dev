@@ -1,16 +1,33 @@
-import { IReview, ReviewModel, IPost } from '@db/review/ReviewModel';
+import { IReview, ReviewModel, IPost, IStar } from '@db/review/ReviewModel';
 import { IUser } from '@db/user/UserModel';
 
-/** cloud storage랑 연동전까지 안돌아갑니다 (21-09-03:지성현) */
-export const SaveReview = async (review: IPost, user: IUser) => {
-  const { content, hash_tag_list, files } = review;
+/**
+ * 포스팅한 리뷰 DB에 저장
+ * star 모델등 적용시켜야함
+ * 수정 예정
+ * (21-09-05:지성현)
+ */
+export const SaveReview = async (
+  content: string,
+  hash_tag_list: string[] | undefined,
+  image_list: string[],
+  user: IUser,
+) => {
+  const testStar: IStar = {
+    flavor: 10,
+    atmosphere: 10,
+    price: 10,
+  };
 
   const newReview = new ReviewModel({
-    key: user.id,
+    review_id: user.id,
     user_name: user.name,
     content,
     location: 'jees home',
     /** cloud storage랑 연동후 작업예정 */
+    star: testStar,
+    image_list,
+    hash_tag_list,
   });
   newReview.save((err: any, newReview: any) => {
     if (err) {

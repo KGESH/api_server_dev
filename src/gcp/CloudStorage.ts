@@ -1,40 +1,48 @@
 import { Storage } from '@google-cloud/storage';
 import { IFile } from '@db/review/ReviewModel';
-import fetch from 'node-fetch';
+import { IUser } from '@src/db/user/UserModel';
 
 const keyFilename = './collaboapiserver-b75c289ec7a9.json';
 const storage = new Storage({ keyFilename });
 const bucketName = 'collabo_image_bucket';
-const testFileUrl = 'cool-doge.gif';
 
-export const CloudStorage = async () => {
-  const res = await storage.bucket(bucketName).upload(testFileUrl);
-
-  await storage.bucket(bucketName).file(testFileUrl).makePublic();
-  console.log('done');
-};
-
-export const UploadReviewImage = async (file: any) => {
+export const UploadReviewImage = async (
+  file: Promise<IFile>,
+  id: number,
+  review_count: number,
+) => {
   console.log(`call upload promise`);
   const { filename, createReadStream } = await file;
-  await new Promise<void>((resolve, reject) => {
+
+  /** will encryption */
+  const rawFileName = `review/${id}/${review_count}/${filename}`;
+
+  return new Promise<string>((resolve, reject) => {
     console.log(`promise in : ${filename}`);
+
     createReadStream().pipe(
       storage
         .bucket(bucketName)
-        .file(`review/${filename}`)
+        .file(rawFileName)
         .createWriteStream()
         .on('finish', () => {
           storage
             .bucket(bucketName)
-            .file(`review/${filename}`)
+            .file(rawFileName)
             .makePublic()
             .then(() => {
               console.log(`upload done!`);
-              resolve();
+              resolve(
+                `https://storage.googleapis.com/${bucketName}/${rawFileName}`,
+              );
             })
             .catch((e: any) => {
-              reject((e: any) => console.log(`exec error : ${e}`));
+              reject((e: any) =>
+                console.log(
+                  `Review Image Google Cloud Storage Upload Error!: ${e}`,
+                ),
+              );
+              throw new Error(e);
             });
         }),
     );

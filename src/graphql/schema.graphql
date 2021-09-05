@@ -54,6 +54,7 @@ type User {
   point: Int!,
   profile_img: String,
   rating: String!,
+  review_count: Int!,
   cafe_list: [QR],
   average_star: Float,
 }
@@ -126,7 +127,7 @@ type Staff_data {
 
 ### 리뷰 ###
 type Review {
-  key: String,
+  review_id: Int!,
   user_name: String!,
   content: String,
   location: String!,

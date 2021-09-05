@@ -6,7 +6,6 @@ import { graphqlUploadExpress } from 'graphql-upload';
 import { MongoDB } from '@db/MongoDB';
 import { KakaoCallback } from '@auth/kakao/KakaoCallback';
 import { AuthContext } from '@auth/middle-ware/AuthContext';
-import { CloudStorage } from './gcp/CloudStorage';
 import http from 'http';
 import logger from 'morgan';
 

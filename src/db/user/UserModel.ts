@@ -12,6 +12,8 @@ export interface IUser {
   email: string;
   auth?: string;
   cafe_list?: [IQR];
+  rating?: string;
+  review_count?: number;
   point?: number;
   profile_img?: string;
   average_star?: number;
@@ -30,6 +32,7 @@ const userSchema = new Schema<IUser>({
   email: String!,
   auth: { type: String, default: 'client' },
   rating: { type: String, default: 'DefaultRating' },
+  review_count: { type: Number, default: 0 },
   cafe_list: { type: [qrSchema], default: [] },
   point: { type: Number, default: 0 },
   profile_img: { type: String, default: 'defaultThumbnail' },
