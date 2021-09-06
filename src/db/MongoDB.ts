@@ -14,7 +14,7 @@ export const MongoDB = () => {
       useUnifiedTopology: true,
     })
     .then(() => {
-      console.log('mongoDB connected');
+      console.log('mongoDB 연결🌿 DataBase: https://www.mongodb.com/');
     })
     .catch((error) => {
       console.log(`connect fail`);

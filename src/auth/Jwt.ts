@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '@auth/JwtConfig';
-import { IUser } from '@src/db/UserModel';
-import { CheckExistUserById, FindUserById } from '@db/FindUser';
+import { IUser } from '@db/user/UserModel';
+import { FindUserById } from '@db/user/FindUser';
 
 export const CreateToken = (user: IUser): string => {
   const { id, name, email } = user;
@@ -48,7 +48,6 @@ export const VerifyToken = (token: string): IUser | void =>
           return;
       }
     }
-    const user = FindUserById(payload.id);
 
-    return user;
+    return FindUserById(payload.id);
   });

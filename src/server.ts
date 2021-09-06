@@ -1,33 +1,35 @@
-import { GraphQLServer } from 'graphql-yoga';
-import { resolvers } from '@graphql/resolvers';
+import { ApolloServer } from 'apollo-server-express';
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import express from 'express';
+import { schemaWithResolvers } from '@graphql/schema';
+import { graphqlUploadExpress } from 'graphql-upload';
 import { MongoDB } from '@db/MongoDB';
 import { KakaoCallback } from '@auth/kakao/KakaoCallback';
-import logger from 'morgan';
 import { AuthContext } from '@auth/middle-ware/AuthContext';
-MongoDB();
+import http from 'http';
+import logger from 'morgan';
 
-const options = {
-  port: 4010,
-  endpoint: '/graphql',
-  playground: '/playground',
+const startServer = async () => {
+  MongoDB();
+  const app = express();
+  /**개발용 미들웨어 - request 로그들 콘솔에 찍어줌 */
+  app.use(logger('dev'));
+  app.use(graphqlUploadExpress());
+  app.get('/auth/kakao/KakaoCallback', KakaoCallback);
+
+  const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    schema: schemaWithResolvers,
+    context: AuthContext,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  });
+
+  await server.start();
+  server.applyMiddleware({ app, path: '/graphql' });
+
+  app.listen({ port: 4010 }, () =>
+    console.log(`서버구동🚀🚀🚀 http://localhost:4010/graphql`),
+  );
 };
 
-export const server = new GraphQLServer({
-  typeDefs: 'src/graphql/schema.graphql',
-  resolvers,
-  context: AuthContext,
-});
-
-/**
- * 개발용 미들웨어
- * request 로그들 콘솔에 찍어줌
- */
-server.express.use(logger('dev'));
-
-/**
- * 라우팅 구조 변경예정
- */
-server.express.get('/auth/kakao/KakaoCallback', KakaoCallback);
-server.start(options, ({ port }) =>
-  console.log(`Server is running on localhost:${port}`),
-);
+startServer();
