@@ -16,6 +16,8 @@ type Query {
 
   #  마일리지
   getMileageLogByClientId(client_id: Int!): [MileageLog]
+
+  uploads: [File]
 }
 
 #### Mutation ####
@@ -25,6 +27,13 @@ type Mutation {
   getKakaoUserByJwt(jwt: String!): User
   authUser: User
   saveCardToUser(id: Int!, cafe_name: String!, code: String! card_img: String!): User
+
+#  리뷰
+  postReview(review: ReviewInput!): Boolean
+
+###  Cloud Storage에  업로드  ###
+###  Upload 타입은 아폴로 서버에 내장  ###
+  uploadImage(content: String!, hash_tag_list: [String], files: [Upload]!): File!
 
   # 카페
   enrollStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
@@ -37,13 +46,17 @@ type Mutation {
 }
 
 ### 유저 ###
+### 카카오 프로필 이미지 속성 추가 ###
+### 확인후 주석 제거 바랍니다 (21-08-25:지성현) ###
 type User {
   id: Int!,
   name: String!,
   email: String!,
   auth: String!,
   point: Int!,
+  profile_img: String,
   rating: String!,
+  review_count: Int!,
   cafe_list: [QR],
   average_star: Float,
 }
@@ -90,6 +103,19 @@ type CafeDiscountRate {
   vip: Int!,
 }
 
+# postReview 뮤테이션 인자
+input ReviewInput {
+  content: String!,
+  hash_tag_list: [String],
+  files: [Upload]!,
+}
+
+# review input에서 쓰일 타입
+input StarInput {
+  flavor: Float!,
+  atmosphere: Float!,
+  price: Float!,
+}
 # 카페 하위 데이터 (직원 정보) #  (21-8-31추가:유성현)
 type Staff_data {
   staff_id: Int!,
@@ -103,15 +129,15 @@ type Staff_data {
 
 ### 리뷰 ###
 type Review {
-  key: String,
+  review_id: Int!,
   user_name: String!,
   content: String,
   location: String!,
-  star: Star!,
+  star: Star!,  
   image_list: [String]!,
   like_count: Int,
   comment_list: [Comment],
-  hash_tag_list: String,
+  hash_tag_list: [String],
   liker_list: [String],
   post_date: String,
 }
@@ -142,3 +168,24 @@ type MileageLog {
   review: String,
   visit_times: Int,
 }
+
+# apollo 기본 탑재
+# 파일 업로드시 필요
+scalar Upload
+
+type File {
+  filename: String!,
+  mimetype: String!,
+  encoding: String!,
+}
+
+type cafe {
+  id: Int,
+  cafe_name: String,
+  cafe_info: String,
+  bean_info: String,
+  point_fluctuation: Int,
+  discount_reate: Int
+
+}
+

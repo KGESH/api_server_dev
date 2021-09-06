@@ -25,7 +25,7 @@ export const KakaoCallback = async (req: any, res: any) => {
     const user = await GetUserData(access_token);
     const userExist = await CheckExistUserById(user.id);
 
-    console.log(`user exist = ${userExist}`);
+    /** 카카오톡 프로필 사진 바뀌었을때 고민해야함 (21-08-25:지성현) */
     if (!userExist) {
       console.log(`call user exist`);
       SaveUser(user);

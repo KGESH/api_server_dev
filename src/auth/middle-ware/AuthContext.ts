@@ -4,19 +4,18 @@ import { VerifyToken } from '@auth/Jwt';
  * 인증 미들웨어
  * Client가 request 보낼때마다 가로채서 헤더에 인증 토큰이 있는지 검사
  */
-export const AuthContext = ({ request }: any) => {
+export const AuthContext = ({ req }: any) => {
   console.log(`call AuthContext!`);
-
-  if (request?.headers) {
+  if (req?.headers) {
     console.log('req headers');
-    console.log(request.headers);
+    console.log(req.headers);
   }
 
   /**
    * Bearer Token From Client
-   * `Bearer ${token}`
+   * `Bearer ${token}` 형태로 넘어옴
    */
-  const authToken = request?.headers?.authorization?.split(' ')[1] ?? undefined;
+  const authToken = req?.headers?.authorization?.split(' ')[1] ?? undefined;
 
   console.log(`authToken: ${authToken}`);
   if (!authToken) {
@@ -27,7 +26,7 @@ export const AuthContext = ({ request }: any) => {
   console.log(`user is`);
   console.log(user);
   return {
-    ...request,
+    ...req,
     user,
   };
 };
