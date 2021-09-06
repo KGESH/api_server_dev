@@ -1,16 +1,8 @@
-import {
-  ExistCafeNameInUser,
-  FindAllUser,
-  FindUserById,
-} from '@db/user/FindUser';
+import { ExistCafeNameInUser, FindAllUser, FindUserById } from '@db/user/FindUser';
 import { GraphQLUpload } from 'graphql-upload';
 import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
 import { VerifyToken } from '@auth/Jwt';
-import {
-  FindAllCafe,
-  FindCafeByCafeId,
-  FindCafeByOwnerId,
-} from '@db/cafe/FindCafe';
+import { FindAllCafe, FindCafeByCafeId, FindCafeByOwnerId } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { SaveReview } from '@db/review/SaveReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
@@ -47,10 +39,12 @@ export const resolvers = {
     getUserById: async (_: any, id: any) => {
       return await FindUserById(id);
     },
+
     /** 해당 user가 card를 갖고있는지 조회 [params: id, cafe_name] (21-8-23:유성현) */
     existCafeNameInUser: async (_: any, { id, cafe_name }: any) => {
       return await ExistCafeNameInUser(id, cafe_name);
     },
+
     /*
      *
      * 카페관련 Query [ Cntrl + F : 카페쿼리 ]
@@ -127,9 +121,7 @@ export const resolvers = {
       const { id, review_count } = await user;
       const { content, hash_tag_list, files } = review;
 
-      await Promise.all([
-        ...files.map((file: any) => UploadReviewImage(file, id, review_count)),
-      ])
+      await Promise.all([...files.map((file: any) => UploadReviewImage(file, id, review_count))])
         .then((urlList) => {
           SaveReview(content, hash_tag_list, urlList, user);
         })
@@ -146,12 +138,8 @@ export const resolvers = {
       const { id, review_count } = await user;
       const { content, hash_tag_list, files } = review;
 
-      await Promise.all([
-        ...files.map((file: any) => UploadReviewImage(file, id, review_count)),
-      ])
-        .then((urlList) => {
-          SaveReview(content, hash_tag_list, urlList, user);
-        })
+      await Promise.all([...files.map((file: any) => UploadReviewImage(file, id, review_count))])
+        .then((urlList) => SaveReview(content, hash_tag_list, urlList, user))
         .catch((e) => console.log(e));
 
       return await files[0];

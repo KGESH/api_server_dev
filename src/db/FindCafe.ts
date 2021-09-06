@@ -7,8 +7,6 @@ import { CafeModel } from '@db/CafeModel';
  * 고민 필요
  * (21-8-13:지성현)
  */
-export const FindCafeByName = async (cafe_name: string) =>
-  await CafeModel.findOne({ cafe_name });
+export const FindCafeByName = async (cafe_name: string) => await CafeModel.findOne({ cafe_name });
 
-export const FindCafeById = async (id: number) =>
-  await CafeModel.findOne({ id });
+export const FindCafeById = async (id: number) => await CafeModel.findOne({ id });

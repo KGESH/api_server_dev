@@ -27,9 +27,7 @@ const startServer = async () => {
   await server.start();
   server.applyMiddleware({ app, path: '/graphql' });
 
-  app.listen({ port: 4010 }, () =>
-    console.log(`서버구동🚀🚀🚀 http://localhost:4010/graphql`),
-  );
+  app.listen({ port: 4010 }, () => console.log(`서버구동🚀🚀🚀 http://localhost:4010/graphql`));
 };
 
 startServer();

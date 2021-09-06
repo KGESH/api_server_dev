@@ -16,7 +16,7 @@ export const CreateToken = (user: IUser): string => {
     },
     jwtSecret,
     {
-      expiresIn: '5m',
+      expiresIn: '15m',
       algorithm: 'HS256',
     },
   );

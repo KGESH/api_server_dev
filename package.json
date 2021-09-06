@@ -6,9 +6,9 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "nodemon",
-    "lint": "eslint './src/**/*.{ts,tsx}'",
-    "lint:fix": "eslint --fix './src/**/*.{ts,tsx}'",
-    "build": "babel src --out-dir dist --extensions '.ts'"
+    "lint": "eslint \"./src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx}\"",
+    "build": "babel src --out-dir dist --extensions \".ts\""
   },
   "repository": {
     "type": "git",

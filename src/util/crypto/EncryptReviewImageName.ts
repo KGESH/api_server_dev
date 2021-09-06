@@ -12,9 +12,5 @@ const IV_LENGTH = 16;
  */
 export const EncryptReviewImageName = () => {
   const iv = Crypto.randomBytes(IV_LENGTH);
-  const cipher = Crypto.createCipheriv(
-    ALGORITHM,
-    Buffer.from(ENCRYPTION_KEY),
-    iv,
-  );
+  const cipher = Crypto.createCipheriv(ALGORITHM, Buffer.from(ENCRYPTION_KEY), iv);
 };

@@ -11,5 +11,4 @@ export const GetRecentReviewsByHashTags = async (tags: string[]) =>
     .sort({ post_date: -1 }); /** 오름차순 = 1, 내림차순 = -1 */
 
 // mypage-detail-review에 임시로 출력할 test 데이터 (대체함수가 생성되면 삭제)
-export const testFindReviewByKey = async (key: string) =>
-  await ReviewModel.findOne({ key });
+export const testFindReviewByKey = async (key: string) => await ReviewModel.findOne({ key });

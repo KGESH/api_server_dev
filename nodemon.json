@@ -6,6 +6,6 @@
     "src",
     "package-lock.json"
   ],
-  "exec": "npm run lint && babel-node --extensions '.ts' src/server.ts",
+  "exec": "npm run lint && babel-node --extensions \".ts\" src/server.ts",
   "ext": "ts"
 }
