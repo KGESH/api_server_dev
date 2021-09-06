@@ -6,7 +6,11 @@ import {
 import { GraphQLUpload } from 'graphql-upload';
 import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
 import { VerifyToken } from '@auth/Jwt';
-import { FindAllCafe, FindCafeByCafeId, FindCafeByOwnerId } from '@db/cafe/FindCafe';
+import {
+  FindAllCafe,
+  FindCafeByCafeId,
+  FindCafeByOwnerId,
+} from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { SaveReview } from '@db/review/SaveReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
@@ -158,10 +162,6 @@ export const resolvers = {
       return await SaveMileageLog(mileageData);
     },
     /** 직원 등록 (21-9-4:유성현) */
-    enrollStaff: async (_: any, staffData: ISaveStaff) => {
-      return await SaveStaff(staffData);
-    },
-    /** 직원 등록 승인 (21-9-4:유성현) */
     enrollStaff: async (_: any, staffData: ISaveStaff) => {
       return await SaveStaff(staffData);
     },
