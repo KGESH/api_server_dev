@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "collaboapiserver",
+  "private_key_id": "b75c289ec7a95c26c5a512d301d3cdcc61178c89",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCagYVjkkTY7Cwb\no9UMuij+fSOihe2zgmVC/bGhEuq404KqaBBNL6dEzdYw6etxybp0INbhDY0zZs6k\nP8ULgHqbWJm1xJ0W+0FyYR8PL9nLmZaBan4dMxFFg7tv/L3XgPo969VnySJIJvhA\ntPpnvS3aY/acEz+5ZEQ3B0Ryo01uxXSt3JwYalqWxY7BFphHybEZ25YxlZsuyfmO\nSvmYOuJyebuF7mlm/eaNhM7V7Y/6c7+IWOwdnJ/kXMSP/gt9u5PwdaKxuPXIBGaE\njipKFOk4wUfYQng2pjwjfKnHpi1GTvo2G17Ka0b85uGsbxy2bvfEHhZ7bzG2XNsl\nJY+rBdotAgMBAAECggEAAe39Lv2sK3Njp6K3rfWDPo5sjAKVMek+f4QwnDzivpUx\nrBQpo/Uk5yiU9L5vKNgmon2ogV4MdehiS03alaawoVENdmYyug9ARX/uBeAIndDY\nvtwIIDA7ln0rMZ5b9p2PQoe3/hhWe8U004YPHI2RzYjzEwbwhE26xl8qXS4p8Oi0\nb9Lvef2M8A3paPKNmgXAvqyLXTs7SqtS1PyYlMivwp/Ca/9QQfLeqJqDpOLQdbqc\nqFs7Mawgavr/q+OAa8B6VKMdm9QODHxLHnUrN5DfRQB1lz1VClfFCgvsYjKafqXS\nhNm6fO54WZ+uX6zWgPmp6/geoVDQccVEa1aqm79rcQKBgQDP/ovBYOtyJSBHnExN\na3QyrFqa3ZDOR5MmXNLp7r6T8x4K0WgUJLIYqN0SsVgrS4e9Jgf082+IccgQNhi/\nbycbRFoM5kn6VsYFtBu6s4RtvIxnbHg8FzbrF/Hi0MtIwqBF11gMo7+zE9NPQFL3\n+lDuUZGSpW5L22aMGSfEhwCG+QKBgQC+KpYJz7oLINelBJYziS7wnFQWc+Qb6G3f\nI0K2j5k5Sd5poG8byL8GgyyVZBadR9e3BF1N1NjFyCYYALPwfkUAsKjhCF8506iH\nrNugnoMVuAenH1esqgzU7xeLWCE0gRTFXKcQ45hBJ3a4T+UKXUvjt6hR+ETX6SB5\nFLjYTcQ11QKBgDyVJv3njgzMVY+mLe9q+gh8fVOYb8I1xN2qseBjou0TJk/+WLNt\nUNav8Nyt/UF3GY11k2G8umLiyWQ3bZPs+1YM3bHeLfQV7E3i/SSvf0Y7YiYJySev\nl1Z4vgLT0DJcRjSxmbrswzyU7LqrwL7sEUCpT56IQw0jVcY+2X971yJ5AoGAYXbI\nIU0y6AM0IuJf7RfxU+Z7fmp1TgxpS4Tx60lb2a3PbUmJyK6xoS/XyNVcdc3ddHKr\nM3nUhEHZrFGn56l/yiPA2l0FGUkuxiLFCeRUAOyqF3CL6fXZz8Sex48qrZM+xwx+\nn7xWS4ZjZYGlPROmEpcNkL1y40obl5MUTeBFoOUCgYBkreWGJaa6o/q+15z8pMXH\nV/cZ81AZwgkPRxGAfBsSfYM3wTRrvl4pRbUPG+utwvLOz8Nue0DGZn1z7ifjKeFI\ngrl04KgwyNlBJqla6BWQaLMojexc5DQ5HPYhjydr58nyYxLyWoGrpAi8S422ldWa\nDi4XtXeDmpjnJOtNVqsJyg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "collaboapiserver@collaboapiserver.iam.gserviceaccount.com",
+  "client_id": "111346328023743434834",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/collaboapiserver%40collaboapiserver.iam.gserviceaccount.com"
+}

@@ -2,3 +2,5 @@
 node_modules
 dist
 .vscode
+google-cloud-sdk
+gcp/collaboapiserver-b75c289ec7a9.json

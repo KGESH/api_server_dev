@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { GetCurrentTime } from '@db/Time';
 
 export interface IMileage {
   data: string;
@@ -13,7 +14,7 @@ export interface IMileage {
 }
 
 const mileageSchema = new Schema<IMileage>({
-  date: Date!,
+  date: { type: Date, default: GetCurrentTime }!,
   staff_id: Number!,
   client_id: Number!,
   cafe_name: String!,
@@ -24,8 +25,4 @@ const mileageSchema = new Schema<IMileage>({
   visit_times: { type: Number, default: 1 },
 });
 
-export const MileageModel = mongoose.model(
-  'mileage',
-  mileageSchema,
-  'mileage-log',
-);
+export const MileageModel = mongoose.model('mileage', mileageSchema, 'mileage-log');

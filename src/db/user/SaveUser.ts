@@ -7,8 +7,6 @@ export const SaveUser = ({ id, name, email }: IUser) => {
     if (err) {
       throw new Error(err);
     }
-    console.log(
-      `save user callback info uid: ${user.id} name: ${user.name} email: ${user.email}`,
-    );
+    console.log(`save user callback info uid: ${user.id} name: ${user.name} email: ${user.email}`);
   });
 };

@@ -1,5 +1,28 @@
-import { CafeModel } from '@db/cafe/CafeModel';
-import type { ICafe } from '@db/cafe/CafeModel';
+import { CafeModel, ICafeStaff } from '@db/cafe/CafeModel';
+
+export interface ISaveStaff {
+  cafe_id: number;
+  staff_id: number;
+  staff_name: string;
+  staff_phone: string;
+  staff_position: string;
+}
+
+export const SaveStaff = async (staffData: ISaveStaff) => {
+  return await CafeModel.findOneAndUpdate(
+    { cafe_id: staffData.cafe_id },
+    {
+      $push: {
+        enroll_staff: {
+          staff_id: staffData.staff_id,
+          staff_name: staffData.staff_name,
+          staff_phone: staffData.staff_phone,
+          staff_position: staffData.staff_position,
+        },
+      },
+    },
+  );
+};
 
 // 사용하지 않음
 // export const SaveCafe = (cafe: ICafe) => {
