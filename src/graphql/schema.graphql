@@ -179,13 +179,15 @@ type File {
   encoding: String!,
 }
 
+# 오타수정
+# (21-09-06)
 type cafe {
   id: Int,
   cafe_name: String,
   cafe_info: String,
   bean_info: String,
   point_fluctuation: Int,
-  discount_reate: Int
+  discount_rate: Int
 
 }
 

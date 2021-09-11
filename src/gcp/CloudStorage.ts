@@ -6,11 +6,7 @@ const keyFilename = './collaboapiserver-b75c289ec7a9.json';
 const storage = new Storage({ keyFilename });
 const bucketName = 'collabo_image_bucket';
 
-export const UploadReviewImage = async (
-  file: Promise<IFile>,
-  id: number,
-  review_count: number,
-) => {
+export const UploadReviewImage = async (file: Promise<IFile>, id: number, review_count: number) => {
   console.log(`call upload promise`);
   const { filename, createReadStream } = await file;
 
@@ -32,15 +28,11 @@ export const UploadReviewImage = async (
             .makePublic()
             .then(() => {
               console.log(`upload done!`);
-              resolve(
-                `https://storage.googleapis.com/${bucketName}/${rawFileName}`,
-              );
+              resolve(`https://storage.googleapis.com/${bucketName}/${rawFileName}`);
             })
             .catch((e: any) => {
               reject((e: any) =>
-                console.log(
-                  `Review Image Google Cloud Storage Upload Error!: ${e}`,
-                ),
+                console.log(`Review Image Google Cloud Storage Upload Error!: ${e}`),
               );
               throw new Error(e);
             });
