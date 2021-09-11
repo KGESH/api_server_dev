@@ -37,7 +37,7 @@ type Mutation {
 
   # 카페
   enrollStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
-  shiftStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
+  shiftStaff(cafe_id: Int!, staff_id: Int!): Cafe
   deleteCurrentStaff(cafe_id: Int!, staff_id: Int!): Cafe
   deleteEnrollStaff(cafe_id: Int!, staff_id: Int!): Cafe
 
@@ -120,7 +120,7 @@ type Staff_data {
   staff_name: String!,
   staff_phone: String!,
   staff_position: String!,
-  state: Boolean!,
+  enroll: Boolean!,
 }
 
 

@@ -27,7 +27,7 @@ export interface ICafeStaff {
   staff_name: string;
   staff_phone: string;
   staff_position: string;
-  state: boolean;
+  enroll: boolean;
 }
 
 export interface ICafe {
@@ -64,7 +64,7 @@ const staffSchema = new Schema({
   staff_name: String!,
   staff_phone: String!,
   staff_position: String!,
-  state: { type: Boolean, default: false },
+  enroll: { type: Boolean, default: false },
 });
 
 /**
@@ -72,7 +72,7 @@ const staffSchema = new Schema({
  * */
 const cafeSchema = new Schema<ICafe>({
   cafe_id: Number!,
-  owner_id: Number!, d
+  owner_id: Number!,
   cafe_info: cafeInfoSchema!,
   discount_rate: discountRateSchema!,
   point_fluc: { type: Number, default: 0 },
