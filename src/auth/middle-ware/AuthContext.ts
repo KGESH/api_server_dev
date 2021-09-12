@@ -1,10 +1,11 @@
-import { VerifyToken } from '@auth/Jwt';
+import { VerifyUser } from '@auth/Jwt';
+import { IAuthUser } from '@db/user/UserModel';
 
 /**
  * 인증 미들웨어
  * Client가 request 보낼때마다 가로채서 헤더에 인증 토큰이 있는지 검사
  */
-export const AuthContext = ({ req }: any) => {
+export const AuthContext = async ({ req }: any) => {
   console.log(`call AuthContext!`);
   if (req?.headers) {
     console.log('req headers');
@@ -22,11 +23,18 @@ export const AuthContext = ({ req }: any) => {
     console.log(`token undefined`);
     return { user: undefined };
   }
-  const user = VerifyToken(authToken);
-  console.log(`user is`);
-  console.log(user);
-  return {
+  const authUser = await VerifyUser(authToken);
+  /**
+   * JWT 재발급 추가하는중
+   * 아직 안돌아감
+   * (21-09-10:지성현)
+   */
+
+  console.log(`middleware auth user`);
+  console.log(authUser);
+
+  return await {
     ...req,
-    user,
+    authUser,
   };
 };

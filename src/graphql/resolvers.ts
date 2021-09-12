@@ -1,12 +1,12 @@
 import { ExistCafeNameInUser, FindAllUser, FindUserById } from '@db/user/FindUser';
 import { GraphQLUpload } from 'graphql-upload';
 import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
-import { VerifyToken } from '@auth/Jwt';
+import { VerifyUser } from '@auth/Jwt';
 import { FindAllCafe, FindCafeByCafeId, FindCafeByOwnerId } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { SaveReview } from '@db/review/SaveReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
-import { UploadReviewImage } from '../gcp/CloudStorage';
+import { UploadReviewImage } from '@gcp/CloudStorage';
 import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage } from '@db/mileage/MileageModel';
 import { ICafe } from '@db/cafe/CafeModel';
@@ -87,8 +87,8 @@ export const resolvers = {
      * 유효하지 않으면 undefined 넘어옴
      * (2021-08-20:지성현)
      */
-    getKakaoUserByJwt: (_: any, { jwt }: any) => {
-      return VerifyToken(jwt);
+    getKakaoUserByJwt: async (_: any, { jwt }: any) => {
+      return await VerifyUser(jwt);
     },
     /**
      * 인증 mutation
@@ -97,10 +97,8 @@ export const resolvers = {
      * 토큰이 유효하면 user 정보 넘어옴
      * 유효하지 않으면 undefined 넘어옴
      */
-    authUser: async (_: any, __: any, { user }: any) => {
-      const data = await user;
-      console.log(data);
-      return await data;
+    authUser: async (_: any, __: any, { authUser }: any) => {
+      return await authUser;
     },
     /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
     saveCardToUser: async (_: any, { id, cafe_name, code, card_img }: any) => {

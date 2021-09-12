@@ -2,7 +2,8 @@ import { KakaoAuth } from '@auth/kakao/KakaoAuth';
 import { GetUserData } from '@auth/kakao/GetUserData';
 import { SaveUser } from '@db/user/SaveUser';
 import { CheckExistUserById } from '@db/user/FindUser';
-import { CreateToken } from '@auth/Jwt';
+import { UpdateRefreshToken } from '@db/user/FindAndUpdateUser';
+import { CreateRefreshToken, CreateToken } from '@auth/Jwt';
 
 /**
  * Client가 카카오 로그인을 요청하고
@@ -18,20 +19,23 @@ export const KakaoCallback = async (req: any, res: any) => {
   const { code, state } = req.query;
 
   try {
-    const access_token = await KakaoAuth(code)
+    const { access_token } = await KakaoAuth(code)
       .then((res) => res.json())
-      .then((result) => result.access_token);
+      .then((result) => result);
 
     const user = await GetUserData(access_token);
     const userExist = await CheckExistUserById(user.id);
+    const jwt = CreateToken(user);
+    user.refresh_token = CreateRefreshToken(user.id);
 
     /** 카카오톡 프로필 사진 바뀌었을때 고민해야함 (21-08-25:지성현) */
-    if (!userExist) {
-      console.log(`call user exist`);
+    if (userExist) {
+      UpdateRefreshToken(user.id, user.refresh_token);
+    } else {
+      console.log(`save new user`);
       SaveUser(user);
     }
 
-    const jwt = CreateToken(user);
     return await res.redirect(`${REDIRECT_URL}/?jwt=${jwt}`);
   } catch (err) {
     console.log(`state: ${state}`);

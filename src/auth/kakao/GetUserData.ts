@@ -17,12 +17,11 @@ export const GetUserData = async (kakaoAccessToken: string) => {
       console.log(result);
       const { id, kakao_account } = result;
       const { email } = kakao_account;
-      const { nickname, thumbnail_image_url } = kakao_account.profile;
+      const { nickname } = kakao_account.profile;
       const user: IUser = {
         id,
         name: nickname,
         email,
-        profile_img: thumbnail_image_url,
       };
       return user;
     });
