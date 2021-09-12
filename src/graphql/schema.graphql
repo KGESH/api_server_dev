@@ -24,8 +24,8 @@ type Query {
 type Mutation {
 
   #  유저
-  getKakaoUserByJwt(jwt: String!): User
-  authUser: User
+  getKakaoUserByJwt(jwt: String!): AuthUser
+  authUser: AuthUser
   saveCardToUser(id: Int!, cafe_name: String!, code: String! card_img: String!): User
 
 #  리뷰
@@ -48,6 +48,12 @@ type Mutation {
 ### 유저 ###
 ### 카카오 프로필 이미지 속성 추가 ###
 ### 확인후 주석 제거 바랍니다 (21-08-25:지성현) ###
+
+type AuthUser {
+  user: User!,
+  jwt: String!
+}
+
 type User {
   id: Int!,
   name: String!,

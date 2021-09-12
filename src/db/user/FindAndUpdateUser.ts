@@ -19,3 +19,10 @@ export const SaveCardToUser = async (
     },
   );
 };
+
+export const UpdateRefreshToken = async (id: number, refresh_token: string) => {
+  return await UserModel.updateOne({ id }, { refresh_token });
+};
+export const DeleteRefreshTokenInUser = async (id: number) => {
+  //return await UserModel.findOneAndDelete();
+};
