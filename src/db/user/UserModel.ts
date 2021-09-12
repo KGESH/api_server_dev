@@ -27,7 +27,7 @@ const qrSchema = new Schema<IQR>({
 });
 
 const userSchema = new Schema<IUser>({
-  id: Number!,
+  id: { type: Number, required: true, unique: true },
   name: String!,
   email: String!,
   auth: { type: String, default: 'client' },

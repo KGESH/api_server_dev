@@ -12,6 +12,7 @@ export const MongoDB = () => {
     .connect(MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     })
     .then(() => {
       console.log('mongoDB 연결🌿 DataBase: https://www.mongodb.com/');
