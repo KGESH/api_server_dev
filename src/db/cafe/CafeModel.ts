@@ -14,6 +14,7 @@ export interface ICafeInfo {
   card_img: string;
   cafe_img: [string];
   like: number;
+  introduction: string;
 }
 
 export interface IDiscountRate {
@@ -47,10 +48,11 @@ const cafeInfoSchema = new Schema<ICafeInfo>({
   beans: String,
   position: String,
   address: String!,
-  phone: String!,
-  card_img: String!,
+  phone: String,
+  card_img: String,
   cafe_img: [String],
   like: { type: Number, default: 0 },
+  introduction: String,
 });
 
 const discountRateSchema = new Schema<IDiscountRate>({

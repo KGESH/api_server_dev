@@ -38,8 +38,10 @@ type Mutation {
   # 카페
   enrollStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
   shiftStaff(cafe_id: Int!, staff_id: Int!): Cafe
-  deleteCurrentStaff(cafe_id: Int!, staff_id: Int!): Cafe
-  deleteEnrollStaff(cafe_id: Int!, staff_id: Int!): Cafe
+  deleteStaff(cafe_id: Int!, staff_id: Int!): Cafe
+  reviseCafeIntro(cafe_id: Int!, value: String!): Cafe
+  reviseBeansInfo(cafe_id: Int!, value: String!): Cafe
+  reviseCafePhone(cafe_id: Int!, value: String!): Cafe
 
   # 마일리지
   saveMileage(cafe_name:String!, menu_name: String!, price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
@@ -89,9 +91,9 @@ type CafeInfo {
   address: String!,
   phone: String!,
   card_img: String!,
-  # 카페 정보에 사용될 카페 이미지 (owner가 직접 등록하는 사진 21-8-31추가:유성현)
   cafe_img: [String],
   like: Int!,
+  introduction: String,
 }
 
 # 카페 하위 데이터 (등급별 할인율) #

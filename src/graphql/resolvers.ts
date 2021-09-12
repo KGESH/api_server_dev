@@ -11,7 +11,7 @@ import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage } from '@db/mileage/MileageModel';
 import { ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
-import { ShiftStaff } from '@db/cafe/ReviceCafe';
+import { ReviseBeansDec, ReviseCafeIntro, ReviseCafePhone, ShiftStaff } from '@db/cafe/ReviceCafe';
 import { DeleteCurrentStaff, DeleteEnrollStaff } from '@db/cafe/DeleteCafe';
 import { IFile, IPost } from '@src/db/review/ReviewModel';
 
@@ -156,11 +156,18 @@ export const resolvers = {
     shiftStaff: async (_: any, staffData: ISaveStaff) => {
       return await ShiftStaff(staffData);
     },
-    deleteCurrentStaff: async (_: any, { cafe_id, staff_id }: any) => {
+    deleteStaff: async (_: any, { cafe_id, staff_id }: any) => {
       return await DeleteCurrentStaff(cafe_id, staff_id);
     },
-    deleteEnrollStaff: async (_: any, { cafe_id, staff_id }: any) => {
-      return await DeleteEnrollStaff(cafe_id, staff_id);
+    /** 카페 정보 수정 (21-9-12:유성현) */
+    reviseCafeIntro: async (_: any, { cafe_id, value }: any) => {
+      return await ReviseCafeIntro(cafe_id, value);
+    },
+    reviseBeansInfo: async (_: any, { cafe_id, value }: any) => {
+      return await ReviseBeansDec(cafe_id, value);
+    },
+    reviseCafePhone: async (_: any, { cafe_id, value }: any) => {
+      return await ReviseCafePhone(cafe_id, value);
     },
   },
 };
