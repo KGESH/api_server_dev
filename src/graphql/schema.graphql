@@ -39,9 +39,7 @@ type Mutation {
   enrollStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
   shiftStaff(cafe_id: Int!, staff_id: Int!): Cafe
   deleteStaff(cafe_id: Int!, staff_id: Int!): Cafe
-  reviseCafeIntro(cafe_id: Int!, value: String!): Cafe
-  reviseBeansInfo(cafe_id: Int!, value: String!): Cafe
-  reviseCafePhone(cafe_id: Int!, value: String!): Cafe
+  reviseCafeDesc(cafe_id: Int!, introduction: String, beans: String, phone: String): Cafe
 
   # 마일리지
   saveMileage(cafe_name:String!, menu_name: String!, price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog

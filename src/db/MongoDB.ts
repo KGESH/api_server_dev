@@ -21,4 +21,5 @@ export const MongoDB = () => {
       console.log(`connect fail`);
       console.log(error);
     });
+  mongoose.set('debug', true); // 몽구스 디버그 툴
 };
