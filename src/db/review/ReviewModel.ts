@@ -38,7 +38,7 @@ export interface IFile {
 }
 
 export interface IPost {
-  cafe_id: number;
+  cafe_id?: number;
   content: string;
   hash_tag_list?: [string];
   files: [IFile];

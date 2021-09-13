@@ -29,7 +29,7 @@ type Mutation {
   saveCardToUser(id: Int!, cafe_name: String!, code: String! card_img: String!): User
 
 #  리뷰
-  postReview(review: ReviewInput!): Boolean
+  postReview(review: ReviewInput!): PostResponse!
 
 ###  Cloud Storage에  업로드  ###
 ###  Upload 타입은 아폴로 서버에 내장  ###
@@ -109,6 +109,7 @@ type CafeDiscountRate {
 
 # postReview 뮤테이션 인자
 input ReviewInput {
+  cafe_id: Int,
   content: String!,
   hash_tag_list: [String],
   files: [Upload]!,
@@ -120,6 +121,7 @@ input StarInput {
   atmosphere: Float!,
   price: Float!,
 }
+
 # 카페 하위 데이터 (직원 정보) #  (21-9-11수정:유성현)
 type Staff_data {
   staff_id: Int!,
@@ -128,9 +130,6 @@ type Staff_data {
   staff_position: String!,
   enroll: Boolean!,
 }
-
-
-
 
 ### 리뷰 ###
 type Review {
@@ -172,6 +171,11 @@ type MileageLog {
   mileage: Int!,
   review: String,
   visit_times: Int,
+}
+
+type PostResponse {
+  success: Boolean!,
+  message: String,
 }
 
 # apollo 기본 탑재

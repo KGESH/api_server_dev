@@ -1,6 +1,6 @@
 import { ExistCafeNameInUser, FindAllUser, FindUserById } from '@db/user/FindUser';
 import { GraphQLUpload } from 'graphql-upload';
-import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
+import { SaveCardToUser, UpdateReviewCount } from '@db/user/FindAndUpdateUser';
 import { VerifyUser } from '@auth/Jwt';
 import { FindAllCafe, FindCafeByCafeId, FindCafeByOwnerId } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
@@ -111,36 +111,31 @@ export const resolvers = {
      * 아직 안돌아감
      * (21-09-05:지성현)
      */
-    postReview: async (_: any, review: IPost, { user }: any) => {
-      if (!user) {
+    postReview: async (_: any, { review }: any, { authUser }: any) => {
+      if (!authUser) {
         /** handle login fail */
+        console.log(`user undefined`);
         return;
       }
-      const { id, review_count } = await user;
-      const { content, hash_tag_list, files } = review;
 
-      await Promise.all([...files.map((file: any) => UploadReviewImage(file, id, review_count))])
+      const { user } = await authUser;
+      const { id, review_count } = await user;
+      const { content, hash_tag_list, files } = await review;
+
+      return await Promise.all([
+        ...files.map((file: any) => UploadReviewImage(file, id, review_count)),
+      ])
         .then((urlList) => {
           SaveReview(content, hash_tag_list, urlList, user);
+          UpdateReviewCount(id, 1);
+          return { success: true };
         })
-        .catch((e) => console.log(e));
-    },
-
-    /** test resolver, 삭제예정 (21-09-04:지성현) */
-    uploadImage: async (_: any, review: IPost, { user }: any) => {
-      if (!user) {
-        /** handle login fail */
-        return;
-      }
-
-      const { id, review_count } = await user;
-      const { content, hash_tag_list, files } = review;
-
-      await Promise.all([...files.map((file: any) => UploadReviewImage(file, id, review_count))])
-        .then((urlList) => SaveReview(content, hash_tag_list, urlList, user))
-        .catch((e) => console.log(e));
-
-      return await files[0];
+        .catch((e) => {
+          return {
+            success: false,
+            message: e,
+          };
+        });
     },
 
     /** 마일리지Log 등록 [params: 마일리지 스키마의 모든 데이터](21-9-3:유성현) */
