@@ -1,21 +1,18 @@
 import { Storage } from '@google-cloud/storage';
 import { IFile } from '@db/review/ReviewModel';
-import { IUser } from '@src/db/user/UserModel';
 
 const keyFilename = './collaboapiserver-b75c289ec7a9.json';
 const storage = new Storage({ keyFilename });
 const bucketName = 'collabo_image_bucket';
 
 export const UploadReviewImage = async (file: Promise<IFile>, id: number, review_count: number) => {
-  console.log(`call upload promise`);
   const { filename, createReadStream } = await file;
 
   /** will encryption */
   const rawFileName = `review/${id}/${review_count}/${filename}`;
+  console.log(`call upload review img`);
 
   return new Promise<string>((resolve, reject) => {
-    console.log(`promise in : ${filename}`);
-
     createReadStream().pipe(
       storage
         .bucket(bucketName)

@@ -20,6 +20,10 @@ export const SaveCardToUser = async (
   );
 };
 
+export const UpdateReviewCount = async (id: number, review_count: number) => {
+  return await UserModel.updateOne({ id }, { $inc: { review_count } });
+};
+
 export const UpdateRefreshToken = async (id: number, refresh_token: string) => {
   return await UserModel.updateOne({ id }, { refresh_token });
 };
