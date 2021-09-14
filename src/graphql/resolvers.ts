@@ -153,8 +153,8 @@ export const resolvers = {
       return await DeleteCurrentStaff(cafe_id, staff_id);
     },
     /** 카페 정보 수정 (21-9-12:유성현) */
-    reviseCafeDesc: async (_: any, params: any) => {
-      return await ReviseCafeData(params);
+    reviseCafeDesc: async (_: any, cafe_info: any) => {
+      return await ReviseCafeData(cafe_info);
     },
   },
 };
