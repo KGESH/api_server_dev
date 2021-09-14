@@ -14,7 +14,23 @@ import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
 import { ReviseCafeData, ShiftStaff } from '@db/cafe/ReviceCafe';
 import { DeleteCurrentStaff, DeleteEnrollStaff } from '@db/cafe/DeleteCafe';
 import { IFile, IPost } from '@src/db/review/ReviewModel';
+import {
+  FindAllHashTag,
+  FindHashTagById,
+  FindHashTagByName,
+  FindHashTagOverCount,
+} from '@db/hashtag/FindHashTag';
+import { IHashTag } from '@src/db/hashtag/HashTagModel';
 
+/**
+ * Resolver 2번째 인자 args 제거하고
+ * 스키마에 정의된 데이터 형식 그대로 분해해서
+ * 사용하는게 좋아보여서 수정합니다.
+ * 지금 초기 단계라 스키마가 자주 바뀌어서 불편할 수 있겠지만
+ * 이렇게 해야 타입 안정성이 높아져서 좋아보입니다.
+ * 확인후 주석 제거 바랍니다.
+ * (21-08-24:지성현)
+ */
 export const resolvers = {
   /** File upload를 위한 스칼라
    * apollo server 2.x에 기본 탑재되었지만,
@@ -79,6 +95,28 @@ export const resolvers = {
     getMileageLogByClientId: async (_: any, { client_id }: any) => {
       return await FindMileageLogByClientId(client_id);
     },
+
+    /**
+     *
+     * 해쉬 태그 관련 쿼리
+     *
+     */
+    /** 모든 해쉬태그 조회 */
+    getAllHashTag: async (_: any, __: any) => {
+      return await FindAllHashTag();
+    },
+    /** 해당 id를 가진 해쉬태그 조회 */
+    getHashTagById: async (_: any, { id }: IHashTag) => {
+      return await FindHashTagById(id);
+    },
+    /** 해당 name을 가진 해쉬태그 조회 */
+    getHashTagByName: async (_: any, { name }: IHashTag) => {
+      return await FindHashTagByName(name);
+    },
+    /** 해당 count값 보다 큰 count값을 가진 해쉬태그 조회 */
+    getHashTagOverCount: async (_: any, { count }: IHashTag) => {
+      return await FindHashTagOverCount(count);
+    },
   },
   Mutation: {
     /**
@@ -87,9 +125,11 @@ export const resolvers = {
      * 유효하지 않으면 undefined 넘어옴
      * (2021-08-20:지성현)
      */
+
     getKakaoUserByJwt: async (_: any, { jwt }: any) => {
       return await VerifyUser(jwt);
     },
+
     /**
      * 인증 mutation
      * Client에서 인증 요청 보낼때
@@ -100,6 +140,7 @@ export const resolvers = {
     authUser: async (_: any, __: any, { authUser }: any) => {
       return await authUser;
     },
+
     /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
     saveCardToUser: async (_: any, { id, cafe_name, code, card_img }: any) => {
       return await SaveCardToUser(id, cafe_name, code, card_img);

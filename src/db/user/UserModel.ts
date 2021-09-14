@@ -22,6 +22,8 @@ export interface IUser {
   profile_img?: string;
   average_star?: number;
   refresh_token?: string;
+  home_tag_list?: [string];
+  map_tag_list?: [string];
 }
 
 const qrSchema = new Schema<IQR>({
@@ -48,6 +50,8 @@ const userSchema = new Schema<IUser>({
   profile_img: { type: String, default: 'defaultThumbnail' },
   average_star: { type: Number, default: 0 },
   refresh_token: { type: String, default: '' },
+  home_tag_list: { type: [String], default: ['팔로우', '내 주변', '공부하기 좋은', '테라스'] },
+  map_tag_list: { type: [String], default: ['팔로우', '내 주변', '즐겨찾기', '테라스'] },
 });
 
 export const UserModel = mongoose.model('user', userSchema, 'users');

@@ -18,6 +18,12 @@ type Query {
   getMileageLogByClientId(client_id: Int!): [MileageLog]
 
   uploads: [File]
+
+  #  해쉬태그
+  getAllHashTag: [HashTag]
+  getHashTagById(id: Int!): HashTag
+  getHashTagByName(name: String!): HashTag
+  getHashTagOverCount(count: Int!): [HashTag]
 }
 
 #### Mutation ####
@@ -65,6 +71,11 @@ type User {
   review_count: Int!,
   cafe_list: [QR],
   average_star: Float,
+  # 홈 화면 해시태그로 게시물 필터링
+  # home_filter_list | home_filter_tag_list
+  # 이름 추천 받습니다 (21-09-15:지성현)
+  home_tag_list: [String],
+  map_tag_list: [String],
 }
 
 # 유저 하위 데이터 (소지한 카드 정보) #
@@ -199,4 +210,12 @@ type cafe {
   discount_rate: Int
 
 }
+
+# 해쉬태그
+type HashTag {
+  id: Int!,
+  name: String!,
+  count: Int,
+}
+
 
