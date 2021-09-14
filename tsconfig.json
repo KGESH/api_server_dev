@@ -25,8 +25,13 @@
       ],
       "@router/*": [
         "src/router/*"
+      ],
+      "@gcp/*": [
+        "src/gcp/*"
+      ],
+      "@util": [
+        "src/util/*"
       ]
-
     },                                 /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "lib": [],                                   /* Specify library files to be included in the compilation. */
     // "allowJs": true,                             /* Allow javascript files to be compiled. */

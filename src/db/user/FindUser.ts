@@ -3,6 +3,11 @@ import { UserModel } from '@db/user/UserModel';
 /* 현재 사용중 */
 export const FindAllUser = async () => await UserModel.find({});
 
+/** 버그 수정 {...id} -> {id}로 수정
+ * {...id}로 실행 시, 어떤 id가 들어가도 DB의 유저 컬렉션 최상단 도큐먼트만 가져옴
+ * (21-09-11:지성현)
+ */
+
 export const FindUserById = async (id: any) => await UserModel.findOne({ id });
 
 export const ExistCafeNameInUser = async (id: number, cafe_name: string) =>

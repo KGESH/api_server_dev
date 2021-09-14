@@ -14,6 +14,7 @@ export interface ICafeInfo {
   card_img: string;
   cafe_img: [string];
   like: number;
+  introduction: string;
 }
 
 export interface IDiscountRate {
@@ -27,6 +28,7 @@ export interface ICafeStaff {
   staff_name: string;
   staff_phone: string;
   staff_position: string;
+  enroll: boolean;
 }
 
 export interface ICafe {
@@ -35,8 +37,7 @@ export interface ICafe {
   cafe_info: ICafeInfo;
   discount_rate: IDiscountRate;
   point_fluc: number;
-  curr_staff: [ICafeStaff];
-  enroll_staff: [ICafeStaff];
+  staff: [ICafeStaff];
 }
 
 /**
@@ -47,10 +48,11 @@ const cafeInfoSchema = new Schema<ICafeInfo>({
   beans: String,
   position: String,
   address: String!,
-  phone: String!,
-  card_img: String!,
+  phone: String,
+  card_img: String,
   cafe_img: [String],
   like: { type: Number, default: 0 },
+  introduction: String,
 });
 
 const discountRateSchema = new Schema<IDiscountRate>({
@@ -64,6 +66,7 @@ const staffSchema = new Schema({
   staff_name: String!,
   staff_phone: String!,
   staff_position: String!,
+  enroll: { type: Boolean, default: false },
 });
 
 /**
@@ -75,8 +78,7 @@ const cafeSchema = new Schema<ICafe>({
   cafe_info: cafeInfoSchema!,
   discount_rate: discountRateSchema!,
   point_fluc: { type: Number, default: 0 },
-  curr_staff: [staffSchema],
-  enroll_staff: [staffSchema],
+  staff: [staffSchema],
 });
 
 export const CafeModel = mongoose.model('cafe', cafeSchema, 'cafes');

@@ -1,19 +1,26 @@
 import { ExistCafeNameInUser, FindAllUser, FindUserById } from '@db/user/FindUser';
 import { GraphQLUpload } from 'graphql-upload';
-import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
-import { VerifyToken } from '@auth/Jwt';
+import { SaveCardToUser, UpdateReviewCount } from '@db/user/FindAndUpdateUser';
+import { VerifyUser } from '@auth/Jwt';
 import { FindAllCafe, FindCafeByCafeId, FindCafeByOwnerId } from '@db/cafe/FindCafe';
 import { testFindReviewByKey } from '@db/review/FindReview';
 import { SaveReview } from '@db/review/SaveReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
-import { UploadReviewImage } from '../gcp/CloudStorage';
+import { UploadReviewImage } from '@gcp/CloudStorage';
 import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage } from '@db/mileage/MileageModel';
 import { ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
-import { ShiftStaff } from '@db/cafe/ReviceCafe';
+import { ReviseBeansDec, ReviseCafeIntro, ReviseCafePhone, ShiftStaff } from '@db/cafe/ReviceCafe';
 import { DeleteCurrentStaff, DeleteEnrollStaff } from '@db/cafe/DeleteCafe';
 import { IFile, IPost } from '@src/db/review/ReviewModel';
+import {
+  FindAllHashTag,
+  FindHashTagById,
+  FindHashTagByName,
+  FindHashTagOverCount,
+} from '@db/hashtag/FindHashTag';
+import { IHashTag } from '@src/db/hashtag/HashTagModel';
 
 /**
  * Resolver 2번째 인자 args 제거하고
@@ -88,6 +95,28 @@ export const resolvers = {
     getMileageLogByClientId: async (_: any, { client_id }: any) => {
       return await FindMileageLogByClientId(client_id);
     },
+
+    /**
+     *
+     * 해쉬 태그 관련 쿼리
+     *
+     */
+    /** 모든 해쉬태그 조회 */
+    getAllHashTag: async (_: any, __: any) => {
+      return await FindAllHashTag();
+    },
+    /** 해당 id를 가진 해쉬태그 조회 */
+    getHashTagById: async (_: any, { id }: IHashTag) => {
+      return await FindHashTagById(id);
+    },
+    /** 해당 name을 가진 해쉬태그 조회 */
+    getHashTagByName: async (_: any, { name }: IHashTag) => {
+      return await FindHashTagByName(name);
+    },
+    /** 해당 count값 보다 큰 count값을 가진 해쉬태그 조회 */
+    getHashTagOverCount: async (_: any, { count }: IHashTag) => {
+      return await FindHashTagOverCount(count);
+    },
   },
   Mutation: {
     /**
@@ -96,8 +125,8 @@ export const resolvers = {
      * 유효하지 않으면 undefined 넘어옴
      * (2021-08-20:지성현)
      */
-    getKakaoUserByJwt: (_: any, { jwt }: any) => {
-      return VerifyToken(jwt);
+    getKakaoUserByJwt: async (_: any, { jwt }: any) => {
+      return await VerifyUser(jwt);
     },
     /**
      * 인증 mutation
@@ -106,10 +135,8 @@ export const resolvers = {
      * 토큰이 유효하면 user 정보 넘어옴
      * 유효하지 않으면 undefined 넘어옴
      */
-    authUser: async (_: any, __: any, { user }: any) => {
-      const data = await user;
-      console.log(data);
-      return await data;
+    authUser: async (_: any, __: any, { authUser }: any) => {
+      return await authUser;
     },
     /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
     saveCardToUser: async (_: any, { id, cafe_name, code, card_img }: any) => {
@@ -122,36 +149,31 @@ export const resolvers = {
      * 아직 안돌아감
      * (21-09-05:지성현)
      */
-    postReview: async (_: any, review: IPost, { user }: any) => {
-      if (!user) {
+    postReview: async (_: any, { review }: any, { authUser }: any) => {
+      if (!authUser) {
         /** handle login fail */
+        console.log(`user undefined`);
         return;
       }
-      const { id, review_count } = await user;
-      const { content, hash_tag_list, files } = review;
 
-      await Promise.all([...files.map((file: any) => UploadReviewImage(file, id, review_count))])
+      const { user } = await authUser;
+      const { id, review_count } = await user;
+      const { content, hash_tag_list, files } = await review;
+
+      return await Promise.all([
+        ...files.map((file: any) => UploadReviewImage(file, id, review_count)),
+      ])
         .then((urlList) => {
           SaveReview(content, hash_tag_list, urlList, user);
+          UpdateReviewCount(id, 1);
+          return { success: true };
         })
-        .catch((e) => console.log(e));
-    },
-
-    /** test resolver, 삭제예정 (21-09-04:지성현) */
-    uploadImage: async (_: any, review: IPost, { user }: any) => {
-      if (!user) {
-        /** handle login fail */
-        return;
-      }
-
-      const { id, review_count } = await user;
-      const { content, hash_tag_list, files } = review;
-
-      await Promise.all([...files.map((file: any) => UploadReviewImage(file, id, review_count))])
-        .then((urlList) => SaveReview(content, hash_tag_list, urlList, user))
-        .catch((e) => console.log(e));
-
-      return await files[0];
+        .catch((e) => {
+          return {
+            success: false,
+            message: e,
+          };
+        });
     },
 
     /** 마일리지Log 등록 [params: 마일리지 스키마의 모든 데이터](21-9-3:유성현) */
@@ -165,11 +187,18 @@ export const resolvers = {
     shiftStaff: async (_: any, staffData: ISaveStaff) => {
       return await ShiftStaff(staffData);
     },
-    deleteCurrentStaff: async (_: any, { cafe_id, staff_id }: any) => {
+    deleteStaff: async (_: any, { cafe_id, staff_id }: any) => {
       return await DeleteCurrentStaff(cafe_id, staff_id);
     },
-    deleteEnrollStaff: async (_: any, { cafe_id, staff_id }: any) => {
-      return await DeleteEnrollStaff(cafe_id, staff_id);
+    /** 카페 정보 수정 (21-9-12:유성현) */
+    reviseCafeIntro: async (_: any, { cafe_id, value }: any) => {
+      return await ReviseCafeIntro(cafe_id, value);
+    },
+    reviseBeansInfo: async (_: any, { cafe_id, value }: any) => {
+      return await ReviseBeansDec(cafe_id, value);
+    },
+    reviseCafePhone: async (_: any, { cafe_id, value }: any) => {
+      return await ReviseCafePhone(cafe_id, value);
     },
   },
 };

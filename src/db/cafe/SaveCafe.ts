@@ -13,7 +13,7 @@ export const SaveStaff = async (staffData: ISaveStaff) => {
     { cafe_id: staffData.cafe_id },
     {
       $push: {
-        enroll_staff: {
+        staff: {
           staff_id: staffData.staff_id,
           staff_name: staffData.staff_name,
           staff_phone: staffData.staff_phone,
