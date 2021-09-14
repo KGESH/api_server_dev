@@ -18,6 +18,12 @@ type Query {
   getMileageLogByClientId(client_id: Int!): [MileageLog]
 
   uploads: [File]
+
+  #  해쉬태그
+  getAllHashTag: [HashTag]
+  getHashTagById(id: Int!): HashTag
+  getHashTagByName(name: String!): HashTag
+  getHashTagOverCount(count: Int!): [HashTag]
 }
 
 #### Mutation ####
@@ -206,4 +212,12 @@ type cafe {
   discount_rate: Int
 
 }
+
+# 해쉬태그
+type HashTag {
+  id: Int!,
+  name: String!,
+  count: Int,
+}
+
 
