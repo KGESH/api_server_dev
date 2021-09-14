@@ -87,9 +87,11 @@ export const resolvers = {
      * 유효하지 않으면 undefined 넘어옴
      * (2021-08-20:지성현)
      */
+
     getKakaoUserByJwt: async (_: any, { jwt }: any) => {
       return await VerifyUser(jwt);
     },
+
     /**
      * 인증 mutation
      * Client에서 인증 요청 보낼때
@@ -100,6 +102,7 @@ export const resolvers = {
     authUser: async (_: any, __: any, { authUser }: any) => {
       return await authUser;
     },
+
     /** 해당 id를 가지고있는 user에게 카드 발급 [params: id, cafe_name, code, card_img](21-08-20:유성현) */
     saveCardToUser: async (_: any, { id, cafe_name, code, card_img }: any) => {
       return await SaveCardToUser(id, cafe_name, code, card_img);
