@@ -12,8 +12,7 @@ import { IMileage } from '@db/mileage/MileageModel';
 import { ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
 import { ReviseCafeData, ShiftStaff } from '@db/cafe/ReviceCafe';
-import { DeleteCurrentStaff, DeleteEnrollStaff } from '@db/cafe/DeleteCafe';
-import { IFile, IPost } from '@src/db/review/ReviewModel';
+import { DeleteStaff } from '@db/cafe/DeleteCafe';
 import {
   FindAllHashTag,
   FindHashTagById,
@@ -21,6 +20,8 @@ import {
   FindHashTagOverCount,
 } from '@db/hashtag/FindHashTag';
 import { IHashTag } from '@src/db/hashtag/HashTagModel';
+import { InsertDummy } from '@db/business-dummy/SaveDummy';
+import { FindDummyData } from '@db/business-dummy/FindDummy';
 
 /**
  * Resolver 2번째 인자 args 제거하고
@@ -94,6 +95,9 @@ export const resolvers = {
     /** 해당 id를 보유한 유저의 마일리지Log를 조회 [args: client_id](21-8-24:유성현) */
     getMileageLogByClientId: async (_: any, { client_id }: any) => {
       return await FindMileageLogByClientId(client_id);
+    },
+    getDummyData: async () => {
+      return await FindDummyData();
     },
 
     /**
@@ -191,11 +195,15 @@ export const resolvers = {
       return await ShiftStaff(staffData);
     },
     deleteStaff: async (_: any, { cafe_id, staff_id }: any) => {
-      return await DeleteCurrentStaff(cafe_id, staff_id);
+      return await DeleteStaff(cafe_id, staff_id);
     },
     /** 카페 정보 수정 (21-9-12:유성현) */
     reviseCafeDesc: async (_: any, cafe_info: any) => {
       return await ReviseCafeData(cafe_info);
+    },
+    /** 사업자 등록 대기 상태일 때의 dummydata */
+    saveBusinessDummy: async (_: any, dummy: any) => {
+      return await InsertDummy(dummy);
     },
   },
 };

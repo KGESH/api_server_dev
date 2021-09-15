@@ -24,6 +24,9 @@ type Query {
   getHashTagById(id: Int!): HashTag
   getHashTagByName(name: String!): HashTag
   getHashTagOverCount(count: Int!): [HashTag]
+
+  # 더미 data
+  getDummyData: [Dummy]
 }
 
 #### Mutation ####
@@ -49,6 +52,20 @@ type Mutation {
 
   # 마일리지
   saveMileage(cafe_name:String!, menu_name: String!, price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
+
+  ## 비지니스 (사업자 정보가 승인되기 전에 거치는 보관함)
+  saveBusinessDummy(
+    position: Int,
+    owner_id: Int!,
+    name: String!,
+    phone: String,
+    cafe_name: String,
+    address: String,
+    address_detail: String,
+    cafe_phone: String,
+    silver: Int,
+    gold: Int,
+    vip: Int): Dummy
 }
 
 ### 유저 ###
@@ -216,6 +233,21 @@ type HashTag {
   id: Int!,
   name: String!,
   count: Int,
+}
+
+# 사업자 더미 데이터
+type Dummy {
+  position: Int,
+  owner_id: Int!,
+  name: String!,
+  phone: String,
+  cafe_name: String,
+  address: String,
+  address_detail: String,
+  cafe_phone: String,
+  silver: Int,
+  gold: Int,
+  vip: Int,
 }
 
 
