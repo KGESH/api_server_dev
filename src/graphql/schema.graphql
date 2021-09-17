@@ -26,7 +26,7 @@ type Query {
   getHashTagOverCount(count: Int!): [HashTag]
 
   # 더미 data
-  getDummyData: [Dummy]
+  getDummyData: [Cafe]
 }
 
 #### Mutation ####
@@ -65,7 +65,17 @@ type Mutation {
     cafe_phone: String,
     silver: Int,
     gold: Int,
-    vip: Int): Dummy
+    vip: Int): Cafe
+  deleteTempCafe(_id: ID!): Cafe
+  enrollCafe(
+    position: Int,
+    owner_id: Int!,
+    phone: String,
+    cafe_name: String,
+    address: String,
+    silver: Int,
+    gold: Int,
+    vip: Int): Cafe
 }
 
 ### 유저 ###
@@ -78,6 +88,7 @@ type AuthUser {
 }
 
 type User {
+  _id: ID,
   id: Int!,
   name: String!,
   email: String!,
@@ -107,8 +118,10 @@ type QR {
 
 ### 카페 ###
 type Cafe {
+  _id: ID!,
   cafe_id: Int!,
   owner_id: Int!,
+  position: Int,
   cafe_info: CafeInfo!,
   discount_rate: CafeDiscountRate!,
   point_fluc: Int!,
@@ -234,20 +247,3 @@ type HashTag {
   name: String!,
   count: Int,
 }
-
-# 사업자 더미 데이터
-type Dummy {
-  position: Int,
-  owner_id: Int!,
-  name: String!,
-  phone: String,
-  cafe_name: String,
-  address: String,
-  address_detail: String,
-  cafe_phone: String,
-  silver: Int,
-  gold: Int,
-  vip: Int,
-}
-
-

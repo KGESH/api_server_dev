@@ -20,8 +20,9 @@ import {
   FindHashTagOverCount,
 } from '@db/hashtag/FindHashTag';
 import { IHashTag } from '@src/db/hashtag/HashTagModel';
-import { InsertDummy } from '@db/business-dummy/SaveDummy';
+import { InsertDummy, PermitEnroll } from '@db/business-dummy/SaveDummy';
 import { FindDummyData } from '@db/business-dummy/FindDummy';
+import { DeleteTempCafe } from '@db/business-dummy/DeleteDummy';
 
 /**
  * Resolver 2번째 인자 args 제거하고
@@ -53,7 +54,7 @@ export const resolvers = {
       return await FindAllUser();
     },
     /** 해당 id를 갖고있는 유저 조회 [params: id] (21-8-23:유성현) */
-    getUserById: async (_: any, id: any) => {
+    getUserById: async (_: any, { id }: any) => {
       return await FindUserById(id);
     },
 
@@ -201,9 +202,16 @@ export const resolvers = {
     reviseCafeDesc: async (_: any, cafe_info: any) => {
       return await ReviseCafeData(cafe_info);
     },
-    /** 사업자 등록 대기 상태일 때의 dummydata */
+    /** 사업자 등록 (21-9-17:유성현) */
     saveBusinessDummy: async (_: any, dummy: any) => {
       return await InsertDummy(dummy);
+    },
+    /** 사업자 등록 승인 (21-9-17:유성현) */
+    enrollCafe: async (_: any, params: any) => {
+      return await PermitEnroll(params);
+    },
+    deleteTempCafe: async (_: any, { _id }: any) => {
+      return await DeleteTempCafe(_id);
     },
   },
 };

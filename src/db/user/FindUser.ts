@@ -1,6 +1,5 @@
 import { UserModel } from '@db/user/UserModel';
 
-/* 현재 사용중 */
 export const FindAllUser = async () => await UserModel.find({});
 
 /** 버그 수정 {...id} -> {id}로 수정
@@ -8,7 +7,7 @@ export const FindAllUser = async () => await UserModel.find({});
  * (21-09-11:지성현)
  */
 
-export const FindUserById = async (id: any) => await UserModel.findOne({ id });
+export const FindUserById = async (id: number) => await UserModel.findOne({ id });
 
 export const ExistCafeNameInUser = async (id: number, cafe_name: string) =>
   await UserModel.findOne({ id }).where('cafe_list').equals({ $elemMatch: { cafe_name } });
