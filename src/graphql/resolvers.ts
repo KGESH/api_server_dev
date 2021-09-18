@@ -9,7 +9,7 @@ import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 import { UploadReviewImage } from '@gcp/CloudStorage';
 import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage } from '@db/mileage/MileageModel';
-import { ICafe } from '@db/cafe/CafeModel';
+import { CafeModel, ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
 import { ReviseCafeData, ShiftStaff } from '@db/cafe/ReviceCafe';
 import { DeleteStaff } from '@db/cafe/DeleteCafe';
@@ -210,8 +210,9 @@ export const resolvers = {
     enrollCafe: async (_: any, params: any) => {
       return await PermitEnroll(params);
     },
-    deleteTempCafe: async (_: any, { _id }: any) => {
-      return await DeleteTempCafe(_id);
+    /** 사업자 등록 취소 & 삭제 (21-9-17:유성현) */
+    deleteTempCafe: async (_: any, args: any) => {
+      return await DeleteTempCafe(args);
     },
   },
 };

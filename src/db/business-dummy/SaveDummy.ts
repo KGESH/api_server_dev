@@ -20,7 +20,7 @@ export const InsertDummy = (dummy: any) => {
         like: 0,
         cafe_name: cafe_name,
         position: '37.39227644637707, 126.99500276479165',
-        address: address + address_detail,
+        address: address + ' ' + address_detail,
         phone: cafe_phone,
       },
       discount_rate: {

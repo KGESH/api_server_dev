@@ -53,7 +53,7 @@ const cafeInfoSchema = new Schema<ICafeInfo>({
   card_img: String,
   cafe_img: [String],
   like: { type: Number, default: 0 },
-  introduction: String,
+  introduction: { type: String, default: '' },
 });
 
 const discountRateSchema = new Schema<IDiscountRate>({
@@ -70,6 +70,17 @@ const staffSchema = new Schema({
   enroll: { type: Boolean, default: false },
 });
 
+const menuSchema = new Schema({
+  menu_name: String,
+  price: Number,
+  beans: String,
+});
+
+const menuListSchema = new Schema({
+  title: String,
+  menu: [menuSchema],
+});
+
 /**
  * 카페 스키마
  * */
@@ -81,6 +92,7 @@ const cafeSchema = new Schema<ICafe>({
   discount_rate: discountRateSchema!,
   point_fluc: { type: Number, default: 0 },
   staff: [staffSchema],
+  menu_list: [menuListSchema],
 });
 
 export const CafeModel = mongoose.model('cafe', cafeSchema, 'cafes');
