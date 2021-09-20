@@ -5,6 +5,7 @@ type Query {
   getAllUser: [User]
   getUserById(id: Int!): User
   existCafeNameInUser(id:Int! cafe_name: String!): User
+  getUserByName(name: String!): User
 
   #  카페
   getAllCafe: [Cafe]
