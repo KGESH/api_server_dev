@@ -1,6 +1,5 @@
 import { UserModel } from '@db/user/UserModel';
 
-/* 현재 사용중 */
 export const FindAllUser = async () => await UserModel.find({});
 
 /** 버그 수정 {...id} -> {id}로 수정
@@ -9,6 +8,7 @@ export const FindAllUser = async () => await UserModel.find({});
  */
 
 export const FindUserById = async (id: number) => await UserModel.findOne({ id });
+
 export const FindUserByName = async (name: string) => await UserModel.findOne({ name });
 
 export const ExistCafeNameInUser = async (id: number, cafe_name: string) =>

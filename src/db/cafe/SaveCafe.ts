@@ -18,6 +18,9 @@ export const SaveStaff = async (staffData: ISaveStaff) => {
           staff_name: staffData.staff_name,
           staff_phone: staffData.staff_phone,
           staff_position: staffData.staff_position,
+          /**
+           * 나중에 수정할 때 ...staffData로 수정
+           * */
         },
       },
     },

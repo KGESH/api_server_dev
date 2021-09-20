@@ -9,11 +9,10 @@ import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 import { UploadReviewImage } from '@gcp/CloudStorage';
 import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage } from '@db/mileage/MileageModel';
-import { ICafe } from '@db/cafe/CafeModel';
+import { CafeModel, ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
-import { ReviseBeansDec, ReviseCafeIntro, ReviseCafePhone, ShiftStaff } from '@db/cafe/ReviceCafe';
-import { DeleteCurrentStaff, DeleteEnrollStaff } from '@db/cafe/DeleteCafe';
-import { IFile, IPost } from '@src/db/review/ReviewModel';
+import { ReviseCafeData, ShiftStaff } from '@db/cafe/ReviceCafe';
+import { DeleteStaff } from '@db/cafe/DeleteCafe';
 import {
   FindAllHashTag,
   FindHashTagById,
@@ -21,6 +20,9 @@ import {
   FindHashTagOverCount,
 } from '@db/hashtag/FindHashTag';
 import { IHashTag } from '@src/db/hashtag/HashTagModel';
+import { InsertDummy, PermitEnroll } from '@db/business-dummy/SaveDummy';
+import { FindDummyData } from '@db/business-dummy/FindDummy';
+import { DeleteTempCafe } from '@db/business-dummy/DeleteDummy';
 
 /**
  * Resolver 2번째 인자 args 제거하고
@@ -96,6 +98,9 @@ export const resolvers = {
     /** 해당 id를 보유한 유저의 마일리지Log를 조회 [args: client_id](21-8-24:유성현) */
     getMileageLogByClientId: async (_: any, { client_id }: any) => {
       return await FindMileageLogByClientId(client_id);
+    },
+    getDummyData: async () => {
+      return await FindDummyData();
     },
 
     /**
@@ -193,17 +198,23 @@ export const resolvers = {
       return await ShiftStaff(staffData);
     },
     deleteStaff: async (_: any, { cafe_id, staff_id }: any) => {
-      return await DeleteCurrentStaff(cafe_id, staff_id);
+      return await DeleteStaff(cafe_id, staff_id);
     },
     /** 카페 정보 수정 (21-9-12:유성현) */
-    reviseCafeIntro: async (_: any, { cafe_id, value }: any) => {
-      return await ReviseCafeIntro(cafe_id, value);
+    reviseCafeDesc: async (_: any, cafe_info: any) => {
+      return await ReviseCafeData(cafe_info);
     },
-    reviseBeansInfo: async (_: any, { cafe_id, value }: any) => {
-      return await ReviseBeansDec(cafe_id, value);
+    /** 사업자 등록 (21-9-17:유성현) */
+    saveBusinessDummy: async (_: any, dummy: any) => {
+      return await InsertDummy(dummy);
     },
-    reviseCafePhone: async (_: any, { cafe_id, value }: any) => {
-      return await ReviseCafePhone(cafe_id, value);
+    /** 사업자 등록 승인 (21-9-17:유성현) */
+    enrollCafe: async (_: any, params: any) => {
+      return await PermitEnroll(params);
+    },
+    /** 사업자 등록 취소 & 삭제 (21-9-17:유성현) */
+    deleteTempCafe: async (_: any, args: any) => {
+      return await DeleteTempCafe(args);
     },
   },
 };

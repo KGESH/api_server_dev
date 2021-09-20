@@ -12,6 +12,7 @@ export const MongoDB = () => {
     .connect(MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     })
     .then(() => {
       console.log('mongoDB 연결🌿 DataBase: https://www.mongodb.com/');
@@ -20,4 +21,5 @@ export const MongoDB = () => {
       console.log(`connect fail`);
       console.log(error);
     });
+  mongoose.set('debug', true); // 몽구스 디버그 툴
 };

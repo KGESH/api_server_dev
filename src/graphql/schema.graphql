@@ -25,6 +25,9 @@ type Query {
   getHashTagById(id: Int!): HashTag
   getHashTagByName(name: String!): HashTag
   getHashTagOverCount(count: Int!): [HashTag]
+
+  # 더미 data
+  getDummyData: [Cafe]
 }
 
 #### Mutation ####
@@ -46,12 +49,34 @@ type Mutation {
   enrollStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
   shiftStaff(cafe_id: Int!, staff_id: Int!): Cafe
   deleteStaff(cafe_id: Int!, staff_id: Int!): Cafe
-  reviseCafeIntro(cafe_id: Int!, value: String!): Cafe
-  reviseBeansInfo(cafe_id: Int!, value: String!): Cafe
-  reviseCafePhone(cafe_id: Int!, value: String!): Cafe
+  reviseCafeDesc(cafe_id: Int!, introduction: String, beans: String, phone: String): Cafe
 
   # 마일리지
   saveMileage(cafe_name:String!, menu_name: String!, price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
+
+  ## 비지니스 (사업자 정보가 승인되기 전에 거치는 보관함)
+  saveBusinessDummy(
+    position: Int,
+    owner_id: Int!,
+    name: String!,
+    phone: String,
+    cafe_name: String,
+    address: String,
+    address_detail: String,
+    cafe_phone: String,
+    silver: Int,
+    gold: Int,
+    vip: Int): Cafe
+  deleteTempCafe(_id: ID!): Cafe
+  enrollCafe(
+    position: Int,
+    owner_id: Int!,
+    phone: String,
+    cafe_name: String,
+    address: String,
+    silver: Int,
+    gold: Int,
+    vip: Int): Cafe
 }
 
 ### 유저 ###
@@ -64,6 +89,7 @@ type AuthUser {
 }
 
 type User {
+  _id: ID,
   id: Int!,
   name: String!,
   email: String!,
@@ -93,12 +119,15 @@ type QR {
 
 ### 카페 ###
 type Cafe {
+  _id: ID,
   cafe_id: Int!,
   owner_id: Int!,
+  position: Int,
   cafe_info: CafeInfo!,
   discount_rate: CafeDiscountRate!,
   point_fluc: Int!,
   staff: [Staff_data], # (21-9-11수정: 유성현)
+  menu_list: [Menu_list],
 }
 
 # 카페 하위 데이터 (카페 정보) #
@@ -144,6 +173,19 @@ type Staff_data {
   staff_position: String!,
   enroll: Boolean!,
 }
+
+### 카페 메뉴 데이터
+type Menu_list {
+  title: String,
+  menu: [Menu],
+}
+type Menu {
+  menu_name: String,
+  price: Int,
+  beans: String,
+}
+
+
 
 ### 리뷰 ###
 type Review {
@@ -204,15 +246,8 @@ type File {
 
 # 오타수정
 # (21-09-06)
-type cafe {
-  id: Int,
-  cafe_name: String,
-  cafe_info: String,
-  bean_info: String,
-  point_fluctuation: Int,
-  discount_rate: Int
-
-}
+##############
+#  type cafe 삭제
 
 # 해쉬태그
 type HashTag {
@@ -220,5 +255,3 @@ type HashTag {
   name: String!,
   count: Int,
 }
-
-
