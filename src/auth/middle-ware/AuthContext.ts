@@ -24,11 +24,6 @@ export const AuthContext = async ({ req }: any) => {
     return { user: undefined };
   }
   const authUser = await VerifyUser(authToken);
-  /**
-   * JWT 재발급 추가하는중
-   * 아직 안돌아감
-   * (21-09-10:지성현)
-   */
 
   console.log(`middleware auth user`);
   console.log(authUser);

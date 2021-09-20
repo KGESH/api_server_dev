@@ -1,4 +1,4 @@
-import { ExistCafeNameInUser, FindAllUser, FindUserById } from '@db/user/FindUser';
+import { ExistCafeNameInUser, FindAllUser, FindUserById, FindUserByName } from '@db/user/FindUser';
 import { GraphQLUpload } from 'graphql-upload';
 import { SaveCardToUser, UpdateReviewCount } from '@db/user/FindAndUpdateUser';
 import { VerifyUser } from '@auth/Jwt';
@@ -57,6 +57,8 @@ export const resolvers = {
     getUserById: async (_: any, { id }: any) => {
       return await FindUserById(id);
     },
+
+    getUserByName: async (_: any, { name }: any) => await FindUserByName(name),
 
     /** 해당 user가 card를 갖고있는지 조회 [params: id, cafe_name] (21-8-23:유성현) */
     existCafeNameInUser: async (_: any, { id, cafe_name }: any) => {

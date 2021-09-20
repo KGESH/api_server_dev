@@ -21,12 +21,14 @@
           "."
         ],
         "alias": {
+          "@src": "./src",
           "@db": "./src/db",
           "@graphql": "./src/graphql",
           "@router": "./src/router",
           "@auth": "./src/auth",
           "@gcp": "./src/gcp",
-          "@util": "./src/util"
+          "@util": "./src/util",
+          "@test": "./src/test"
         }
       }
     ]
