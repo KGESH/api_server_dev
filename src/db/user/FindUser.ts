@@ -17,6 +17,5 @@ export const ExistCafeNameInUser = async (id: number, cafe_name: string) =>
 export const CheckExistUserById = async (id: number) => await UserModel.exists({ id });
 
 /* 사용하지 않는 함수 */
-//
 // export const CheckExistUserByEmail = async (email: string) =>
 //   await UserModel.exists({ email });
