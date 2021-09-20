@@ -1,7 +1,7 @@
 // import mongoose, { Schema } from 'mongoose';
 //
 // const dummySchema = new Schema({
-//   position: Number,
+//   location: Number,
 //   owner_id: Number!,
 //   name: String!,
 //   phone: String,

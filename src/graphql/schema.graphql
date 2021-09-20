@@ -55,7 +55,7 @@ type Mutation {
 
   ## 비지니스 (사업자 정보가 승인되기 전에 거치는 보관함)
   saveBusinessDummy(
-    position: Int,
+    location: String,
     owner_id: Int!,
     name: String!,
     phone: String,
@@ -68,7 +68,7 @@ type Mutation {
     vip: Int): Cafe
   deleteTempCafe(_id: ID!): Cafe
   enrollCafe(
-    position: Int,
+    location: String,
     owner_id: Int!,
     phone: String,
     cafe_name: String,
@@ -121,7 +121,7 @@ type Cafe {
   _id: ID,
   cafe_id: Int!,
   owner_id: Int!,
-  position: Int,
+  location: Int,
   cafe_info: CafeInfo!,
   discount_rate: CafeDiscountRate!,
   point_fluc: Int!,
@@ -133,7 +133,7 @@ type Cafe {
 type CafeInfo {
   cafe_name: String!,
   beans: String,
-  position: String!,
+  location: String!,
   address: String!,
   phone: String!,
   card_img: String!,

@@ -2,7 +2,7 @@ import { CafeModel, DummyModel } from '@db/cafe/CafeModel';
 
 export const InsertDummy = (dummy: any) => {
   const {
-    position,
+    location,
     owner_id,
     name,
     phone,
@@ -19,7 +19,7 @@ export const InsertDummy = (dummy: any) => {
       cafe_info: {
         like: 0,
         cafe_name: cafe_name,
-        position: '37.39227644637707, 126.99500276479165',
+        location: '37.39227644637707, 126.99500276479165',
         address: address + ' ' + address_detail,
         phone: cafe_phone,
       },

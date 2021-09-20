@@ -20,12 +20,12 @@ export const ShiftStaff = async (staffData: ISaveStaff) => {
 // cafe Document에 cafe_info 중 [카페] 이름, 위치, 카드img, 소개, 원두소개, 전화번호 모두를 수정할 수 있는 메서드
 export const ReviseCafeData = async (cafe_info: any) => {
   try {
-    const { cafe_id, cafe_name, position, card_img, introduction, beans, phone } = cafe_info;
+    const { cafe_id, cafe_name, location, card_img, introduction, beans, phone } = cafe_info;
     let updateBody: any = {};
     if (cafe_name && typeof cafe_name == 'string')
       updateBody = { 'cafe_info.cafe_name': cafe_name };
-    else if (position && typeof position == 'string')
-      updateBody = { 'cafe_info.position': position };
+    else if (location && typeof location == 'string')
+      updateBody = { 'cafe_info.location': location };
     else if (card_img && typeof card_img == 'string')
       updateBody = { 'cafe_info.card_img': card_img };
     else if (introduction && typeof introduction == 'string')

@@ -8,7 +8,7 @@ import mongoose, { Schema } from 'mongoose';
 export interface ICafeInfo {
   cafe_name: string;
   beans: string;
-  position: string;
+  location: string;
   address: string;
   phone: string;
   card_img: string;
@@ -34,7 +34,6 @@ export interface ICafeStaff {
 export interface ICafe {
   cafe_id: number;
   owner_id: number;
-  position: number;
   cafe_info: ICafeInfo;
   discount_rate: IDiscountRate;
   point_fluc: number;
@@ -47,7 +46,7 @@ export interface ICafe {
 const cafeInfoSchema = new Schema<ICafeInfo>({
   cafe_name: String!,
   beans: { type: String, default: '' },
-  position: { type: String, default: '' },
+  location: { type: String, default: '' },
   address: { type: String, default: '', required: true },
   phone: { type: String, default: '' },
   card_img: String,
@@ -87,7 +86,6 @@ const menuListSchema = new Schema({
 const cafeSchema = new Schema<ICafe>({
   cafe_id: Number!,
   owner_id: Number!,
-  position: Number,
   cafe_info: cafeInfoSchema!,
   discount_rate: discountRateSchema!,
   point_fluc: { type: Number, default: 0 },
