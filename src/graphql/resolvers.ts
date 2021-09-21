@@ -3,13 +3,12 @@ import { GraphQLUpload } from 'graphql-upload';
 import { SaveCardToUser, UpdateReviewCount } from '@db/user/FindAndUpdateUser';
 import { VerifyUser } from '@auth/Jwt';
 import { FindAllCafe, FindCafeByCafeId, FindCafeByOwnerId } from '@db/cafe/FindCafe';
-import { testFindReviewByKey } from '@db/review/FindReview';
 import { SaveReview } from '@db/review/SaveReview';
 import { FindMileageLogByClientId } from '@db/mileage/FindMileage';
 import { UploadReviewImage } from '@gcp/CloudStorage';
 import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage } from '@db/mileage/MileageModel';
-import { CafeModel, ICafe } from '@db/cafe/CafeModel';
+import { ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
 import { ReviseCafeData, ShiftStaff } from '@db/cafe/ReviceCafe';
 import { DeleteStaff } from '@db/cafe/DeleteCafe';
@@ -23,6 +22,9 @@ import { IHashTag } from '@src/db/hashtag/HashTagModel';
 import { InsertDummy, PermitEnroll } from '@db/business-dummy/SaveDummy';
 import { FindDummyData } from '@db/business-dummy/FindDummy';
 import { DeleteTempCafe } from '@db/business-dummy/DeleteDummy';
+import { BizManageModel } from '@db/business-manage/BizManageModel';
+import { FindBizManage } from '@db/business-manage/FindBizManage';
+import { ReviseBizManage } from '@db/business-manage/SaveBizManage';
 
 /**
  * Resolver 2번째 인자 args 제거하고
@@ -57,9 +59,8 @@ export const resolvers = {
     getUserById: async (_: any, { id }: any) => {
       return await FindUserById(id);
     },
-
+    /** 유저 이름으로 유저 조회 () */
     getUserByName: async (_: any, { name }: any) => await FindUserByName(name),
-
     /** 해당 user가 card를 갖고있는지 조회 [params: id, cafe_name] (21-8-23:유성현) */
     existCafeNameInUser: async (_: any, { id, cafe_name }: any) => {
       return await ExistCafeNameInUser(id, cafe_name);
@@ -78,18 +79,20 @@ export const resolvers = {
     getCafeByCafeId: async (_: any, { cafe_id }: ICafe) => {
       return await FindCafeByCafeId(cafe_id);
     },
+    /** 오너 아이디를 이용한 카페 조회 (21-9-3:유성현) */
     getCafeByOwnerId: async (_: any, { owner_id }: any) => {
       return await FindCafeByOwnerId(owner_id);
+    },
+    /**
+     * 영업팀에서 사용할 business 운영 데이터 (21-9-22:유성현) */
+    getBizManage: async () => {
+      return await FindBizManage();
     },
     /*
      *
      * 리뷰, 게시물관련 Query [ Cntrl + F : 리뷰쿼리, 게시물쿼리 ]
      *
      * */
-    /** test용 - 삭제 예정 (21-8-23:유성현) */
-    getReviewByKey: async (_: any, { key }: any) => {
-      return await testFindReviewByKey(key);
-    },
     /*
      *
      * 마일리지관련 Query [ Cntrl + F : 마일리지쿼리 ]
@@ -215,6 +218,10 @@ export const resolvers = {
     /** 사업자 등록 취소 & 삭제 (21-9-17:유성현) */
     deleteTempCafe: async (_: any, args: any) => {
       return await DeleteTempCafe(args);
+    },
+    /** 사업자 앱 공지 수정 (21-9-22:유성현) */
+    reviseBizManage: async (_: any, params: any) => {
+      return await ReviseBizManage(params);
     },
   },
 };

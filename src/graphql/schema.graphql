@@ -11,6 +11,8 @@ type Query {
   getAllCafe: [Cafe]
   getCafeByCafeId(cafe_id: Int!): Cafe
   getCafeByOwnerId(owner_id: Int!): [Cafe]
+  # 운영 관리
+  getBizManage: BizManage
 
   #  리뷰
   getReviewByKey(key: String!): Review
@@ -77,6 +79,8 @@ type Mutation {
     silver: Int,
     gold: Int,
     vip: Int): Cafe
+  # 앱 공자시항 관리
+  reviseBizManage(_id: ID!, notice: String!): BizManage
 }
 
 ### 유저 ###
@@ -254,4 +258,9 @@ type HashTag {
   id: Int!,
   name: String!,
   count: Int,
+}
+
+type BizManage {
+  _id: ID,
+  notice: String,
 }
