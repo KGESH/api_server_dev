@@ -1,5 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
+export interface IBizM {
+  _id: string;
+  notice: string;
+}
+
 const bizManageSchema = new Schema({
   notice: String,
 });

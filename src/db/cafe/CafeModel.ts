@@ -6,6 +6,7 @@ import mongoose, { Schema } from 'mongoose';
  * 카페 인터페이스
  * */
 export interface ICafeInfo {
+  _id: string;
   cafe_name: string;
   beans: string;
   location: string;

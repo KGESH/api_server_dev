@@ -1,5 +1,6 @@
 import { DummyModel } from '@db/cafe/CafeModel';
 
-export const DeleteTempCafe = (args: any) => {
-  return DummyModel.findByIdAndDelete(args._id);
+export const DeleteTempCafe = (params: any) => {
+  const { _id } = params;
+  return DummyModel.findByIdAndDelete(_id);
 };

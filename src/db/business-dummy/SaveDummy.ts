@@ -14,25 +14,15 @@ export const InsertDummy = (dummy: any) => {
     gold,
     vip,
   } = dummy;
+  // name, cafe_phone 은 스키마 작성 후 추가 또는 Drop
+  const cafe_info = { cafe_name, location, address: address + ' ' + address_detail, phone };
+  const discount_rate = { silver, gold, vip };
+  const special = { cafe_info, discount_rate, owner_id, cafe_id: 110022 /* cafe_id: 수정 필요 */ };
   try {
-    const dumm = new DummyModel({
-      cafe_info: {
-        like: 0,
-        cafe_name: cafe_name,
-        location: '37.39227644637707, 126.99500276479165',
-        address: address + ' ' + address_detail,
-        phone: cafe_phone,
-      },
-      discount_rate: {
-        silver: silver,
-        gold: gold,
-        vip: vip,
-      },
-      owner_id: owner_id,
-      point_fluc: 0,
-      cafe_id: 110022,
+    const data = new DummyModel({
+      ...special,
     });
-    return dumm.save();
+    return data.save();
   } catch (err) {
     console.log(err);
   }
@@ -40,20 +30,9 @@ export const InsertDummy = (dummy: any) => {
 
 export const PermitEnroll = (params: any) => {
   const { owner_id, phone, cafe_name, address, silver, gold, vip } = params;
-  const newCafe = new CafeModel({
-    cafe_info: {
-      cafe_name: cafe_name,
-      address: address,
-      phone: phone,
-    },
-    discount_rate: {
-      silver: silver,
-      gold: gold,
-      vip: vip,
-    },
-    owner_id: owner_id,
-    point_fluc: 0,
-    cafe_id: 1010,
-  });
+  const cafe_info = { cafe_name, address, phone };
+  const discount_rate = { silver, gold, vip };
+  const special = { cafe_info, discount_rate, owner_id, cafe_id: 12 };
+  const newCafe = new CafeModel({ ...special });
   return newCafe.save();
 };
