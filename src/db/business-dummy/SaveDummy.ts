@@ -1,6 +1,6 @@
 import { CafeModel, DummyModel } from '@db/cafe/CafeModel';
 
-export const InsertDummy = (dummy: any) => {
+export const InsertDummy = async (dummy: any) => {
   const {
     location,
     owner_id,
@@ -13,7 +13,7 @@ export const InsertDummy = (dummy: any) => {
     silver,
     gold,
     vip,
-  } = dummy;
+  } = await dummy;
   // name, cafe_phone 은 스키마 작성 후 추가 또는 Drop
   const cafe_info = { cafe_name, location, address: address + ' ' + address_detail, phone };
   const discount_rate = { silver, gold, vip };
