@@ -19,9 +19,7 @@ export const InsertDummy = (dummy: any) => {
   const discount_rate = { silver, gold, vip };
   const special = { cafe_info, discount_rate, owner_id, cafe_id: 110022 /* cafe_id: 수정 필요 */ };
   try {
-    const data = new DummyModel({
-      ...special,
-    });
+    const data = new DummyModel({ ...special });
     return data.save();
   } catch (err) {
     console.log(err);
