@@ -84,8 +84,10 @@ type Mutation {
     vip: Int): Cafe
   # 앱 공자시항 관리
   reviseBizManage(_id: ID!, notice: String!): BizManage
-  # 메뉴 추가
+  # 메뉴 추가 & 삭제 & 수정
   saveMenu(cafe_id: Int! link: String! menu_name: String! beans: String! price: Int!): Menu_list
+  deleteMenu(cafe_id: Int! _id: String!): Menu_list
+  reviseMenu(cafe_id: Int! _id: String! link: String! menu_name: String! beans: String! price: Int!): Menu_list
   # 메뉴 카탈로그 추가
   saveMenuTitle(cafe_id: Int! title: [String]!): Menu_list
 }

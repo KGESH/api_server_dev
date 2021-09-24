@@ -1,3 +1,5 @@
+// 메뉴의 순서를 변경하는 메서드를 작성한다.
+
 import { IMenu, MenuModel } from '@db/menu/MenuModel';
 
 export const SaveMenu = async (params: IMenu) => {
@@ -19,4 +21,18 @@ export const SaveMenuTitle = async (params: IMenu) => {
    * */
   const { cafe_id, title } = await params;
   return MenuModel.findOneAndUpdate({ cafe_id }, { $set: { title } });
+};
+
+export const DeleteMenu = (params: IMenu) => {
+  const { cafe_id, _id } = params;
+  return MenuModel.findOneAndUpdate({ cafe_id }, { $pull: { menu: { _id } } });
+};
+
+export const ReivseMenu = (params: IMenu) => {
+  const { cafe_id, _id, link, menu_name, beans, price } = params;
+  const updateBody: any = { link, menu_name, beans, price };
+  return MenuModel.findOneAndUpdate(
+    { cafe_id, 'menu._id': _id },
+    { $set: { 'menu.$': { ...updateBody } } },
+  );
 };

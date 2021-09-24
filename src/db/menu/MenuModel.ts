@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface IMenu {
+  _id: string;
   link: string;
   menu_name: string;
   price: number;
