@@ -25,7 +25,15 @@ import { DeleteTempCafe } from '@db/business-dummy/DeleteDummy';
 import { FindBizManage } from '@db/business-manage/FindBizManage';
 import { ReviseBizManage } from '@db/business-manage/SaveBizManage';
 import { FindMenuList } from '@db/menu/FindMenu';
-import { SaveMenu, SaveMenuTitle, DeleteMenu, ReivseMenu } from '@db/menu/UpdateMenu';
+import {
+  SaveMenu,
+  SaveMenuTitle,
+  DeleteMenu,
+  ReviseMenu,
+  ReviseCategory,
+  AddCategory,
+  DeleteCategory,
+} from '@db/menu/UpdateMenu';
 import { IMenu } from '@db/menu/MenuModel';
 import { IBizM } from '@db/business-manage/BizManageModel';
 
@@ -184,8 +192,12 @@ export const resolvers = {
     /** 메뉴 삭제 (21-9-24:유성현) */
     deleteMenu: (_: any, params: IMenu) => DeleteMenu(params),
     /** 메뉴 수정 (21-9-24:유성현) */
-    reviseMenu: (_: any, params: IMenu) => ReivseMenu(params),
-    /** 메뉴 카테고리 수정 (21-9-22:유성현) */
+    reviseMenu: (_: any, params: IMenu) => ReviseMenu(params),
+    /** 메뉴 카테고리 추가 (21-9-22:유성현) */
     saveMenuTitle: (_: any, params: IMenu) => SaveMenuTitle(params),
+    addCategory: (_: any, params: IMenu) => AddCategory(params),
+    deleteCategory: (_: any, params: IMenu) => DeleteCategory(params),
+    /** 메뉴 카테고리 수정 (21-9-25:유성현) */
+    reviseMenuTitle: (_: any, params: any) => ReviseCategory(params),
   },
 };

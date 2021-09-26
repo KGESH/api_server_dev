@@ -90,6 +90,9 @@ type Mutation {
   reviseMenu(cafe_id: Int! _id: String! link: String! menu_name: String! beans: String! price: Int!): Menu_list
   # 메뉴 카탈로그 추가
   saveMenuTitle(cafe_id: Int! title: [String]!): Menu_list
+  addCategory(cafe_id: Int! title: String!): Menu_list
+  deleteCategory(cafe_id: Int! title: String!): Menu_list
+  reviseMenuTitle(cafe_id: Int! title: String! newTitle: String!): Menu_list
 }
 
 ### 유저 ###

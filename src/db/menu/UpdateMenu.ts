@@ -28,11 +28,33 @@ export const DeleteMenu = (params: IMenu) => {
   return MenuModel.findOneAndUpdate({ cafe_id }, { $pull: { menu: { _id } } });
 };
 
-export const ReivseMenu = (params: IMenu) => {
+export const ReviseMenu = (params: IMenu) => {
   const { cafe_id, _id, link, menu_name, beans, price } = params;
   const updateBody: any = { link, menu_name, beans, price };
   return MenuModel.findOneAndUpdate(
     { cafe_id, 'menu._id': _id },
     { $set: { 'menu.$': { ...updateBody } } },
   );
+};
+
+export const ReviseCategory = async (params: any) => {
+  // 수정해야 할 부분: multi 옵션을 설정했으나 해당하는 배열의 첫번째 값만 변경된다.
+  const { cafe_id, title, newTitle } = params;
+  // const menus = await MenuModel.findOne({ cafe_id });
+  return MenuModel.findOneAndUpdate(
+    { cafe_id, 'menu.link': title },
+    { $set: { 'menu.$.link': newTitle } },
+    { multi: true },
+  );
+  // return await menus.update({ title: title }, { $set: { 'title.$': newTitle } });
+};
+
+export const AddCategory = async (params: IMenu) => {
+  const { cafe_id, title } = params;
+  return MenuModel.findOneAndUpdate({ cafe_id }, { $push: { title } });
+};
+
+export const DeleteCategory = (params: IMenu) => {
+  const { cafe_id, title } = params;
+  return MenuModel.findOneAndUpdate({ cafe_id }, { $pull: { title: title } });
 };
