@@ -152,7 +152,7 @@ export const resolvers = {
       const { content, hash_tag_list, files } = await review;
 
       return await Promise.all([
-        ...files.map((file: any) => UploadReviewImage(file, id, review_count)),
+        ...files.map((file: any) => UploadReviewImage({ file, id, review_count })),
       ])
         .then((urlList) => {
           SaveReview(content, hash_tag_list, urlList, user);

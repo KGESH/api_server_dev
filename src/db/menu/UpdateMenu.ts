@@ -8,6 +8,7 @@ export const SaveMenu = async (params: IMenu) => {
   return MenuModel.findOneAndUpdate({ cafe_id }, { $push: { menu: { ...menu_data } } });
 };
 
+/** schema 수정 제안: title -> category */
 export const SaveMenuTitle = async (params: IMenu) => {
   /** 카테고리를 추가하는 메서드 @@
    * title 은 배열 형식이다.
@@ -28,6 +29,7 @@ export const DeleteMenu = (params: IMenu) => {
   return MenuModel.findOneAndUpdate({ cafe_id }, { $pull: { menu: { _id } } });
 };
 
+/** Name수정 제안: Revise -> Update */
 export const ReviseMenu = (params: IMenu) => {
   const { cafe_id, _id, link, menu_name, beans, price } = params;
   const updateBody: any = { link, menu_name, beans, price };
@@ -37,6 +39,7 @@ export const ReviseMenu = (params: IMenu) => {
   );
 };
 
+/** Name Revise -> Update */
 export const ReviseCategory = async (params: any) => {
   // 수정해야 할 부분: multi 옵션을 설정했으나 해당하는 배열의 첫번째 값만 변경된다.
   const { cafe_id, title, newTitle } = params;
