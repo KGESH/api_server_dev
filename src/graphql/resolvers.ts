@@ -10,8 +10,8 @@ import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage } from '@db/mileage/MileageModel';
 import { ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
-import { ReviseCafeData, PermitStaff } from '@db/cafe/ReviseCafe';
-import { DeleteStaff } from '@db/cafe/DeleteCafe';
+import { UpdateCafeDesc, PermitStaff } from '@db/cafe/UpdateCafe';
+import { DeleteStaff } from '@db/cafe/UpdateCafe';
 import {
   FindAllHashTag,
   FindHashTagById,
@@ -19,9 +19,9 @@ import {
   FindHashTagOverCount,
 } from '@db/hashtag/FindHashTag';
 import { IHashTag } from '@src/db/hashtag/HashTagModel';
-import { SaveTempCafe, PermitEnroll } from '@db/business-dummy/SaveDummy';
-import { FindDummyData } from '@db/business-dummy/FindDummy';
-import { DeleteTempCafe } from '@db/business-dummy/DeleteDummy';
+import { SaveTempCafe, PermitEnroll } from '@db/temp-cafe/SaveDummy';
+import { FindDummyData } from '@db/temp-cafe/FindDummy';
+import { DeleteTempCafe } from '@db/temp-cafe/DeleteDummy';
 import { FindBizManage } from '@db/business-manage/FindBizManage';
 import { UpdateBizNotice } from '@db/business-manage/SaveBizManage';
 import { FindMenuList } from '@db/menu/FindMenu';
@@ -167,7 +167,7 @@ export const resolvers = {
     permitStaff: (_: any, staffData: ISaveStaff) => PermitStaff(staffData),
     deleteStaff: (_: any, { cafe_id, staff_id }: any) => DeleteStaff(cafe_id, staff_id),
     /** 카페 정보 수정 (21-9-12:유성현) */
-    reviseCafeDesc: (_: any, cafe_info: any) => ReviseCafeData(cafe_info),
+    updateCafeDesc: (_: any, cafe_info: any) => UpdateCafeDesc(cafe_info),
     /** 사업자 초기 등록/승인/취소&삭제 (21-9-17:유성현) */
     saveTempCafe: (_: any, dummy: any) => SaveTempCafe(dummy),
     enrollCafe: (_: any, params: any) => PermitEnroll(params),
