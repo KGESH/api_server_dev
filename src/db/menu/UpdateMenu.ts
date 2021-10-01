@@ -25,7 +25,7 @@ export const SaveMenuTitle = async (params: IMenu) => {
 
 export const DeleteMenu = (params: IMenu) => {
   const { cafe_id, _id } = params;
-  return MenuModel.findOneAndUpdate({ cafe_id }, { $pull: { menu: { _id } } });
+  return MenuModel.findOneAndUpdate({ cafe_id }, { $pull: { menu: { _id: _id } } });
 };
 
 export const ReviseMenu = (params: IMenu) => {
