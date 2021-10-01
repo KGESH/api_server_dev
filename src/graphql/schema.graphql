@@ -51,8 +51,8 @@ type Mutation {
   uploadImage(content: String!, hash_tag_list: [String], files: [Upload]!): File!
 
   # 카페
-  enrollStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
-  shiftStaff(cafe_id: Int!, staff_id: Int!): Cafe
+  saveStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
+  permitStaff(cafe_id: Int!, staff_id: Int!): Cafe
   deleteStaff(cafe_id: Int!, staff_id: Int!): Cafe
   reviseCafeDesc(cafe_id: Int!, introduction: String, beans: String, phone: String): Cafe
 
@@ -60,7 +60,7 @@ type Mutation {
   saveMileage(cafe_name:String!, menu_name: String!, price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
 
   ## 비지니스 (사업자 정보가 승인되기 전에 거치는 보관함)
-  saveBusinessDummy(
+  saveTempCafe(
     location: String,
     owner_id: Int!,
     name: String!,
@@ -83,16 +83,14 @@ type Mutation {
     gold: Int,
     vip: Int): Cafe
   # 앱 공자시항 관리
-  reviseBizManage(_id: ID!, notice: String!): BizManage
+  updateBizNotice(_id: ID!, notice: String!): BizManage
   # 메뉴 추가 & 삭제 & 수정
   saveMenu(cafe_id: Int! link: String! menu_name: String! beans: String! price: Int!): Menu_list
   deleteMenu(cafe_id: Int! _id: String!): Menu_list
-  reviseMenu(cafe_id: Int! _id: String! link: String! menu_name: String! beans: String! price: Int!): Menu_list
+  updateMenu(cafe_id: Int! _id: String! link: String! menu_name: String! beans: String! price: Int!): Menu_list
   # 메뉴 카탈로그 추가
-  saveMenuTitle(cafe_id: Int! title: [String]!): Menu_list
   addCategory(cafe_id: Int! title: String!): Menu_list
   deleteCategory(cafe_id: Int! title: String!): Menu_list
-  reviseMenuTitle(cafe_id: Int! title: String! newTitle: String!): Menu_list
 }
 
 ### 유저 ###

@@ -2,7 +2,7 @@ import { CafeModel } from '@db/cafe/CafeModel';
 import { ISaveStaff } from '@db/cafe/SaveCafe';
 
 // 직원 등록 메서드
-export const ShiftStaff = (staffData: ISaveStaff) => {
+export const PermitStaff = (staffData: ISaveStaff) => {
   const { cafe_id, staff_id } = staffData;
   try {
     return CafeModel.findOneAndUpdate(

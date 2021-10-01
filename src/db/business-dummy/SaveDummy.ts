@@ -1,6 +1,6 @@
 import { CafeModel, DummyModel } from '@db/cafe/CafeModel';
 
-export const InsertDummy = async (dummy: any) => {
+export const SaveTempCafe = async (dummy: any) => {
   const {
     location,
     owner_id,

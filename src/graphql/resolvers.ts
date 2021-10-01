@@ -10,7 +10,7 @@ import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage } from '@db/mileage/MileageModel';
 import { ICafe } from '@db/cafe/CafeModel';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
-import { ReviseCafeData, ShiftStaff } from '@db/cafe/ReviseCafe';
+import { ReviseCafeData, PermitStaff } from '@db/cafe/ReviseCafe';
 import { DeleteStaff } from '@db/cafe/DeleteCafe';
 import {
   FindAllHashTag,
@@ -19,21 +19,13 @@ import {
   FindHashTagOverCount,
 } from '@db/hashtag/FindHashTag';
 import { IHashTag } from '@src/db/hashtag/HashTagModel';
-import { InsertDummy, PermitEnroll } from '@db/business-dummy/SaveDummy';
+import { SaveTempCafe, PermitEnroll } from '@db/business-dummy/SaveDummy';
 import { FindDummyData } from '@db/business-dummy/FindDummy';
 import { DeleteTempCafe } from '@db/business-dummy/DeleteDummy';
 import { FindBizManage } from '@db/business-manage/FindBizManage';
-import { ReviseBizManage } from '@db/business-manage/SaveBizManage';
+import { UpdateBizNotice } from '@db/business-manage/SaveBizManage';
 import { FindMenuList } from '@db/menu/FindMenu';
-import {
-  SaveMenu,
-  SaveMenuTitle,
-  DeleteMenu,
-  ReviseMenu,
-  ReviseCategory,
-  AddCategory,
-  DeleteCategory,
-} from '@db/menu/UpdateMenu';
+import { SaveMenu, DeleteMenu, UpdateMenu, AddCategory, DeleteCategory } from '@db/menu/UpdateMenu';
 import { IMenu } from '@db/menu/MenuModel';
 import { IBizM } from '@db/business-manage/BizManageModel';
 
@@ -170,34 +162,24 @@ export const resolvers = {
     /** 마일리지Log 등록 (21-9-3:유성현) */
     saveMileage: (_: any, mileageData: IMileage) => SaveMileageLog(mileageData),
 
-    /** 직원 등록 (21-9-4:유성현) */
-    enrollStaff: (_: any, staffData: ISaveStaff) => SaveStaff(staffData),
-    /** 직원 등록 승인 (21-9-8:유성현) */
-    shiftStaff: (_: any, staffData: ISaveStaff) => ShiftStaff(staffData),
-    /** 직원 삭제 (21-9-10:유성현) */
+    /** 직원 초기 등록/승인/삭제 (21-9-10:유성현) */
+    saveStaff: (_: any, staffData: ISaveStaff) => SaveStaff(staffData),
+    permitStaff: (_: any, staffData: ISaveStaff) => PermitStaff(staffData),
     deleteStaff: (_: any, { cafe_id, staff_id }: any) => DeleteStaff(cafe_id, staff_id),
     /** 카페 정보 수정 (21-9-12:유성현) */
     reviseCafeDesc: (_: any, cafe_info: any) => ReviseCafeData(cafe_info),
-    /** 사업자 등록 (21-9-17:유성현) */
-    saveBusinessDummy: (_: any, dummy: any) => InsertDummy(dummy),
-    /** 사업자 등록 승인 (21-9-17:유성현) */
+    /** 사업자 초기 등록/승인/취소&삭제 (21-9-17:유성현) */
+    saveTempCafe: (_: any, dummy: any) => SaveTempCafe(dummy),
     enrollCafe: (_: any, params: any) => PermitEnroll(params),
-    /** 사업자 등록 취소 & 삭제 (21-9-17:유성현) */
     deleteTempCafe: (_: any, params: any) => DeleteTempCafe(params),
     /** 사업자 앱 공지 수정 (21-9-22:유성현) */
-    reviseBizManage: (_: any, params: IBizM) => ReviseBizManage(params),
-
-    /** 메뉴 추가 (21-9-22:유성현) */
+    updateBizNotice: (_: any, params: IBizM) => UpdateBizNotice(params),
+    /** 메뉴 추가/삭제/수정 (21-9-24:유성현) */
     saveMenu: (_: any, params: IMenu) => SaveMenu(params),
-    /** 메뉴 삭제 (21-9-24:유성현) */
     deleteMenu: (_: any, params: IMenu) => DeleteMenu(params),
-    /** 메뉴 수정 (21-9-24:유성현) */
-    reviseMenu: (_: any, params: IMenu) => ReviseMenu(params),
-    /** 메뉴 카테고리 추가 (21-9-22:유성현) */
-    saveMenuTitle: (_: any, params: IMenu) => SaveMenuTitle(params),
+    updateMenu: (_: any, params: IMenu) => UpdateMenu(params),
+    /** 메뉴 카테고리 추가/삭제 (21-9-22:유성현) */
     addCategory: (_: any, params: IMenu) => AddCategory(params),
     deleteCategory: (_: any, params: IMenu) => DeleteCategory(params),
-    /** 메뉴 카테고리 수정 (21-9-25:유성현) */
-    reviseMenuTitle: (_: any, params: any) => ReviseCategory(params),
   },
 };
