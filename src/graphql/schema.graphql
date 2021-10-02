@@ -21,6 +21,12 @@ type Query {
   getReviewByKey(key: String!): Review
 
   #  마일리지
+  getAllMileageLog: [MileageLog]
+  getMileageByCafeId(cafe_id: Int!): [MileageLog]
+  getMileageByOwnerId(owner_id: Int!): [MileageLog]
+  getMileageByDate(start_date: String! end_date: String!): [MileageLog]
+  getMileageByDateAndCafeId(cafe_id: Int! start_date: String! end_date: String!): [MileageLog]
+  getMileageByDateAndOwnerId(owner_id: Int! start_date: String! end_date: String!): [MileageLog]
   getMileageLogByClientId(client_id: Int!): [MileageLog]
 
   uploads: [File]

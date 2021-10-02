@@ -25,4 +25,4 @@ const mileageSchema = new Schema<IMileage>({
   visit_times: { type: Number, default: 1 },
 });
 
-export const MileageModel = mongoose.model('mileage', mileageSchema, 'mileage-log');
+export const MileageModel = mongoose.model('mileage', mileageSchema, 'mileage_log');
