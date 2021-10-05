@@ -49,6 +49,7 @@ const cafeInfoSchema = new Schema<ICafeInfo>({
   beans: { type: String, default: '' },
   location: { type: String, default: '' },
   address: { type: String, default: '', required: true },
+  address_detail: { type: String, default: '' },
   phone: { type: String, default: '' },
   card_img: String,
   cafe_img: [String],

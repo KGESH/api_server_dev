@@ -97,6 +97,7 @@ type Mutation {
   # 메뉴 카탈로그 추가
   addCategory(cafe_id: Int! title: String!): Menu_list
   deleteCategory(cafe_id: Int! title: String!): Menu_list
+  getUserStateById(id: Int!): User
 }
 
 ### 유저 ###
@@ -125,6 +126,7 @@ type User {
   # 이름 추천 받습니다 (21-09-15:지성현)
   home_tag_list: [String],
   map_tag_list: [String],
+  member: Int,
 }
 
 # 유저 하위 데이터 (소지한 카드 정보) #
@@ -155,6 +157,7 @@ type CafeInfo {
   beans: String,
   location: String!,
   address: String!,
+  address_detail: String!,
   phone: String!,
   card_img: String!,
   cafe_img: [String],

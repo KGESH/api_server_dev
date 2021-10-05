@@ -35,6 +35,7 @@ import { FindMenuList } from '@db/menu/FindMenu';
 import { SaveMenu, DeleteMenu, UpdateMenu, AddCategory, DeleteCategory } from '@db/menu/UpdateMenu';
 import { IMenu } from '@db/menu/MenuModel';
 import { IBizM } from '@db/business-manage/BizManageModel';
+import { UserModel } from '@db/user/UserModel';
 
 export const resolvers = {
   /** File upload를 위한 스칼라
@@ -199,5 +200,6 @@ export const resolvers = {
     /** 메뉴 카테고리 추가/삭제 (21-9-22:유성현) */
     addCategory: (_: any, params: IMenu) => AddCategory(params),
     deleteCategory: (_: any, params: IMenu) => DeleteCategory(params),
+    getUserStateById: (_: any, { id }: any) => UserModel.findOne({ id }),
   },
 };
