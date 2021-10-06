@@ -2,7 +2,6 @@ import { ExistCafeNameInUser, FindAllUser, FindUserById, FindUserByName } from '
 import { GraphQLUpload } from 'graphql-upload';
 import { SaveCardToUser, UpdateReviewCount } from '@db/user/FindAndUpdateUser';
 import { VerifyUser } from '@auth/Jwt';
-import { FindAllCafe, FindCafeByCafeId, FindCafeByOwnerId } from '@db/cafe/FindCafe';
 import { SaveReview } from '@db/review/SaveReview';
 import {
   FindMileageLogByClientId,
@@ -15,10 +14,6 @@ import {
 import { UploadReviewImage } from '@gcp/CloudStorage';
 import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage, MileageModel } from '@db/mileage/MileageModel';
-import { ICafe } from '@db/cafe/CafeModel';
-import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
-import { UpdateCafeDesc, PermitStaff } from '@db/cafe/UpdateCafe';
-import { DeleteStaff } from '@db/cafe/UpdateCafe';
 import {
   FindAllHashTag,
   FindHashTagById,
@@ -26,16 +21,6 @@ import {
   FindHashTagOverCount,
 } from '@db/hashtag/FindHashTag';
 import { IHashTag } from '@src/db/hashtag/HashTagModel';
-import { SaveTempCafe, PermitEnroll } from '@db/temp-cafe/SaveDummy';
-import { FindDummyData } from '@db/temp-cafe/FindDummy';
-import { DeleteTempCafe } from '@db/temp-cafe/DeleteDummy';
-import { FindBizManage } from '@db/business-manage/FindBizManage';
-import { UpdateBizNotice } from '@db/business-manage/SaveBizManage';
-import { FindMenuList } from '@db/menu/FindMenu';
-import { SaveMenu, DeleteMenu, UpdateMenu, AddCategory, DeleteCategory } from '@db/menu/UpdateMenu';
-import { IMenu } from '@db/menu/MenuModel';
-import { IBizM } from '@db/business-manage/BizManageModel';
-import { UserModel } from '@db/user/UserModel';
 
 export default {
   /** File upload를 위한 스칼라
@@ -63,23 +48,6 @@ export default {
     getUserByName: (_: any, { name }: any) => FindUserByName(name),
     /** 해당 user가 card를 갖고있는지 조회 [params: id, cafe_name] (21-8-23:유성현) */
     existCafeNameInUser: (_: any, { id, cafe_name }: any) => ExistCafeNameInUser(id, cafe_name),
-    /*
-     *
-     * 카페관련 Query [ Cntrl + F : 카페쿼리 ]
-     *
-     * */
-    /** 카페 전체 조회 [params: none](21-8-13:지성현) */
-    getAllCafe: (_: any, __: any) => FindAllCafe(),
-    /** 해당 cafe_id를 갖고있는 카페 조회 [params: cafe_id](수정21-9-3:유성현) */
-    getCafeByCafeId: (_: any, { cafe_id }: ICafe) => FindCafeByCafeId(cafe_id),
-    /** 오너 아이디를 이용한 카페 조회 (21-9-3:유성현) */
-    getCafeByOwnerId: (_: any, { owner_id }: ICafe) => FindCafeByOwnerId(owner_id),
-    /** 등록 대기중인 상태의 카페 정보 조회 (21-9-19:유성현) */
-    getDummyData: () => FindDummyData(),
-    /** 영업팀에서 사용할 business 운영 데이터 (21-9-22:유성현) */
-    getBizManage: () => FindBizManage(),
-    /** cafe_id를 이용해 해당 menu_list를 받아옴 (21-9-22:유성현) */
-    getMenuByCafeId: (_: any, { cafe_id }: IMenu) => FindMenuList(cafe_id),
 
     /*
      *
@@ -195,26 +163,5 @@ export default {
 
     /** 마일리지Log 등록 (21-9-3:유성현) */
     saveMileage: (_: any, mileageData: IMileage) => SaveMileageLog(mileageData),
-
-    /** 직원 초기 등록/승인/삭제 (21-9-10:유성현) */
-    saveStaff: (_: any, staffData: ISaveStaff) => SaveStaff(staffData),
-    permitStaff: (_: any, staffData: ISaveStaff) => PermitStaff(staffData),
-    deleteStaff: (_: any, { cafe_id, staff_id }: any) => DeleteStaff(cafe_id, staff_id),
-    /** 카페 정보 수정 (21-9-12:유성현) */
-    updateCafeDesc: (_: any, cafe_info: any) => UpdateCafeDesc(cafe_info),
-    /** 사업자 초기 등록/승인/취소&삭제 (21-9-17:유성현) */
-    saveTempCafe: (_: any, dummy: any) => SaveTempCafe(dummy),
-    enrollCafe: (_: any, params: any) => PermitEnroll(params),
-    deleteTempCafe: (_: any, params: any) => DeleteTempCafe(params),
-    /** 사업자 앱 공지 수정 (21-9-22:유성현) */
-    updateBizNotice: (_: any, params: IBizM) => UpdateBizNotice(params),
-    /** 메뉴 추가/삭제/수정 (21-9-24:유성현) */
-    saveMenu: (_: any, params: IMenu) => SaveMenu(params),
-    deleteMenu: (_: any, params: IMenu) => DeleteMenu(params),
-    updateMenu: (_: any, params: IMenu) => UpdateMenu(params),
-    /** 메뉴 카테고리 추가/삭제 (21-9-22:유성현) */
-    addCategory: (_: any, params: IMenu) => AddCategory(params),
-    deleteCategory: (_: any, params: IMenu) => DeleteCategory(params),
-    getUserStateById: (_: any, { id }: any) => UserModel.findOne({ id }),
   },
 };
