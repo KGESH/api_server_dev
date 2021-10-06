@@ -1,0 +1,14 @@
+type Query {
+  # 비즈니스 앱 운영 관리
+  getBizManage: BizManage
+}
+
+type Mutation {
+  # 앱 공자시항 관리
+  updateBizNotice(_id: ID!, notice: String!): BizManage
+}
+
+type BizManage {
+  _id: ID,
+  notice: String,
+}

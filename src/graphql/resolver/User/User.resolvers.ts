@@ -1,6 +1,7 @@
 import { ExistCafeNameInUser, FindAllUser, FindUserById, FindUserByName } from '@db/user/FindUser';
 import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
 import { VerifyUser } from '@auth/Jwt';
+import { UserModel } from '@db/user/UserModel';
 
 export default {
   Query: {
@@ -40,6 +41,8 @@ export default {
 
     /** 해당 id를 가지고있는 user에게 카드 발급 (21-08-20:유성현) */
     saveCardToUser: (_: any, params: any) => SaveCardToUser(params),
+    /** 비즈니스 앱 사용자의 상태 판별 조회 (21-10-6:유성현) */ // render 할 때가 아닌 현 시점이므로 Mutation 사용
+    getUserState: (_: any, { id }: any) => UserModel.findOne({ id }),
 
     /** 개발중 - 완료 시 삭제예정 */
     editProfile: async (_: any, { profile }: any) => {
