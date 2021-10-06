@@ -2,7 +2,7 @@ import { CafeModel } from '@db/cafe/CafeModel';
 import { ISaveStaff } from '@db/cafe/SaveCafe';
 
 // 직원 등록 메서드
-export const ShiftStaff = (staffData: ISaveStaff) => {
+export const PermitStaff = (staffData: ISaveStaff) => {
   const { cafe_id, staff_id } = staffData;
   try {
     return CafeModel.findOneAndUpdate(
@@ -14,8 +14,9 @@ export const ShiftStaff = (staffData: ISaveStaff) => {
   }
 };
 
+/** Name수정 제안: Revise -> Update */
 // cafe Document에 cafe_info 중 [카페] 이름, 위치, 카드img, 소개, 원두소개, 전화번호 모두를 수정할 수 있는 메서드
-export const ReviseCafeData = (cafe_info: any) => {
+export const UpdateCafeDesc = (cafe_info: any) => {
   const { cafe_id, cafe_name, location, card_img, introduction, beans, phone } = cafe_info;
   let updateBody: any = {};
   try {
@@ -36,5 +37,13 @@ export const ReviseCafeData = (cafe_info: any) => {
   } catch (err) {
     console.log(err);
     return { err };
+  }
+};
+
+export const DeleteStaff = async (cafe_id: number, staff_id: number) => {
+  try {
+    return await CafeModel.findOneAndUpdate({ cafe_id }, { $pull: { staff: { staff_id } } });
+  } catch (err) {
+    return '에러 처리';
   }
 };

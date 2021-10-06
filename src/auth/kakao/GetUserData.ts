@@ -21,6 +21,7 @@ export const GetUserData = async (kakaoAccessToken: string): Promise<IUser> => {
       const user: IUser = {
         id,
         name: nickname,
+        nickname,
         email,
       };
       return user;

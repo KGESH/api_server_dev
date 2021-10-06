@@ -1,0 +1,55 @@
+type Query {
+  getReviewByKey(key: String!): Review
+}
+
+type Mutation {
+#  리뷰
+  postReview(review: ReviewInput!): PostResponse!
+}
+
+input ReviewInput {
+  cafe_id: Int,
+  content: String!,
+  hash_tag_list: [String],
+  files: [Upload]!,
+}
+
+# review input에서 쓰일 타입
+input StarInput {
+  flavor: Float!,
+  atmosphere: Float!,
+  price: Float!,
+}
+
+type Review {
+  review_id: Int!,
+  user_name: String!,
+  content: String,
+  location: String!,
+  star: Star!,
+  image_list: [String]!,
+  like_count: Int,
+  comment_list: [Comment],
+  hash_tag_list: [String],
+  liker_list: [String],
+  post_date: String,
+}
+
+# 리뷰 하위 데이터 (평점) #
+type Star {
+  flavor: Float!,
+  atmosphere: Float!,
+  price: Float!,
+}
+
+# 리뷰 하위 데이터 (댓글) #
+type Comment {
+  user_name: String,
+  content: String,
+  post_date: String,
+}
+
+type PostResponse {
+  success: Boolean!,
+  message: String,
+}

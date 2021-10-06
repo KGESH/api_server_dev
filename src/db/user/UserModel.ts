@@ -13,6 +13,7 @@ export interface IQR {
 export interface IUser {
   id: number;
   name: string;
+  nickname?: string;
   email: string;
   auth?: string;
   cafe_list?: [IQR];
@@ -36,6 +37,7 @@ const qrSchema = new Schema<IQR>({
 const userSchema = new Schema<IUser>({
   id: { type: Number, required: true, unique: true },
   name: String!,
+  nickname: String!,
   email: String!,
   auth: { type: String, default: 'client' },
   rating: { type: String, default: 'DefaultRating' },
@@ -52,6 +54,7 @@ const userSchema = new Schema<IUser>({
   refresh_token: { type: String, default: '' },
   home_tag_list: { type: [String], default: ['팔로우', '내 주변', '공부하기 좋은', '테라스'] },
   map_tag_list: { type: [String], default: ['팔로우', '내 주변', '즐겨찾기', '테라스'] },
+  member: { type: Number, default: 0 },
 });
 
 export const UserModel = mongoose.model('user', userSchema, 'users');

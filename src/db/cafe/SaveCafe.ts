@@ -8,8 +8,8 @@ export interface ISaveStaff {
   staff_position: string;
 }
 
-export const SaveStaff = (staffData: ISaveStaff) => {
-  const { cafe_id, staff_id, staff_phone, staff_position } = staffData;
+export const SaveStaff = async (staffData: ISaveStaff) => {
+  const { cafe_id, staff_id, staff_phone, staff_position } = await staffData;
   const staff_data = { staff_id, staff_phone, staff_position };
   return CafeModel.findOneAndUpdate({ cafe_id }, { $push: { staff: { ...staff_data } } });
 };

@@ -1,0 +1,9 @@
+# apollo 기본 탑재
+# 파일 업로드시 필요
+scalar Upload
+
+type File {
+  filename: String!,
+  mimetype: String!,
+  encoding: String!,
+}

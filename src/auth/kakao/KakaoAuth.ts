@@ -11,7 +11,6 @@ export const KakaoAuth = async (code: string) => {
     code,
   });
 
-  console.log(`in kakao auth`);
   return await fetch(`https://kauth.kakao.com/oauth/token`, {
     method: 'POST',
     headers: {
