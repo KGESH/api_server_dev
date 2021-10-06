@@ -11,7 +11,7 @@ type Mutation {
   saveCardToUser(id: Int!, cafe_name: String!, code: String! card_img: String!): User
   editProfile(profile: Profile): Boolean!
 
-  getUserState(id: Int!): User
+  getUserByIdMutation(id: Int!): User
 }
 
 type AuthUser {
