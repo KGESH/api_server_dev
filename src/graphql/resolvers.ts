@@ -167,6 +167,17 @@ export const resolvers = {
         });
     },
 
+    /** 마이페이지 프로필 업데이트 */
+    editProfile: async (_: any, { profile }: any) => {
+      console.log(`edit profile!`);
+      const { nickname, file } = await profile;
+      const { filename } = await file;
+      console.log(file);
+      console.log(`file name : ${filename}`);
+
+      return await true;
+    },
+
     /** 마일리지Log 등록 (21-9-3:유성현) */
     saveMileage: (_: any, mileageData: IMileage) => SaveMileageLog(mileageData),
 
