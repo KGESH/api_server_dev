@@ -37,7 +37,7 @@ import {
 import { IMenu } from '@db/menu/MenuModel';
 import { IBizM } from '@db/business-manage/BizManageModel';
 
-export const resolvers = {
+export default {
   /** File upload를 위한 스칼라
    * apollo server 2.x에 기본 탑재되었지만,
    * 3.x 부터 호환성 문제로 없어짐
@@ -53,7 +53,10 @@ export const resolvers = {
      *
      * */
     /** 유저 전체 조회 [params: none] */
-    getAllUser: () => FindAllUser(),
+    getAllUser: () => {
+      console.log(`call get all user@`);
+      return FindAllUser();
+    },
     /** 해당 id를 갖고있는 유저 조회 [params: id] (21-8-23:유성현) */
     getUserById: (_: any, { id }: any) => FindUserById(id),
     /** 유저 이름으로 유저 조회 () */
@@ -117,6 +120,7 @@ export const resolvers = {
      */
 
     getKakaoUserByJwt: async (_: any, { jwt }: any) => {
+      console.log(`call kakao user jwt : ${jwt}`);
       return await VerifyUser(jwt);
     },
 

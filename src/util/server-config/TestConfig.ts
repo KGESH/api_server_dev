@@ -1,7 +1,7 @@
 import { ApolloServer, ExpressContext } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import express from 'express';
-import { schemaWithResolvers } from '@graphql/schema';
+import { schemaWithResolvers } from '@src/graphql/SchemaBuilder';
 import { graphqlUploadExpress } from 'graphql-upload';
 import { KakaoCallback } from '@auth/kakao/KakaoCallback';
 import http from 'http';
