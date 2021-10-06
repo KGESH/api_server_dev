@@ -54,6 +54,7 @@ const userSchema = new Schema<IUser>({
   refresh_token: { type: String, default: '' },
   home_tag_list: { type: [String], default: ['팔로우', '내 주변', '공부하기 좋은', '테라스'] },
   map_tag_list: { type: [String], default: ['팔로우', '내 주변', '즐겨찾기', '테라스'] },
+  member: { type: Number, default: 0 },
 });
 
 export const UserModel = mongoose.model('user', userSchema, 'users');
