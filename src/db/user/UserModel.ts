@@ -13,6 +13,7 @@ export interface IQR {
 export interface IUser {
   id: number;
   name: string;
+  nickname?: string;
   email: string;
   auth?: string;
   cafe_list?: [IQR];
@@ -36,6 +37,7 @@ const qrSchema = new Schema<IQR>({
 const userSchema = new Schema<IUser>({
   id: { type: Number, required: true, unique: true },
   name: String!,
+  nickname: String!,
   email: String!,
   auth: { type: String, default: 'client' },
   rating: { type: String, default: 'DefaultRating' },

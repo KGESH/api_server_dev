@@ -32,7 +32,6 @@ export const KakaoCallback = async (req: any, res: any) => {
     if (userExist) {
       UpdateRefreshToken(user.id, user.refresh_token);
     } else {
-      console.log(`save new user`);
       SaveUser(user);
     }
 
