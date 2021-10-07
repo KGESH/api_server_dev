@@ -12,6 +12,10 @@ type Mutation {
   editProfile(profile: Profile): Boolean!
 
   getUserByIdMutation(id: Int!): User
+  updateProfile(profile: Profile): Boolean!
+  updateNickname(nickname: String!): Boolean!
+  updateUserImage(file: Upload!): Boolean!
+  getUserState(id: Int!): User
 }
 
 type AuthUser {
@@ -46,5 +50,5 @@ type QR {
 
 input Profile {
   nickname: String,
-  file: [Upload]
+  file: Upload
 }

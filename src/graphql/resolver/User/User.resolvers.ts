@@ -1,6 +1,12 @@
 import { ExistCafeNameInUser, FindAllUser, FindUserById, FindUserByName } from '@db/user/FindUser';
-import { SaveCardToUser } from '@db/user/FindAndUpdateUser';
+import {
+  SaveCardToUser,
+  UpdateNickname,
+  UpdateProfileImage,
+  UpdateProfile,
+} from '@db/user/FindAndUpdateUser';
 import { VerifyUser } from '@auth/Jwt';
+import { UploadProfileImage } from '@gcp/CloudStorage';
 
 export default {
   Query: {
@@ -43,15 +49,43 @@ export default {
     /** 비즈니스 앱 사용자의 상태 판별 조회 (21-10-6:유성현) */ // render 할 때가 아닌 현 시점이므로 Mutation 사용
     getUserByIdMutation: (_: any, { id }: any) => FindUserById(id),
 
-    /** 개발중 - 완료 시 삭제예정 */
-    editProfile: async (_: any, { profile }: any) => {
+    /**
+     * 리턴값 어떻게 줄지 고민중
+     * (21-10-07:지성현)
+     */
+    updateProfile: async (_: any, { profile }: any, { authUser }: any) => {
+      if (!authUser) {
+        return;
+      }
       console.log(`edit profile!`);
+      console.log(profile);
       const { nickname, file } = await profile;
-      const { filename } = await file;
-      console.log(file);
-      console.log(`file name : ${filename}`);
+      const imageUrl = await UploadProfileImage({ id: authUser.user.id, file });
 
-      return await true;
+      return await UpdateProfile(authUser.user.id, nickname, imageUrl)
+        .then(() => true)
+        .catch(() => false);
+    },
+
+    updateNickname: async (_: any, { nickname }: any, { authUser }: any) => {
+      if (!authUser) {
+        return false;
+      }
+
+      return await UpdateNickname(authUser.user.id, nickname)
+        .then(() => true)
+        .catch(() => false);
+    },
+
+    updateUserImage: async (_: any, { file }: any, { authUser }: any) => {
+      if (!authUser) {
+        return false;
+      }
+
+      const imageUrl = await UploadProfileImage({ id: authUser.user.id, file });
+      return await UpdateProfileImage(authUser.user.id, imageUrl)
+        .then(() => true)
+        .catch(() => false);
     },
   },
 };

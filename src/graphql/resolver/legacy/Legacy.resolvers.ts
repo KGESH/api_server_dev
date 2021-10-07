@@ -23,32 +23,7 @@ import {
 import { IHashTag } from '@src/db/hashtag/HashTagModel';
 
 export default {
-  /** File upload를 위한 스칼라
-   * apollo server 2.x에 기본 탑재되었지만,
-   * 3.x 부터 호환성 문제로 없어짐
-   * 외부 모듈 graphql-upload에 의존
-   * (21-09-04:지성현)
-   */
-  Upload: GraphQLUpload,
-
   Query: {
-    /*
-     *
-     * 유저관련 Query [ Cntrl + F : 유저쿼리 ]
-     *
-     * */
-    /** 유저 전체 조회 [params: none] */
-    getAllUser: () => {
-      console.log(`call get all user@`);
-      return FindAllUser();
-    },
-    /** 해당 id를 갖고있는 유저 조회 [params: id] (21-8-23:유성현) */
-    getUserById: (_: any, { id }: any) => FindUserById(id),
-    /** 유저 이름으로 유저 조회 () */
-    getUserByName: (_: any, { name }: any) => FindUserByName(name),
-    /** 해당 user가 card를 갖고있는지 조회 [params: id, cafe_name] (21-8-23:유성현) */
-    existCafeNameInUser: (_: any, { id, cafe_name }: any) => ExistCafeNameInUser(id, cafe_name),
-
     /*
      *
      * 마일리지관련 Query [ Cntrl + F : 마일리지쿼리 ]
@@ -68,99 +43,8 @@ export default {
     /** 해당 id를 보유한 유저의 마일리지Log를 조회 [args: client_id](21-8-24:유성현) */
     getMileageLogByClientId: (_: any, { client_id }: IMileage) =>
       FindMileageLogByClientId(client_id),
-    /**
-     *
-     * 해쉬 태그 관련 쿼리
-     *
-     */
-    /** 모든 해쉬태그 조회 */
-    getAllHashTag: async (_: any, __: any) => {
-      return await FindAllHashTag();
-    },
-    /** 해당 id를 가진 해쉬태그 조회 */
-    getHashTagById: async (_: any, { id }: IHashTag) => {
-      return await FindHashTagById(id);
-    },
-    /** 해당 name을 가진 해쉬태그 조회 */
-    getHashTagByName: async (_: any, { name }: IHashTag) => {
-      return await FindHashTagByName(name);
-    },
-    /** 해당 count값 보다 큰 count값을 가진 해쉬태그 조회 */
-    getHashTagOverCount: async (_: any, { count }: IHashTag) => {
-      return await FindHashTagOverCount(count);
-    },
   },
   Mutation: {
-    /**
-     * 처음 카카오 로그인 할때 호출되는 mutation
-     * 토큰이 유효하면 user 정보 넘어옴
-     * 유효하지 않으면 undefined 넘어옴
-     * (2021-08-20:지성현)
-     */
-
-    getKakaoUserByJwt: async (_: any, { jwt }: any) => {
-      console.log(`call kakao user jwt : ${jwt}`);
-      return await VerifyUser(jwt);
-    },
-
-    /**
-     * 인증 mutation
-     * Client에서 인증 요청 보낼때
-     * AuthContext 미들웨어에서 토큰을 검사
-     * 토큰이 유효하면 user 정보 넘어옴
-     * 유효하지 않으면 undefined 넘어옴
-     */
-    authUser: async (_: any, __: any, { authUser }: any) => {
-      return await authUser;
-    },
-
-    /** 해당 id를 가지고있는 user에게 카드 발급 (21-08-20:유성현) */
-    saveCardToUser: (_: any, params: any) => SaveCardToUser(params),
-
-    /**
-     * 리뷰 작성 mutation
-     * 추가 작업 예정
-     * 아직 안돌아감
-     * (21-09-05:지성현)
-     */
-    postReview: async (_: any, { review }: any, { authUser }: any) => {
-      if (!authUser) {
-        /** handle login fail */
-        console.log(`user undefined`);
-        return;
-      }
-
-      const { user } = await authUser;
-      const { id, review_count } = await user;
-      const { content, hash_tag_list, files } = await review;
-
-      return await Promise.all([
-        ...files.map((file: any) => UploadReviewImage({ file, id, review_count })),
-      ])
-        .then((urlList) => {
-          SaveReview(content, hash_tag_list, urlList, user);
-          UpdateReviewCount(id, 1);
-          return { success: true };
-        })
-        .catch((e) => {
-          return {
-            success: false,
-            message: e,
-          };
-        });
-    },
-
-    /** 마이페이지 프로필 업데이트 */
-    editProfile: async (_: any, { profile }: any) => {
-      console.log(`edit profile!`);
-      const { nickname, file } = await profile;
-      const { filename } = await file;
-      console.log(file);
-      console.log(`file name : ${filename}`);
-
-      return await true;
-    },
-
     /** 마일리지Log 등록 (21-9-3:유성현) */
     saveMileage: (_: any, mileageData: IMileage) => SaveMileageLog(mileageData),
   },
