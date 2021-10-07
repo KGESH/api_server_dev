@@ -34,7 +34,6 @@ type User {
   average_star: Float,
   home_tag_list: [String],
   map_tag_list: [String],
-  member: Int,
 }
 
 # 유저 하위 데이터 (소지한 카드 정보) #
