@@ -13,6 +13,15 @@ export const UpdateReviewCount = async (id: number, review_count: number) => {
 export const UpdateRefreshToken = async (id: number, refresh_token: string) => {
   return await UserModel.updateOne({ id }, { refresh_token });
 };
-export const DeleteRefreshTokenInUser = async (id: number) => {
-  //return await UserModel.findOneAndDelete();
+
+export const UpdateProfile = async (id: number, nickname: string, imageUrl: string) => {
+  return await UserModel.updateOne({ id }, { nickname, profile_img: imageUrl });
+};
+
+export const UpdateNickname = async (id: number, nickname: string) => {
+  return await UserModel.updateOne({ id }, { nickname });
+};
+
+export const UpdateProfileImage = async (id: number, imageUrl: string) => {
+  return await UserModel.updateOne({ id }, { profile_img: imageUrl });
 };

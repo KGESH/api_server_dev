@@ -9,8 +9,9 @@ type Mutation {
   getKakaoUserByJwt(jwt: String!): AuthUser
   authUser: AuthUser
   saveCardToUser(id: Int!, cafe_name: String!, code: String! card_img: String!): User
-  editProfile(profile: Profile): Boolean!
-
+  updateProfile(profile: Profile): Boolean!
+  updateNickname(nickname: String!): Boolean!
+  updateUserImage(file: Upload!): Boolean!
   getUserState(id: Int!): User
 }
 
@@ -47,5 +48,5 @@ type QR {
 
 input Profile {
   nickname: String,
-  file: [Upload]
+  file: Upload
 }

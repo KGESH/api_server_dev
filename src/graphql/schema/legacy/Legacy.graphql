@@ -1,8 +1,6 @@
 #### Query ####
 type Query {
-  #  리뷰
-  getReviewByKey(key: String!): Review
-
+ 
   #  마일리지
   getAllMileageLog: [MileageLog]
   getMileageByCafeId(cafe_id: Int!): [MileageLog]
@@ -12,45 +10,13 @@ type Query {
   getMileageByDateAndOwnerId(owner_id: Int! start_date: String! end_date: String!): [MileageLog]
   getMileageLogByClientId(client_id: Int!): [MileageLog]
 
-  uploads: [File]
-
-  #  해쉬태그
-  getAllHashTag: [HashTag]
-  getHashTagById(id: Int!): HashTag
-  getHashTagByName(name: String!): HashTag
-  getHashTagOverCount(count: Int!): [HashTag]
 }
 
-input Profile {
-  nickname: String,
-  file: [Upload]
-}
 #### Mutation ####
 type Mutation {
-#  리뷰
-  postReview(review: ReviewInput!): PostResponse!
-
-###  Cloud Storage에  업로드  ###
-###  Upload 타입은 아폴로 서버에 내장  ###
-  uploadImage(content: String!, hash_tag_list: [String], files: [Upload]!): File!
 
   # 마일리지
   saveMileage(cafe_name:String!, menu_name: String!, price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
-}
-
-### 유저 ###
-### 카카오 프로필 이미지 속성 추가 ###
-type AuthUser {
-  user: User!,
-  jwt: String!
-}
-
-# 유저 하위 데이터 (소지한 카드 정보) #
-type QR {
-  cafe_name: String!,
-  code: String!,
-  card_img: String!,
-  visit_times: Int,
 }
 
 ### 마일리지 로그 ###
@@ -64,14 +30,4 @@ type MileageLog {
   mileage: Int!,
   review: String,
   visit_times: Int,
-}
-
-# apollo 기본 탑재
-# 파일 업로드시 필요
-scalar Upload
-
-type File {
-  filename: String!,
-  mimetype: String!,
-  encoding: String!,
 }
