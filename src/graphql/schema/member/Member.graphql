@@ -5,13 +5,14 @@ type Query {
 
 type Mutation {
   getMemberByIdForMutation(id: Int!): Member
+  getMemberOrSaveMember(id: Int! name: String email: String): Member
   saveMember(id: Int! name: String!, email: String): Member
 }
 
 type Member {
   id: Int!,
-  name: String!,
-  email: String!,
+  name: String,
+  email: String,
   refresh_token: String,
   member: Int,
 }
