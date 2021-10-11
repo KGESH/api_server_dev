@@ -14,7 +14,7 @@ type Query {
 
 type Mutation {
   # 카페
-  saveStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!,  staff_phone: String!, staff_position: String!): Cafe
+  saveStaff(cafe_id: Int!, staff_id: Int!, staff_name: String!, staff_phone: String!, staff_position: String!): Cafe
   permitStaff(cafe_id: Int!, staff_id: Int!): Cafe
   deleteStaff(cafe_id: Int!, staff_id: Int!): Cafe
   updateCafeDesc(cafe_id: Int!, introduction: String, beans: String, phone: String): Cafe
