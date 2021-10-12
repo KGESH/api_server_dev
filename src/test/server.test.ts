@@ -48,7 +48,7 @@ afterAll(async () => {
 describe('This is Test DB Example', () => {
   it('should be find jee', async () => {
     const user: any = await FindUserByName('jee');
-    console.log(user);
+    // console.log(user);
     expect(user.name).toBe('jee');
   });
 });

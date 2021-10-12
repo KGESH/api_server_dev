@@ -1,4 +1,4 @@
-import {gql} from "apollo-server-express";
+import { gql } from 'apollo-server-express';
 
 // query
 
@@ -7,6 +7,13 @@ export const GET_CAFE_BY_CAFE_ID = gql`
     getCafeByCafeId(cafe_id: $cafe_id) {
       cafe_id
       owner_id
+      staff {
+        staff_id
+        staff_name
+        staff_phone
+        staff_position
+        enroll
+      }
     }
   }
 `;
@@ -78,7 +85,31 @@ export const SAVE_STAFF = gql`
         staff_name
         staff_phone
         staff_position
+        enroll
       }
+    }
+  }
+`;
+
+export const ENROLL_STAFF = gql`
+  mutation ($cafe_id: Int!, $staff_id: Int!) {
+    permitStaff(cafe_id: $cafe_id, staff_id: $staff_id) {
+      cafe_id
+      staff {
+        staff_id
+        staff_name
+        staff_phone
+        staff_position
+        enroll
+      }
+    }
+  }
+`;
+
+export const DELETE_STAFF = gql`
+  mutation ($cafe_id: Int!, $staff_id: Int!) {
+    deleteStaff(cafe_id: $cafe_id, staff_id: $staff_id) {
+      cafe_id
     }
   }
 `;

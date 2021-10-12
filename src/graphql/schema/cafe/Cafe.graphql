@@ -52,27 +52,26 @@ type Mutation {
 }
 
 type Cafe {
-  _id: ID,
   cafe_id: Int!,
   owner_id: Int!,
   location: Int,
-  cafe_info: CafeInfo!,
-  discount_rate: DiscountRate!,
-  point_fluc: Int!,
+  cafe_info: CafeInfo,
+  discount_rate: DiscountRate,
+  point_fluc: Int,
   staff: [Staff_data], # (21-9-11수정: 유성현)
 }
 
 # 카페 하위 데이터 (카페 정보) #
 type CafeInfo {
-  cafe_name: String!,
+  cafe_name: String,
   beans: String,
-  location: String!,
-  address: String!,
-  address_detail: String!,
-  phone: String!,
-  card_img: String!,
+  location: String,
+  address: String,
+  address_detail: String,
+  phone: String,
+  card_img: String,
   cafe_img: [String],
-  like: Int!,
+  like: Int,
   introduction: String,
 }
 
@@ -85,11 +84,11 @@ type DiscountRate {
 
 # 카페 하위 데이터 (직원 정보) #  (21-9-11수정:유성현)
 type Staff_data {
-  staff_id: Int!,
-  staff_name: String!,
-  staff_phone: String!,
-  staff_position: String!,
-  enroll: Boolean!,
+  staff_id: Int,
+  staff_name: String,
+  staff_phone: String,
+  staff_position: String,
+  enroll: Boolean,
 }
 
 ### 카페 메뉴 데이터 ###
