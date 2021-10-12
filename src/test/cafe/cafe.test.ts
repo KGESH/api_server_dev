@@ -1,9 +1,11 @@
 import { ConnectTestDB, DisConnectTestDB, ClearDB } from '@test/TestDB';
 import { ITestServer, TestServer } from '@util/server-config/TestConfig';
 import {
+  ADD_CATEGORY, ADD_MENU,
   DELETE_STAFF,
   ENROLL_STAFF,
   GET_CAFE_BY_CAFE_ID,
+  GET_MENU_BY_CAFE_ID,
   SAVE_STAFF,
   SAVE_TEMP_CAFE,
 } from '@test/cafe/GqlRepository';
@@ -94,26 +96,61 @@ describe('카페 통합 테스트', () => {
         query: GET_CAFE_BY_CAFE_ID,
         variables: { cafe_id: 10 },
       });
-      console.log(data?.getCafeByCafeId?.staff[0]);
       expect(data?.getCafeByCafeId?.staff[0]).toBe(undefined);
     });
   });
 
-  // describe('메뉴 등록 및 삭제', () => {
-  //   it('메뉴 스카마 생성 확인', async () => {
-  //     expect(1).toBe(1);
-  //   });
-  //   it('카테고리 추가', async () => {
-  //     expect(1).toBe(1);
-  //   });
-  //   it('메뉴 추가', async () => {
-  //     expect(1).toBe(1);
-  //   });
-  //   it('메뉴 수정', async () => {
-  //     expect(1).toBe(1);
-  //   });
-  //   it('메뉴 삭제', async () => {
-  //     expect(1).toBe(1);
-  //   });
-  // });
+  describe('메뉴 등록 및 삭제', () => {
+    it('메뉴 스카마 생성 확인', async () => {
+      const { data } = await server.apolloServer.executeOperation({
+        query: GET_MENU_BY_CAFE_ID,
+        variables: { cafe_id: 10 },
+      });
+      expect(data?.getMenuByCafeId?.cafe_id).toBe(10);
+    });
+    it('카테고리 추가', async () => {
+      await server.apolloServer.executeOperation({
+        query: ADD_CATEGORY,
+        variables: { cafe_id: 10, title: '카테고리A' },
+      });
+      const { data } = await server.apolloServer.executeOperation({
+        query: GET_MENU_BY_CAFE_ID,
+        variables: { cafe_id: 10 },
+      });
+      expect(data?.getMenuByCafeId?.title[0]).toBe('카테고리A');
+    });
+    it('메뉴 추가', async () => {
+      await server.apolloServer.executeOperation({
+        query: ADD_MENU,
+        variables: { cafe_id: 10, link: '카테고리A', menu_name: '카푸치노', beans: '원두', price: 2500 },
+      });
+      const { data } = await server.apolloServer.executeOperation({
+        query: GET_MENU_BY_CAFE_ID,
+        variables: { cafe_id: 10 },
+      });
+      expect(data?.getMenuByCafeId?.menu[0]?.menu_name).toBe('카푸치노');
+    });
+    it('메뉴 수정', async () => {
+      // await server.apolloServer.executeOperation({
+      //   query: ADD_CATEGORY,
+      //   variables: { cafe_id: 10, title: '카테고리A' },
+      // });
+      // const { data } = await server.apolloServer.executeOperation({
+      //   query: GET_MENU_BY_CAFE_ID,
+      //   variables: { cafe_id: 10 },
+      // });
+      expect(1).toBe(1);
+    });
+    it('메뉴 삭제', async () => {
+      // await server.apolloServer.executeOperation({
+      //   query: ADD_CATEGORY,
+      //   variables: { cafe_id: 10, title: '카테고리A' },
+      // });
+      // const { data } = await server.apolloServer.executeOperation({
+      //   query: GET_MENU_BY_CAFE_ID,
+      //   variables: { cafe_id: 10 },
+      // });
+      expect(1).toBe(1);
+    });
+  });
 });

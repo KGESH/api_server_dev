@@ -1,7 +1,7 @@
 import { CafeModel, DummyModel } from '@db/cafe/CafeModel';
 import { UserModel } from '@db/user/UserModel';
 import { MenuModel } from '@db/menu/MenuModel';
-import {MemberModel} from "@db/member/MemberModel";
+import { MemberModel } from '@db/member/MemberModel';
 
 export const SaveTempCafe = async (dummy: any) => {
   const {

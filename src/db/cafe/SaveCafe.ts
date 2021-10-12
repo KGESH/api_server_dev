@@ -1,4 +1,5 @@
 import { CafeModel } from '@db/cafe/CafeModel';
+import { MenuModel } from '@db/menu/MenuModel';
 
 export interface ISaveStaff {
   cafe_id: number;
@@ -20,5 +21,7 @@ export const SaveStaff = async (staffData: ISaveStaff) => {
 
 export const TestSaveCafe = async (params: any) => {
   const newCafe = new CafeModel(params);
+  const newMenu = new MenuModel({ cafe_id: params.cafe_id });
   await newCafe.save();
-}
+  await newMenu.save();
+};

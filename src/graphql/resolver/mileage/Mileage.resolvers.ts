@@ -1,8 +1,3 @@
-import { ExistCafeNameInUser, FindAllUser, FindUserById, FindUserByName } from '@db/user/FindUser';
-import { GraphQLUpload } from 'graphql-upload';
-import { SaveCardToUser, UpdateReviewCount } from '@db/user/FindAndUpdateUser';
-import { VerifyUser } from '@auth/Jwt';
-import { SaveReview } from '@db/review/SaveReview';
 import {
   FindMileageLogByClientId,
   GetMileageByCafeId,
@@ -11,16 +6,8 @@ import {
   GetMileageByDateAndOwnerId,
   GetMileageByOwnerId,
 } from '@db/mileage/FindMileage';
-import { UploadReviewImage } from '@gcp/CloudStorage';
 import { SaveMileageLog } from '@db/mileage/SaveMileage';
 import { IMileage, MileageModel } from '@db/mileage/MileageModel';
-import {
-  FindAllHashTag,
-  FindHashTagById,
-  FindHashTagByName,
-  FindHashTagOverCount,
-} from '@db/hashtag/FindHashTag';
-import { IHashTag } from '@src/db/hashtag/HashTagModel';
 
 export default {
   Query: {
