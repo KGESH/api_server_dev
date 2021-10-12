@@ -6,7 +6,6 @@ import {
   UpdateProfile,
 } from '@db/user/FindAndUpdateUser';
 import { VerifyUser } from '@auth/Jwt';
-import { UserModel } from '@db/user/UserModel';
 import { UploadProfileImage } from '@gcp/CloudStorage';
 
 export default {
@@ -48,7 +47,7 @@ export default {
     /** 해당 id를 가지고있는 user에게 카드 발급 (21-08-20:유성현) */
     saveCardToUser: (_: any, params: any) => SaveCardToUser(params),
     /** 비즈니스 앱 사용자의 상태 판별 조회 (21-10-6:유성현) */ // render 할 때가 아닌 현 시점이므로 Mutation 사용
-    getUserState: (_: any, { id }: any) => UserModel.findOne({ id }),
+    getUserByIdMutation: (_: any, { id }: any) => FindUserById(id),
 
     /**
      * 리턴값 어떻게 줄지 고민중

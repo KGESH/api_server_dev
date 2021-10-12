@@ -1,6 +1,7 @@
 import { CafeModel, DummyModel } from '@db/cafe/CafeModel';
 import { UserModel } from '@db/user/UserModel';
 import { MenuModel } from '@db/menu/MenuModel';
+import {MemberModel} from "@db/member/MemberModel";
 
 export const SaveTempCafe = async (dummy: any) => {
   const {
@@ -27,7 +28,7 @@ export const SaveTempCafe = async (dummy: any) => {
     const data = new DummyModel({ ...newBody });
     await data.save();
     // 카페 등록하면 db.users.user.member의 상태도 업데이트 해주어야 함
-    await UserModel.findOneAndUpdate({ id: owner_id }, { $set: { member: 200 } });
+    await MemberModel.findOneAndUpdate({ id: owner_id }, { $set: { member: 200 } });
     return data;
   } catch (err) {
     console.log(err);

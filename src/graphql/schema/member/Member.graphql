@@ -1,0 +1,18 @@
+type Query {
+  getAllMembers: [Member]
+  getMemberById(id: Int!): Member
+}
+
+type Mutation {
+  getMemberByIdForMutation(id: Int!): Member
+  getMemberOrSaveMember(id: Int! name: String email: String): Member
+  saveMember(id: Int! name: String!, email: String): Member
+}
+
+type Member {
+  id: Int!,
+  name: String,
+  email: String,
+  refresh_token: String,
+  member: Int,
+}

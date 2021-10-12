@@ -78,7 +78,7 @@ const menuSchema = new Schema({
 });
 
 const menuListSchema = new Schema({
-  title: String,
+  title: { type: [String] },
   menu: [menuSchema],
 });
 
@@ -86,7 +86,7 @@ const menuListSchema = new Schema({
  * 카페 스키마
  * */
 const cafeSchema = new Schema<ICafe>({
-  cafe_id: Number!,
+  cafe_id: { type: Number, required: true, unique: true },
   owner_id: Number!,
   cafe_info: cafeInfoSchema!,
   discount_rate: discountRateSchema!,

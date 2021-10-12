@@ -5,14 +5,14 @@ import {
   FindCafeByStaffId,
 } from '@db/cafe/FindCafe';
 import { ICafe } from '@db/cafe/CafeModel';
-import { FindDummyData } from '@db/temp-cafe/FindDummy';
+import { FindDummyData } from '@db/temp-cafe/FindTempCafe';
 import { IMenu } from '@db/menu/MenuModel';
 import { FindMenuList } from '@db/menu/FindMenu';
 import { ISaveStaff, SaveStaff } from '@db/cafe/SaveCafe';
 import { DeleteStaff, PermitStaff, UpdateCafeDesc } from '@db/cafe/UpdateCafe';
 import { AddCategory, DeleteCategory, DeleteMenu, SaveMenu, UpdateMenu } from '@db/menu/UpdateMenu';
-import { PermitEnroll, SaveTempCafe } from '@db/temp-cafe/SaveDummy';
-import { DeleteTempCafe } from '@db/temp-cafe/DeleteDummy';
+import { PermitEnroll, SaveTempCafe } from '@db/temp-cafe/SaveTempCafe';
+import { DeleteTempCafe } from '@db/temp-cafe/UpdateTempCafe';
 
 export default {
   Query: {

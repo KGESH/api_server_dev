@@ -1,5 +1,5 @@
-import { PermitEnroll } from '@db/temp-cafe/SaveDummy';
-import { DeleteTempCafe } from '@db/temp-cafe/DeleteDummy';
+import { PermitEnroll } from '@db/temp-cafe/SaveTempCafe';
+import { DeleteTempCafe } from '@db/temp-cafe/UpdateTempCafe';
 import { UpdateBizNotice } from '@db/business-manage/SaveBizManage';
 import { IBizM } from '@db/business-manage/BizManageModel';
 import { FindBizManage } from '@db/business-manage/FindBizManage';

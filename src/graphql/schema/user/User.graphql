@@ -9,6 +9,9 @@ type Mutation {
   getKakaoUserByJwt(jwt: String!): AuthUser
   authUser: AuthUser
   saveCardToUser(id: Int!, cafe_name: String!, code: String! card_img: String!): User
+  editProfile(profile: Profile): Boolean!
+
+  getUserByIdMutation(id: Int!): User
   updateProfile(profile: Profile): Boolean!
   updateNickname(nickname: String!): Boolean!
   updateUserImage(file: Upload!): Boolean!
@@ -35,7 +38,6 @@ type User {
   average_star: Float,
   home_tag_list: [String],
   map_tag_list: [String],
-  member: Int,
 }
 
 # 유저 하위 데이터 (소지한 카드 정보) #
