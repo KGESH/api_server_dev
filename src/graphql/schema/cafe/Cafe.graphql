@@ -32,15 +32,7 @@ type Mutation {
     gold: Int,
     vip: Int): Cafe
   deleteTempCafe(_id: ID!): Cafe
-  enrollCafe(
-    location: String,
-    owner_id: Int!,
-    phone: String,
-    cafe_name: String,
-    address: String,
-    silver: Int,
-    gold: Int,
-    vip: Int): Cafe
+  enrollCafe(cafe_id: Int!, owner_id: Int!): Cafe
 
   # 메뉴 추가 & 삭제 & 수정
   saveMenu(cafe_id: Int! link: String! menu_name: String! beans: String! price: Int!): Menu_list

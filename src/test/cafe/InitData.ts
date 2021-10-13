@@ -1,5 +1,3 @@
-import { CafeModel } from '@db/cafe/CafeModel';
-
 export const init_cafe_data = {
   cafe_id: 10,
   owner_id: 11,

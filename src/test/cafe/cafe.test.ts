@@ -1,7 +1,8 @@
 import { ConnectTestDB, DisConnectTestDB, ClearDB } from '@test/TestDB';
 import { ITestServer, TestServer } from '@util/server-config/TestConfig';
 import {
-  ADD_CATEGORY, ADD_MENU,
+  ADD_CATEGORY,
+  ADD_MENU,
   DELETE_STAFF,
   ENROLL_STAFF,
   GET_CAFE_BY_CAFE_ID,
@@ -28,28 +29,28 @@ afterAll(async () => {
 });
 
 describe('카페 통합 테스트', () => {
-  describe('회원 등록 및 카페 개설', () => {
-    it('정회원 카페 등록', async () => {
-      // given
-      await server.apolloServer.executeOperation({
-        query: SAVE_TEMP_CAFE,
-        variables: { owner_id: 1, name: '김철수', cafe_name: '카페A', address: '상암동' },
-      });
-      // then
-      const result = await DummyModel.exists({ 'cafe_info.cafe_name': '카페A' });
-      expect(result).toBe(true);
-    });
-
-    it('정회원&카페 등록 승인', async () => {
-      /** mutation 수정 후 테스트 실행 */
-      expect(1).toBe(1);
-    });
-
-    it('카페 삭제', async () => {
-      // 함수가 존재하지 않음
-      expect(1).toBe(1);
-    });
-  });
+  // describe('회원 등록 및 카페 개설', () => {
+  //   it('정회원 카페 등록', async () => {
+  //     // given
+  //     await server.apolloServer.executeOperation({
+  //       query: SAVE_TEMP_CAFE,
+  //       variables: { owner_id: 1, name: '김철수', cafe_name: '카페A', address: '상암동' },
+  //     });
+  //     // then
+  //     const result = await DummyModel.exists({ 'cafe_info.cafe_name': '카페A' });
+  //     expect(result).toBe(true);
+  //   });
+  //
+  //   it('정회원&카페 등록 승인', async () => {
+  //     /** mutation 수정 후 테스트 실행 */
+  //     expect(1).toBe(1);
+  //   });
+  //
+  //   it('카페 삭제', async () => {
+  //     // 함수가 존재하지 않음
+  //     expect(1).toBe(1);
+  //   });
+  // });
 
   describe('직원 등록 및 관리', () => {
     it('직원 등록 요청', async () => {
@@ -122,7 +123,13 @@ describe('카페 통합 테스트', () => {
     it('메뉴 추가', async () => {
       await server.apolloServer.executeOperation({
         query: ADD_MENU,
-        variables: { cafe_id: 10, link: '카테고리A', menu_name: '카푸치노', beans: '원두', price: 2500 },
+        variables: {
+          cafe_id: 10,
+          link: '카테고리A',
+          menu_name: '카푸치노',
+          beans: '원두',
+          price: 2500,
+        },
       });
       const { data } = await server.apolloServer.executeOperation({
         query: GET_MENU_BY_CAFE_ID,
