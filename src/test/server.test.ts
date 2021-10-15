@@ -1,12 +1,11 @@
-import { ApolloServer, ExpressContext } from 'apollo-server-express';
 import { ConnectTestDB, DisConnectTestDB, ClearDB } from '@test/TestDB';
 import { ITestServer, TestServer } from '@util/server-config/TestConfig';
 import { gql } from 'apollo-server-express';
 import { IUser } from '@db/user/UserModel';
 import { SaveUser } from '@db/user/SaveUser';
 import { FindUserByName } from '@db/user/FindUser';
+import { server } from '@test/TestServer';
 
-let server: ITestServer;
 const TEST_QUERY = gql`
   query getUserById($id: Int!) {
     getUserById(id: $id) {

@@ -1,8 +1,12 @@
 import { ConnectTestDB, DisConnectTestDB, ClearDB } from '@test/TestDB';
 import { ITestServer, TestServer } from '@util/server-config/TestConfig';
-import {GET_CAFE_BY_CAFE_ID, GET_TEMP_CAFES, SAVE_STAFF, SAVE_TEMP_CAFE} from "@test/cafe/GqlRepository";
-import {SaveCafe} from "@test/cafe/InitData";
-
+import {
+  GET_CAFE_BY_CAFE_ID,
+  GET_TEMP_CAFES,
+  SAVE_STAFF,
+  SAVE_TEMP_CAFE,
+} from '@test/cafe/GqlRepository';
+import { SaveCafe } from '@test/cafe/InitData';
 
 let server: ITestServer;
 
@@ -27,7 +31,7 @@ describe('카페 통합 테스트', () => {
       const { data } = await server.apolloServer.executeOperation({
         query: GET_TEMP_CAFES,
       });
-      expect(data.getTempCafe[0].cafe_info.cafe_name).toBe('카페A');
+      expect(data?.getTempCafe[0].cafe_info.cafe_name).toBe('카페A');
     });
 
     it('정회원&카페 등록 승인', async () => {
