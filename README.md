@@ -10,7 +10,7 @@
 
 ## Run
 <pre>
-  npm start
+npm start
 </pre>
 
 ## Build
