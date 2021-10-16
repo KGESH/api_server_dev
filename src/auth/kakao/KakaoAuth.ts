@@ -7,7 +7,7 @@ export const KakaoAuth = async (code: string) => {
   const urlParams: any = new URLSearchParams({
     grant_type: 'authorization_code',
     client_id: 'a5425f765fe84a925039fada5e2cd80c',
-    redirect_uri: 'http://localhost:4010/auth/kakao/KakaoCallback',
+    redirect_uri: 'http://34.64.157.141:4010/auth/kakao/KakaoCallback',
     code,
   });
 
