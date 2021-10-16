@@ -1,15 +1,24 @@
 pipeline {
   agent any
   stages {
-    stage('git') {
+    stage('git pull') {
       steps {
         sh '''cd /home/api_server_dev
 
 git pull origin dockerize
 
-ls
-pwd
-whoami'''
+cat README.md
+
+'''
+      }
+    }
+
+    stage('docker build push') {
+      steps {
+        sh 'docker build -t baram987/api_server_dev .'
+        sh '''docker images
+
+docker baram987/api_server_dev'''
       }
     }
 
