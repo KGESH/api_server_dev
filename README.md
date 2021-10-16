@@ -16,12 +16,13 @@ npm start
 ## Management
 - Jenkins
   - http://34.64.157.141:8080/
-  
+
 - Portainer
   - http://34.64.157.141:9000/
 
 
 ## Build
+  - push main branch
 
 
 ## Deploy
