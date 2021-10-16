@@ -18,7 +18,7 @@ cat README.md
         sh 'docker build -t baram987/api_server_dev .'
         sh '''docker images
 
-docker baram987/api_server_dev'''
+docker push baram987/api_server_dev'''
       }
     }
 
