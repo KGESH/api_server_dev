@@ -7,8 +7,8 @@ pipeline {
 
 git pull origin dockerize
 
-cat README.md
 
+npm install
 '''
       }
     }
