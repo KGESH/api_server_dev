@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 4010
 
-CMD npm run docker:test
+CMD npm run server

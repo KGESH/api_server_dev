@@ -11,7 +11,7 @@
     "prebuild": "mkdir -p dist/graphql && cp -r src/graphql/schema dist/graphql/schema",
     "build": "tsc --build",
     "test": "jest",
-    "docker:test": "node dist/server.js"
+    "server": "npm run build && node dist/server.js"
   },
   "_moduleAliases": {
     "@src": "dist",

@@ -14,8 +14,14 @@ pipeline {
       steps {
         sh '''cd /home/api_server_dev
             git pull origin main
-            npm install
             '''
+      }
+    }
+
+    stage('build app') {
+      steps {
+        sh 'npm install'
+        sh 'npm run build'
       }
     }
 
