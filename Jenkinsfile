@@ -40,7 +40,7 @@ pipeline {
 
     stage('docker run') {
       steps {
-        sh 'docker run -d -p 4010:4010 --name api_server baram987/api_server_dev'
+        sh 'docker run -d --rm -p 4010:4010 --name api_server baram987/api_server_dev'
       }
     }
   }

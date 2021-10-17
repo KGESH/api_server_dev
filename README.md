@@ -3,20 +3,29 @@
 ---
 
 ## Description
-현재 백엔드 컨테이너화 작업중...
+백엔드 배포 자동화 진행중
 
 ## Environment
 
 
 ## Run
 
-- #### Dev
+- #### Local Dev
 <pre>
 npm start
 </pre>
 
-- #### Build
+
+- #### Build & Deploy
 <pre>
+git push origin main
+</pre>
+
+
+- #### Only Build
+아직 미완성
+<pre>
+git push origin build
 </pre>
 
 ## Management
@@ -25,13 +34,6 @@ npm start
 
 - Portainer
   - http://34.64.157.141:9000/
-
-
-## Build
-  - push dockerize branch
-
-
-## Deploy
 
 
 ## Stack
