@@ -9,8 +9,14 @@
 
 
 ## Run
+
+- #### Dev
 <pre>
 npm start
+</pre>
+
+- #### Build
+<pre>
 </pre>
 
 ## Management
