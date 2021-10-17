@@ -3,18 +3,18 @@ pipeline {
   tools {nodejs "node14"}
 
   stages {
-    stage('npm') {
+    stage('npm check') {
       steps {
       sh '''npm -v
-      node -v
-    '''
+
+      node -v'''
 
       }
     }
     stage('git pull') {
       steps {
         sh '''cd /home/api_server_dev
-git pull origin build-path
+git pull origin build
 
 
 npm install
@@ -22,12 +22,14 @@ npm install
       }
     }
 
-    stage('docker build push') {
+    stage('docker build & push') {
       steps {
         sh 'docker build -t baram987/api_server_dev .'
-        sh '''docker images
+        sh 'docker images'
+      }
 
-docker push baram987/api_server_dev'''
+      steps {
+        sh 'docker push baram987/api_server_dev'
       }
     }
 
