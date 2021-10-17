@@ -8,7 +8,7 @@ COPY package*.json ./
 
 RUN npm install --silent
 
-COPY ./dist .
+COPY . .
 
 EXPOSE 4010
 
