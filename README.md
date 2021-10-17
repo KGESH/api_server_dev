@@ -22,8 +22,7 @@ npm start
 
 
 ## Build
-<pre>
-</pre>
+  - push dockerize branch
 
 
 ## Deploy
