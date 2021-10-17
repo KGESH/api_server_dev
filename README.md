@@ -22,7 +22,7 @@ git push origin main
 </pre>
 
 
-- #### Only Build
+- #### Build & Test
 아직 미완성
 <pre>
 git push origin build
