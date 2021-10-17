@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",                             /* Base directory to resolve non-absolute module names. */
+    "outDir": "dist",                              /* Redirect output structure to the directory. */
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ],
+      "@db/*": [
+        "src/db/*"
+      ],
+      "@graphql/*": [
+        "src/graphql/*"
+      ],
+      "@auth/*": [
+        "src/auth/*"
+      ],
+      "@router/*": [
+        "src/router/*"
+      ],
+      "@gcp/*": [
+        "src/gcp/*"
+      ],
+      "@util/*": [
+        "src/util/*"
+      ],
+      "@test/*": [
+        "src/test/*"
+      ]
+    },                                 /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+  },
+}
