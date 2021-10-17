@@ -44,4 +44,11 @@ pipeline {
       }
     }
   }
+  post {
+    always {
+      echo 'Pipeline Done!'
+      sh 'Cleaning none tag images...'
+      sh 'docker rmi $(docker images -q -f dangling=true)'
+    }
+  }
 }
