@@ -10,28 +10,18 @@
     "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx}\"",
     "prebuild": "mkdir -p dist/graphql && cp -r src/graphql/schema dist/graphql/schema",
     "build": "tsc --build",
-    "test": "jest"
+    "test": "jest",
+    "docker:test": "node dist/server.js"
   },
   "_moduleAliases": {
     "@src": "dist",
     "@db": "dist/db",
-    "@graphql":"dist/graphql"
-    ,
-    "@auth": 
-      "dist/auth"
-    ,
-    "@router": 
-      "dist/router"
-    ,
-    "@gcp": 
-      "dist/gcp"
-,
-    "@util": 
-      "dist/util"
-    ,
-    "@test": 
-      "dist/test"
-    
+    "@graphql":"dist/graphql",
+    "@auth": "dist/auth",
+    "@router": "dist/router",
+    "@gcp": "dist/gcp",
+    "@util": "dist/util",
+    "@test": "dist/test"
   },
   "repository": {
     "type": "git",

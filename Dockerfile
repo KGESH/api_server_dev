@@ -8,8 +8,8 @@ COPY package*.json ./
 
 RUN npm install --silent
 
-COPY . .
+COPY ./dist .
 
 EXPOSE 4010
 
-CMD npm start
+CMD npm run docker:test
