@@ -6,19 +6,16 @@ pipeline {
     stage('npm check') {
       steps {
       sh '''npm -v
-
-      node -v'''
-
+        node -v'''
       }
     }
+
     stage('git pull') {
       steps {
         sh '''cd /home/api_server_dev
-git pull origin build
-
-
-npm install
-'''
+            git pull origin main
+            npm install
+            '''
       }
     }
 
@@ -33,5 +30,10 @@ npm install
       }
     }
 
+    stage('docker run') {
+      steps {
+        sh 'docker run -d -p 4010:4010 --name api_server baram987/api_server_dev'
+      }
+    }
   }
 }
