@@ -1,11 +1,20 @@
 pipeline {
   agent any
+  tools {nodejs "node14"}
+
   stages {
+    stage('npm') {
+      steps {
+      sh '''npm -v
+      node -v
+    '''
+
+      }
+    }
     stage('git pull') {
       steps {
         sh '''cd /home/api_server_dev
-
-git pull origin dockerize
+git pull origin build-path
 
 
 npm install
