@@ -19,15 +19,17 @@ pipeline {
       }
     }
 
-    stage('docker build & push') {
+    stage('docker build') {
       steps {
         sh 'docker build -t baram987/api_server_dev .'
         sh 'docker images'
       }
+    }
 
+    stage('docker push') {
       steps {
         sh 'docker push baram987/api_server_dev'
-      }
+      }      
     }
 
     stage('docker run') {
