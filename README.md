@@ -22,7 +22,8 @@ npm start
 
 
 ## Build
-  - push main branch
+<pre>
+</pre>
 
 
 ## Deploy
