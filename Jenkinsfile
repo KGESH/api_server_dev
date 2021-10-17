@@ -12,9 +12,9 @@ pipeline {
 
     stage('git pull') {
       steps {
-        sh '''cd /home/api_server_dev
-            git pull origin main
-            '''
+        sh 'cd /home/api_server_dev'
+        sh 'git fetch' 
+        sh 'git pull'
       }
     }
 
