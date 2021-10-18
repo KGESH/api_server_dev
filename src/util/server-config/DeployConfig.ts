@@ -12,6 +12,7 @@ import logger from 'morgan';
 export const DeployServer = async () => {
   MongoDB();
   const app = express();
+
   /**개발용 미들웨어 - request 로그들 콘솔에 찍어줌 */
   app.use(logger('dev'));
   app.use(graphqlUploadExpress());
@@ -29,13 +30,13 @@ export const DeployServer = async () => {
   });
 
   await server.start();
-  server.applyMiddleware({ app, path: '/graphql' });
+  server.applyMiddleware({ app, path: '/graphql', cors: false });
 
   await new Promise((resolve) =>
     httpServer.listen({ port: 4010 }, () => {
       console.log(`서버구동🚀🚀🚀 http://34.64.157.141/:4010/graphql`);
     }),
   );
-  console.log(`서버구동🚀🚀🚀 Done`);
+  console.log(`run server path: ${server.graphqlPath}`);
   return { server, app };
 };
