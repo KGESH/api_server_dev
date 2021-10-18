@@ -8,7 +8,6 @@ import { KakaoCallback } from '@auth/kakao/KakaoCallback';
 import { AuthContext } from '@auth/middle-ware/AuthContext';
 import http from 'http';
 import logger from 'morgan';
-import cors from 'cors';
 
 export const DeployServer = async () => {
   MongoDB();
@@ -16,7 +15,6 @@ export const DeployServer = async () => {
 
   /**개발용 미들웨어 - request 로그들 콘솔에 찍어줌 */
   app.use(logger('dev'));
-  app.use(cors({ origin: '*' }));
   app.use(graphqlUploadExpress());
   app.get('/auth/kakao/KakaoCallback', KakaoCallback);
   app.get('/test', (req: any, res: any) => {
