@@ -30,7 +30,11 @@ export const DeployServer = async () => {
   await server.start();
   server.applyMiddleware({ app, path: '/graphql' });
 
-  app.listen({ port: 4010 }, () =>
-    console.log(`서버구동🚀🚀🚀 http://34.64.157.141/:4010/graphql`),
+  await new Promise((resolve) =>
+    httpServer.listen({ port: 4010 }, () => {
+      console.log(`서버구동🚀🚀🚀 http://34.64.157.141/:4010/graphql`);
+    }),
   );
+  console.log(`서버구동🚀🚀🚀 Done`);
+  return { server, app };
 };
