@@ -34,15 +34,17 @@ pipeline {
 
     stage('docker build') {
       steps {
-        sh 'docker build -t baram987/api_server_dev .'
-        sh 'docker images'
+        echo 'docker login...'
+        script {
+          withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
+            sh '''
+                  echo "${password} | docker login -u ${username} --password-stdin"
+            '''
+            def app = docker.build("baram987/api_server_dev")
+            app.push("latest")
+          }
+        }
       }
-    }
-
-    stage('docker push') {
-      steps {
-        sh 'docker push baram987/api_server_dev'
-      }      
     }
   }
 
