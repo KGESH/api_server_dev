@@ -1,8 +1,8 @@
 import 'module-alias/register';
-import { DevServer } from '@src/util/server-config/DevConfig';
+import { DeployServer } from '@src/util/server-config/DeployConfig';
 
 const StartServer = async (serverConfig: any) => {
   await serverConfig();
 };
 
-StartServer(DevServer);
+StartServer(DeployServer);

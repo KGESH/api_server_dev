@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 4010
 
-CMD npm run server
+CMD npm run deploy
