@@ -24,7 +24,6 @@ npm start
 
 - #### Build & Deploy
   - Jenkins 컨테이너에서 빌드
-  - 문제없으면 remote main branch로 통합 (구현중)
   - 빌드, 통합 이후 서버 실행
 <pre>
 git push origin deploy
@@ -34,11 +33,12 @@ git push origin deploy
 - #### Build & Test
   - 아직 미완성
   - Jenkins 컨테이너에서 빌드
-  - 빌드 후 테스팅
-  - 서버는 실행하지 않음
+  - 빌드 후 테스팅만 진행
+  - 서버는 실행하지 않음!!!!
 <pre>
 git push origin build-test
 </pre>
+
 
 ## Management
 - Jenkins

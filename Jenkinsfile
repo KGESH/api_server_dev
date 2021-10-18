@@ -36,7 +36,6 @@ pipeline {
     stage('docker build') {
       steps {
         echo 'docker login..'
-        echo 'workspace is $WORKSPACE'
         script {
           withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
             sh '''
@@ -59,7 +58,6 @@ pipeline {
       echo 'Build success!'
       sh 'docker stop api_server || true'
       sh 'docker run -d --rm -p 4010:4010 --name api_server baram987/api_server_dev'
-      echo 'Push to origin main branch...'
     }
     
     failure {
