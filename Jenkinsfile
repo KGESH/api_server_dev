@@ -35,6 +35,7 @@ pipeline {
     stage('docker build') {
       steps {
         echo 'docker login..'
+        echo 'workspace is $WORKSPACE'
         script {
           withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
             sh '''
