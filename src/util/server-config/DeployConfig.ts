@@ -16,6 +16,9 @@ export const DeployServer = async () => {
   app.use(logger('dev'));
   app.use(graphqlUploadExpress());
   app.get('/auth/kakao/KakaoCallback', KakaoCallback);
+  app.get('/test', () => {
+    return 'hello world!';
+  });
 
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
