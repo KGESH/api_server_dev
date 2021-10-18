@@ -46,7 +46,3 @@ git push origin build-test
 - Portainer
   - http://34.64.157.141:9000/
 
-
-## Build
-
-
