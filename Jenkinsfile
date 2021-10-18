@@ -65,7 +65,7 @@ pipeline {
     }
     
     failure {
-      echo 'build fail!'
+      echo 'build fail!!'
     }
 
     cleanup {
