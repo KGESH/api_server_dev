@@ -19,8 +19,9 @@ pipeline {
     stage('git pull') {
       steps {
         sh 'cd /home/api_server_dev'
+        sh 'git checkout deploy'
         sh 'git fetch' 
-        sh 'git pull'
+        sh 'git pull origin deploy'
       }
     }
 
