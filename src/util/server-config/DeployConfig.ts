@@ -16,8 +16,9 @@ export const DeployServer = async () => {
   app.use(logger('dev'));
   app.use(graphqlUploadExpress());
   app.get('/auth/kakao/KakaoCallback', KakaoCallback);
-  app.get('/test', () => {
-    return 'hello world!';
+  app.get('/test', (req: any, res: any) => {
+    console.log('hello world!');
+    return res.redirect(`hello/4010!!`);
   });
 
   const httpServer = http.createServer(app);
