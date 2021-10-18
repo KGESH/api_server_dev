@@ -16,15 +16,9 @@ pipeline {
       }
     }
 
-    stage('git checkout') {
-      steps {
-        sh 'cd /home/api_server_dev'
-        sh 'git checkout deploy'
-      }
-    }
-
     stage('git pull') {
       steps {
+        sh 'cd /home/api_server_dev'
         sh 'git fetch' 
         sh 'git pull'
       }
@@ -52,12 +46,6 @@ pipeline {
   }
 
   post {
-    always {
-      echo 'Pipeline Done!'
-      echo 'Cleaning none tag images...'
-      sh 'docker rmi $(docker images -q -f dangling=true)'
-    }
-
     success {
       echo 'Build success!'
       sh 'docker stop api_server'
@@ -70,6 +58,12 @@ pipeline {
     
     failure {
       echo 'build fail!'
+    }
+
+    always {
+      echo 'Pipeline Done!'
+      echo 'Cleaning none tag images...'
+      sh 'docker rmi $(docker images -q -f dangling=true)'
     }
   }
 }
