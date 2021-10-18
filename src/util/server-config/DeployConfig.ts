@@ -16,7 +16,7 @@ export const DeployServer = async () => {
 
   /**개발용 미들웨어 - request 로그들 콘솔에 찍어줌 */
   app.use(logger('dev'));
-  app.use(cors());
+  app.use(cors({ origin: '*' }));
   app.use(graphqlUploadExpress());
   app.get('/auth/kakao/KakaoCallback', KakaoCallback);
   app.get('/test', (req: any, res: any) => {
@@ -32,7 +32,7 @@ export const DeployServer = async () => {
   });
 
   await server.start();
-  server.applyMiddleware({ app, path: '/graphql', cors: { origin: '*' } });
+  server.applyMiddleware({ app, path: '/graphql', cors: false });
 
   await new Promise((resolve) =>
     httpServer.listen({ port: 4010 }, () => {
