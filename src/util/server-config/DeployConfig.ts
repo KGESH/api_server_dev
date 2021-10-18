@@ -30,7 +30,7 @@ export const DeployServer = async () => {
   });
 
   await server.start();
-  server.applyMiddleware({ app, path: '/graphql', cors: false });
+  server.applyMiddleware({ app, path: '/graphql', cors: { origin: '*' } });
 
   await new Promise((resolve) =>
     httpServer.listen({ port: 4010 }, () => {
