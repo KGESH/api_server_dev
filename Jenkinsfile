@@ -39,7 +39,7 @@ pipeline {
         script {
           withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
             sh '''
-                  docker login -u ${username} -p ${password}
+            echo ${password} | docker login -u ${username} -p ${password}
             '''
             def app = docker.build("baram987/api_server_dev")
             app.push("latest")
