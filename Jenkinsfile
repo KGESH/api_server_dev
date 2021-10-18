@@ -45,12 +45,13 @@ pipeline {
     }
 
     success {
+      sh 'build success!'
       sh 'docker stop api_server'
       sh 'docker run -d --rm -p 4010:4010 --name api_server baram987/api_server_dev'
     }
     
     failure {
-      sh 'build fail'
+      sh 'build fail!'
       sh 'Cleaning none tag images...'
       sh 'docker rmi $(docker images -q -f dangling=true)'
     }
