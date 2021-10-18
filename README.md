@@ -36,7 +36,7 @@ git push origin deploy
   - 빌드 후 테스팅
   - 서버는 실행하지 않음
 <pre>
-git push origin build
+git push origin build-test
 </pre>
 
 ## Management
