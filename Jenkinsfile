@@ -55,6 +55,8 @@ pipeline {
       sh 'docker stop api_server'
       sh 'docker run -d --rm -p 4010:4010 --name api_server baram987/api_server_dev'
       echo 'Merge & Push main branch...'
+      sh 'git remote update'
+      sh 'git fetch'
       sh 'git checkout main'
       sh 'git merge deploy'
       sh 'git push origin main'
