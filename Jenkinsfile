@@ -19,6 +19,7 @@ pipeline {
     stage('git pull') {
       steps {
         sh 'cd /home/api_server_dev'
+        sh 'git remote update'
         sh 'git checkout deploy'
         sh 'git fetch' 
         sh 'git pull origin deploy'
@@ -59,9 +60,6 @@ pipeline {
       sh 'docker stop api_server || true'
       sh 'docker run -d --rm -p 4010:4010 --name api_server baram987/api_server_dev'
       echo 'Push to origin main branch...'
-      sh 'git remote update'
-      sh 'git fetch'
-      sh 'git push origin main'
     }
     
     failure {
