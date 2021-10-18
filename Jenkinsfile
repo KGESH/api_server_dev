@@ -46,6 +46,10 @@ pipeline {
   }
 
   post {
+    always {
+      echo 'Pipeline Done!'
+    }
+
     success {
       echo 'Build success!'
       sh 'docker stop api_server'
@@ -60,8 +64,7 @@ pipeline {
       echo 'build fail!'
     }
 
-    always {
-      echo 'Pipeline Done!'
+    cleanup {
       echo 'Cleaning none tag images...'
       sh 'docker rmi $(docker images -q -f dangling=true)'
     }
