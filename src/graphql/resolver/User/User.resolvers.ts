@@ -11,6 +11,7 @@ import { UploadProfileImage } from '@gcp/CloudStorage';
 export default {
   Query: {
     getAllUser: () => {
+      console.log(`test query!`);
       return FindAllUser();
     },
 
