@@ -10,7 +10,8 @@ import http from 'http';
 import logger from 'morgan';
 
 //export const IP = `34.64.157.141`;
-export const FRONT_WEB_RUL = `https://collabo-front-rstrcjinfq-du.a.run.app`;
+export const API_SERVER_URL = `https://api-server-rstrcjinfq-du.a.run.app`;
+export const FRONT_WEB_URL = `https://collabo-front-rstrcjinfq-du.a.run.app`;
 export const DeployServer = async () => {
   MongoDB();
   const app = express();

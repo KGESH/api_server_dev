@@ -4,7 +4,7 @@ import { SaveUser } from '@db/user/SaveUser';
 import { CheckExistUserById } from '@db/user/FindUser';
 import { UpdateRefreshToken } from '@db/user/FindAndUpdateUser';
 import { CreateRefreshToken, CreateToken } from '@auth/Jwt';
-import { FRONT_WEB_RUL } from '@src/util/server-config/DeployConfig';
+import { FRONT_WEB_URL } from '@src/util/server-config/DeployConfig';
 /**
  * Client가 카카오 로그인을 요청하고
  * 카카오 인증을 성공했을 때
@@ -15,7 +15,7 @@ import { FRONT_WEB_RUL } from '@src/util/server-config/DeployConfig';
  * Client에게 우리 서버 인증에 필요한 JWT 발급
  */
 export const KakaoCallback = async (req: any, res: any) => {
-  const REDIRECT_URL = `${FRONT_WEB_RUL}/Login/KakaoCallback`;
+  const REDIRECT_URL = `${FRONT_WEB_URL}/Login/KakaoCallback`;
   const { code, state } = req.query;
 
   console.log(`request from kakao!`);
