@@ -9,8 +9,8 @@ import { AuthContext } from '@auth/middle-ware/AuthContext';
 import http from 'http';
 import logger from 'morgan';
 
-export const GCP_IP = `34.64.157.141`;
-
+//export const IP = `34.64.157.141`;
+export const FRONT_WEB_RUL = `https://collabo-front-rstrcjinfq-du.a.run.app`;
 export const DeployServer = async () => {
   MongoDB();
   const app = express();
@@ -36,7 +36,7 @@ export const DeployServer = async () => {
 
   await new Promise((resolve) =>
     httpServer.listen({ port: 4010 }, () => {
-      console.log(`서버구동🚀🚀🚀 http://${GCP_IP}/:4010/graphql`);
+      console.log(`서버구동🚀🚀🚀 https://api-server-rstrcjinfq-du.a.run.app`);
       console.log(`run server path: ${server.graphqlPath}`);
     }),
   );
