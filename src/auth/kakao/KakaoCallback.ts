@@ -18,12 +18,16 @@ export const KakaoCallback = async (req: any, res: any) => {
   const REDIRECT_URL = `${FRONT_WEB_RUL}/Login/KakaoCallback`;
   const { code, state } = req.query;
 
+  console.log(`request from kakao!`);
+  console.log(code, state);
+
   try {
     const { access_token } = await KakaoAuth(code)
       .then((res) => res.json())
       .then((result) => result);
 
     const user = await GetUserData(access_token);
+    console.log(user);
     const userExist = await CheckExistUserById(user.id);
     const jwt = CreateToken(user);
     user.refresh_token = CreateRefreshToken(user.id);
