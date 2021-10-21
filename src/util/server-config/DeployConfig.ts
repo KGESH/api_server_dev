@@ -9,9 +9,10 @@ import { AuthContext } from '@auth/middle-ware/AuthContext';
 import http from 'http';
 import logger from 'morgan';
 
-//export const IP = `34.64.157.141`;
-export const API_SERVER_URL = `https://api-server-rstrcjinfq-du.a.run.app`;
-export const FRONT_WEB_URL = `https://collabo-front-rstrcjinfq-du.a.run.app`;
+export const API_SERVER_URL =
+  process.env.API_SERVER_URL || `https://api-server-rstrcjinfq-du.a.run.app`;
+export const FRONT_WEB_URL =
+  process.env.FRONT_WEB_URL || `https://collabo-front-rstrcjinfq-du.a.run.app`;
 export const DeployServer = async () => {
   MongoDB();
   const app = express();
@@ -20,10 +21,6 @@ export const DeployServer = async () => {
   app.use(logger('dev'));
   app.use(graphqlUploadExpress());
   app.get('/auth/kakao/KakaoCallback', KakaoCallback);
-  app.get('/test', (req: any, res: any) => {
-    console.log('hello world!');
-    return res.redirect(`hello/4010!!`);
-  });
 
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
@@ -36,9 +33,9 @@ export const DeployServer = async () => {
   server.applyMiddleware({ app, path: '/graphql' });
 
   await new Promise((resolve) =>
-    httpServer.listen({ port: 4010 }, () => {
-      console.log(`서버구동🚀🚀🚀 https://api-server-rstrcjinfq-du.a.run.app`);
-      console.log(`run server path: ${server.graphqlPath}`);
+    httpServer.listen({ port: process.env.PORT || 4010 }, () => {
+      console.log(`서버구동🚀🚀🚀 ${process.env.API_SERVER_URL}`);
+      console.log(`run graphql server path: ${server.graphqlPath}:${process.env.PORT}`);
     }),
   );
   return { server, app };
