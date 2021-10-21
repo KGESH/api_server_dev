@@ -2,7 +2,7 @@ import { API_SERVER_URL } from '@src/util/server-config/DeployConfig';
 import fetch from 'node-fetch';
 /**
  * 카카오 서버로부터 온 인증코드로 엑세스 토큰을 받음
- * gcp vm ip만 환경변수로 빼주는 작업 필요
+ * key들 환경변수로 빼주는 작업 필요
  */
 export const KakaoAuth = async (code: string) => {
   const urlParams: any = new URLSearchParams({
