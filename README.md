@@ -30,7 +30,7 @@ git push origin deploy
 - #### Build & Test
   - 아직 미완성
   - 빌드 후 테스팅만 진행
-  - 서버는 실행하지 않음
+  - 서버는 실행하지 않음!!
 <pre>
 git push origin build-test
 </pre>
