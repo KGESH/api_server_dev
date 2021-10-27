@@ -15,7 +15,7 @@ export const SaveReview = async (
 ) => {
   const testStar: IStar = {
     flavor: 10,
-    atmosphere: 10,
+    atmosphere: 10, // mood로 이름 변경 제안 (21-10-27:지성현)
     price: 10,
   };
 
