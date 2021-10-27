@@ -4,7 +4,7 @@ import { SaveUser } from '@db/user/SaveUser';
 import { CheckExistUserById } from '@db/user/FindUser';
 import { UpdateRefreshToken } from '@db/user/FindAndUpdateUser';
 import { CreateRefreshToken, CreateToken } from '@auth/Jwt';
-
+import { FRONT_WEB_URL } from '@src/util/server-config/DeployConfig';
 /**
  * Client가 카카오 로그인을 요청하고
  * 카카오 인증을 성공했을 때
@@ -15,8 +15,11 @@ import { CreateRefreshToken, CreateToken } from '@auth/Jwt';
  * Client에게 우리 서버 인증에 필요한 JWT 발급
  */
 export const KakaoCallback = async (req: any, res: any) => {
-  const REDIRECT_URL = 'http://localhost:3000/Login/KakaoCallback';
+  const REDIRECT_URL = `${FRONT_WEB_URL}/Login/KakaoCallback`;
   const { code, state } = req.query;
+
+  console.log(`request from kakao!`);
+  console.log(code, state);
 
   try {
     const { access_token } = await KakaoAuth(code)
@@ -24,6 +27,7 @@ export const KakaoCallback = async (req: any, res: any) => {
       .then((result) => result);
 
     const user = await GetUserData(access_token);
+    console.log(user);
     const userExist = await CheckExistUserById(user.id);
     const jwt = CreateToken(user);
     user.refresh_token = CreateRefreshToken(user.id);
@@ -36,7 +40,7 @@ export const KakaoCallback = async (req: any, res: any) => {
     }
 
     return await res.redirect(`${REDIRECT_URL}/?jwt=${jwt}`);
-  } catch (err) {
+  } catch (err: any) {
     console.log(`state: ${state}`);
     throw new Error(err);
   }

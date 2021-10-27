@@ -1,5 +1,4 @@
 import { VerifyUser } from '@auth/Jwt';
-import { IAuthUser } from '@db/user/UserModel';
 
 /**
  * 인증 미들웨어
