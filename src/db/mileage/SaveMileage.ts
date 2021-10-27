@@ -9,8 +9,8 @@ export const SaveMileageLog = (mileageData: IMileage) => {
 };
 
 export const 마일리지_등록 = async (params: any) => {
-  let saveRate: number = 0;
-  let reserves: number = 0;
+  let saveRate = 0;
+  let reserves = 0;
   // 마일리지 데이터( 사용자 nickname, id, price, 사업자 아이디, 카페 이름 ...)
   const { staff_id, client_id, price, nickname, cafe_id, cafe_name, menu_name } = params;
   // 사용자 등급에 해당하는 마일리지 적립율을 해당 카페에서 받아온 후
@@ -22,10 +22,13 @@ export const 마일리지_등록 = async (params: any) => {
   switch (userData.data.rating) {
     case 'silver':
       saveRate = saveRateData.silver;
+      break;
     case 'gold':
       saveRate = saveRateData.gold;
+      break;
     case 'vip':
       saveRate = saveRateData.vip;
+      break;
   }
 
   // 적립금 = 메뉴 가격 * 적립율

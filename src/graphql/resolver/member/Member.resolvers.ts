@@ -33,5 +33,9 @@ export default {
     getMemberByIdForMutation: (_: any, { id }: any) => FindMemberById(id),
     getMemberOrSaveMember: (_: any, params: any) => FindOrSaveMember(params),
     saveMember: (_: any, params: any) => SaveMember(params),
+
+    authMember: async (_: any, __: any, { authMember }: any) => {
+      return await authMember;
+    },
   },
 };

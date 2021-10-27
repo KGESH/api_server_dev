@@ -16,7 +16,7 @@
   "_moduleAliases": {
     "@src": "dist",
     "@db": "dist/db",
-    "@graphql":"dist/graphql",
+    "@graphql": "dist/graphql",
     "@auth": "dist/auth",
     "@router": "dist/router",
     "@gcp": "dist/gcp",
