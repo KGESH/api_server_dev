@@ -1,47 +1,51 @@
 import { MileageModel } from '@db/mileage/MileageModel';
 import { CafeModel } from '@db/cafe/CafeModel';
 
-export const FindMileageLogByClientId = (client_id: number) => MileageModel.find({ client_id });
+export const FindMileageLogByClientId = (client_id: number) => {
+  console.log('start');
+  MileageModel.find({ client_id });
+};
 
 export const GetMileageByCafeId = (cafe_id: number) => CafeModel.find({ cafe_id });
 export const GetMileageByOwnerId = (owner_id: number) => CafeModel.find({ owner_id });
 
 export const GetMileageByDate = (start_date: string, end_date: string) => {
-  const startSplit = start_date.split(/-| /);
-  const endSplit = end_date.split(/-| /);
-  const first: any = new Date(Number(startSplit[0]), Number(startSplit[1]), Number(startSplit[2]));
-  const second: any = new Date(Number(endSplit[0]), Number(endSplit[1]), Number(endSplit[2]));
+  const first: Date = new Date(start_date);
+  const sceond: Date = new Date(end_date);
+  console.log(first);
+  console.log(sceond);
+  console.log('Date');
   return MileageModel.find({
-    date: { $gte: first.toISOString(), $lte: second.toISOString() },
-  });
+    date: { $gte: first, $lte: sceond },
+  }).limit(50);
 };
-
 export const GetMileageByDateAndCafeId = (
-  cafe_id: number,
+  find_cafe_id: number,
   start_date: string,
   end_date: string,
 ) => {
-  const startSplit = start_date.split(/-| /);
-  const endSplit = end_date.split(/-| /);
-  const first: any = new Date(Number(startSplit[0]), Number(startSplit[1]), Number(startSplit[2]));
-  const second: any = new Date(Number(endSplit[0]), Number(endSplit[1]), Number(endSplit[2]));
+  const first: Date = new Date(start_date);
+  const sceond: Date = new Date(end_date);
+  console.log('cafe_id');
   return MileageModel.find({
-    cafe_id,
-    date: { $gte: first.toISOString(), $lte: second.toISOString() },
+    $and: [
+      { date: { $gte: first, $lte: sceond } },
+      { cafe_id: { $gte: find_cafe_id, $lte: find_cafe_id } },
+    ],
   });
 };
-
 export const GetMileageByDateAndOwnerId = (
-  owner_id: number,
+  find_owner_id: number,
   start_date: string,
   end_date: string,
 ) => {
-  const startSplit = start_date.split(/-| /);
-  const endSplit = end_date.split(/-| /);
-  const first: any = new Date(Number(startSplit[0]), Number(startSplit[1]), Number(startSplit[2]));
-  const second: any = new Date(Number(endSplit[0]), Number(endSplit[1]), Number(endSplit[2]));
+  const first: Date = new Date(start_date);
+  const sceond: Date = new Date(end_date);
+  console.log('owner_id');
   return MileageModel.find({
-    owner_id,
-    date: { $gte: first.toISOString(), $lte: second.toISOString() },
+    $and: [
+      { date: { $gte: first, $lte: sceond } },
+      { owner_id: { $gte: find_owner_id, $lte: find_owner_id } },
+    ],
   });
 };
