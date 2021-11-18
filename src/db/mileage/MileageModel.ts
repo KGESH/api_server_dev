@@ -11,6 +11,8 @@ export interface IMileage {
   mileage: number;
   review: string;
   visit_times: number;
+  cafe_id: number;
+  owner_id: number;
 }
 
 const mileageSchema = new Schema<IMileage>({
@@ -22,6 +24,8 @@ const mileageSchema = new Schema<IMileage>({
   price: Number!,
   mileage: Number!,
   review: String,
+  cafe_id: Number!,
+  owner_id: Number!,
   visit_times: { type: Number, default: 1 },
 });
 

@@ -11,6 +11,7 @@
     "prebuild": "mkdir -p dist/graphql && cp -r src/graphql/schema dist/graphql/schema",
     "build": "tsc --build",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "deploy": "npm run build && node dist/server.js"
   },
   "_moduleAliases": {

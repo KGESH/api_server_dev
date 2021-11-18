@@ -1,7 +1,7 @@
 import Crypto from 'crypto';
 
 const ALGORITHM = 'aes-256-cbc';
-const ENCRYPTION_KEY = 'thisissecretkey!thisissecretkey!';
+const ENCRYPTION_KEY = 'thisisstestecretkey!thisistestsecretkey!';
 const IV_LENGTH = 16;
 
 /**

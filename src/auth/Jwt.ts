@@ -88,7 +88,7 @@ export const VerifyUser = async (jwt: string): Promise<IAuthUser | undefined> =>
 };
 
 /** token 검증 (21-09-12:지성현) */
-const VerifyToken = (token: string) => {
+export const VerifyToken = (token: string) => {
   return new Promise<ITokenVerifyResult>((resolve, reject) => {
     JWT.verify(token, jwtSecret, (err: any, payload: any) => {
       if (err) {

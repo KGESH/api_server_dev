@@ -6,14 +6,15 @@ export const SaveMember = ({ id, name, email }: IMember) => {
 };
 
 export const FindOrSaveMember = async (params: any) => {
-  const member = await MemberModel.exists({ id: params.id });
-  if (member) {
-    return member;
+  const memberId = params.id;
+  const memberExists = await MemberModel.exists({ id: memberId });
+  if (memberExists) {
+    return MemberModel.findOne({ id: memberId });
   } else {
-    const newMember = new MemberModel({ id: params.id });
+    const newMember = new MemberModel({ id: memberId });
     try {
       await newMember.save();
-      return { member: 0 };
+      return newMember;
     } catch (err) {
       console.log(err);
       return { member: -1 };
