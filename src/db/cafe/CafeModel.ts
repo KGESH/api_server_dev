@@ -64,10 +64,10 @@ const discountRateSchema = new Schema<IDiscountRate>({
 });
 
 const staffSchema = new Schema({
-  staff_id: Number!,
-  staff_name: String!,
-  staff_phone: String!,
-  staff_position: String!,
+  staff_id: Number,
+  staff_name: String,
+  staff_phone: String,
+  staff_position: String,
   enroll: { type: Boolean, default: false },
 });
 
@@ -86,10 +86,10 @@ const menuListSchema = new Schema({
  * 카페 스키마
  * */
 const cafeSchema = new Schema<ICafe>({
-  cafe_id: { type: Number, required: true, unique: true },
-  owner_id: Number!,
-  cafe_info: cafeInfoSchema!,
-  discount_rate: discountRateSchema!,
+  cafe_id: Number,
+  owner_id: Number,
+  cafe_info: cafeInfoSchema,
+  discount_rate: discountRateSchema,
   point_fluc: { type: Number, default: 0 },
   staff: [staffSchema],
   menu_list: [menuListSchema],

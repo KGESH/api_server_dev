@@ -32,7 +32,7 @@ export default {
   },
   Mutation: {
     /** 카페 이름들 조회 (21-11-17:유성현) */
-    getCafeByCafeName: (_: any, param: any) => FindCafeByCafeName(param),
+    getCafeByName: (_: any, param: any) => FindCafeByCafeName(param),
     /** 카페 정보 수정 (21-9-12:유성현) */
     updateCafeDesc: (_: any, cafe_info: any) => UpdateCafeDesc(cafe_info),
 

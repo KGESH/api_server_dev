@@ -1,5 +1,5 @@
 import { FindAllMembers, FindMemberById } from '@db/member/FindMember';
-import { FindOrSaveMember, SaveMember } from '@db/member/SaveMember';
+import { FindOrSaveMember, LoginMember, SaveMember } from '@db/member/SaveMember';
 
 export default {
   Query: {
@@ -30,6 +30,7 @@ export default {
     // },
 
     /** 비즈니스 앱 사용자의 상태 판별 조회 (21-10-6:유성현) */ // render 할 때가 아닌 현 시점이므로 Mutation 사용
+    loginMember: (_: any, params: any) => LoginMember(params),
     getMemberByIdForMutation: (_: any, { id }: any) => FindMemberById(id),
     getMemberOrSaveMember: (_: any, params: any) => FindOrSaveMember(params),
     saveMember: (_: any, params: any) => SaveMember(params),

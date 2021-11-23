@@ -4,9 +4,8 @@ type Query {
 }
 
 type Mutation {
+  loginMember(id: Int!): Member
   getMemberByIdForMutation(id: Int!): Member
-  getMemberOrSaveMember(id: Int! name: String email: String): Member
-  saveMember(id: Int! name: String!, email: String): Member
 }
 
 type Member {

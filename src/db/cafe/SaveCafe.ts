@@ -9,6 +9,7 @@ export interface ISaveStaff {
 }
 
 export const SaveStaff = async (staffData: ISaveStaff) => {
+  console.log(staffData);
   const { cafe_id, staff_id, staff_name, staff_phone, staff_position } = await staffData;
   const staff_data = { staff_id, staff_name, staff_phone, staff_position };
   if (await CafeModel.exists({ cafe_id })) {

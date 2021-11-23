@@ -10,8 +10,8 @@ export interface IMember {
 
 const memberSchema = new Schema({
   id: { type: Number, required: true, unique: true },
-  name: String!,
-  email: String!,
+  name: String,
+  email: String,
   refresh_token: { type: String, default: '' },
   member: { type: Number, default: 0 },
 });

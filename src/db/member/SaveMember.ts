@@ -1,23 +1,19 @@
 import { IMember, MemberModel } from '@db/member/MemberModel';
 
-export const SaveMember = ({ id, name, email }: IMember) => {
-  const user = new MemberModel({ id, name, email });
-  return user.save();
-};
+export const LoginMember = async (params: any) => {
+  const memberId: number = params.id;
+  console.log({ memberId });
 
-export const FindOrSaveMember = async (params: any) => {
-  const memberId = params.id;
+  // 존재 확인
   const memberExists = await MemberModel.exists({ id: memberId });
+
   if (memberExists) {
+    // 이미 회원가입이 되어있으면
     return MemberModel.findOne({ id: memberId });
   } else {
-    const newMember = new MemberModel({ id: memberId });
-    try {
-      await newMember.save();
-      return newMember;
-    } catch (err) {
-      console.log(err);
-      return { member: -1 };
-    }
+    // 가입이 안되어있으면
+    const newMember = new MemberModel({ id: memberId, name: '홍길동', email: 'abc@naver.com' });
+    await newMember.save();
+    return newMember;
   }
 };

@@ -5,8 +5,13 @@ export const FindAllCafe = () => CafeModel.find({});
 export const FindCafeByCafeId = (cafe_id: number) => CafeModel.findOne({ cafe_id });
 export const FindCafeByOwnerId = (owner_id: number) => CafeModel.find({ owner_id });
 
-export const FindCafeByCafeName = ({ cafe_name }: any) =>
-  CafeModel.find({ 'cafe_info.cafe_name': { $regex: cafe_name } });
+export const FindCafeByCafeName = async ({ cafe_name }: any) => {
+  const result = await CafeModel.find({ 'cafe_info.cafe_name': { $regex: cafe_name } });
+  console.log('START -----------------------------');
+  console.log(result);
+  console.log('END -----------------------------');
+  return result;
+};
 
 export const FindCafeByStaffId = (staff_id: number) =>
   CafeModel.find({ 'staff.staff_id': staff_id });

@@ -1,6 +1,4 @@
-#### Query ####
 type Query {
- 
   #  마일리지
   getAllMileageLog: [MileageLog]
   getMileageByCafeId(cafe_id: Int!): [MileageLog]
@@ -9,27 +7,29 @@ type Query {
   getMileageByDateAndCafeId(find_cafe_id: Int! start_date: String! end_date: String!): [MileageLog]
   getMileageByDateAndOwnerId(find_owner_id: Int! start_date: String! end_date: String!): [MileageLog]
   getMileageLogByClientId(client_id: Int!): [MileageLog]
-
 }
 
-#### Mutation ####
 type Mutation {
-
   # 마일리지
-  saveMileage(cafe_name:String!, menu_name: String!, price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
+  saveMileage(cafe_name:String!, menu_name: [menuInput], price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
+}
+input menuInput {
+  name: String
 }
 
 ### 마일리지 로그 ###
 type MileageLog {
-  date: String!,
-  staff_id: Int!,
-  client_id: Int!,
-  cafe_name: String!,
-  menu_name: String!,
-  price: Int!,
-  mileage: Int!,
+  date: String,
+  staff_id: Int,
+  client_id: Int,
+  cafe_name: String,
+  menu_name: String,
+  price: Int,
+  mileage: Int,
   review: String,
   visit_times: Int,
-  cafe_id:Int!,
-  owner_id:Int!,
+  cafe_id:Int,
+  owner_id:Int,
 }
+
+
