@@ -11,10 +11,10 @@ type Query {
 
 type Mutation {
   # 마일리지
-  saveMileage(cafe_name:String!, menu_name: [menuInput], price: Int!, mileage: Int!, staff_id: Int!, client_id: Int!): MileageLog
+  saveMileage(cafe_name:String, menu_name: [String], price: Int, mileage: Int, staff_id: Int, client_id: Int): MileageLog
 }
 input menuInput {
-  name: String
+  menu_name: String
 }
 
 ### 마일리지 로그 ###

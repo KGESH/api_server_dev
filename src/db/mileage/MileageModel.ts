@@ -16,16 +16,16 @@ export interface IMileage {
 }
 
 const mileageSchema = new Schema<IMileage>({
-  date: { type: Date, default: GetCurrentTime }!,
-  staff_id: Number!,
-  client_id: Number!,
-  cafe_name: String!,
-  menu_name: String!,
-  price: Number!,
-  mileage: Number!,
+  date: { type: Date, default: GetCurrentTime },
+  staff_id: Number,
+  client_id: Number,
+  cafe_name: String,
+  menu_name: [String],
+  price: Number,
+  mileage: Number,
   review: String,
-  cafe_id: Number!,
-  owner_id: Number!,
+  cafe_id: Number,
+  owner_id: Number,
   visit_times: { type: Number, default: 1 },
 });
 
