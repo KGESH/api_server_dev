@@ -2,6 +2,7 @@ import {
   FindAllCafe,
   FindCafeByCafeId,
   FindCafeByCafeName,
+  FindCafeByMemberId,
   FindCafeByOwnerId,
   FindCafeByStaffId,
 } from '@db/cafe/FindCafe';
@@ -19,6 +20,8 @@ export default {
   Query: {
     /** 카페 전체 조회 [params: none](21-8-13:지성현) */
     getAllCafe: (_: any, __: any) => FindAllCafe(),
+    /** 등록된 카페 (선택)조회 */
+    getCafeByMemberId: (_: any, param: any) => FindCafeByMemberId(param),
     /** cafe_id로 해당 카페 조회 (수정21-9-3:유성현) */
     getCafeByCafeId: (_: any, { cafe_id }: ICafe) => FindCafeByCafeId(cafe_id),
     /** owner_id로 해당 카페들 조회 (21-9-3:유성현) */

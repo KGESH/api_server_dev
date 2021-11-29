@@ -15,3 +15,31 @@ export const FindCafeByCafeName = async ({ cafe_name }: any) => {
 
 export const FindCafeByStaffId = (staff_id: number) =>
   CafeModel.find({ 'staff.staff_id': staff_id });
+
+export const FindCafeByMemberId = ({ id, member }: any) => {
+  if (isStaff(member)) {
+    // 직원일 경우 일하고 있는 카페들을 내려준다.
+    return CafeModel.find({ 'staff.staff_id': id });
+  } else if (isMember(member)) {
+    // 사업자일 경우 운영하고 있는 카페들을 내려준다.
+    return CafeModel.find({ owner_id: id });
+  } else if (isSalesTeam(member)) {
+    // 영업팀의 경우 모든 카페 정보를 내려준다.
+    return CafeModel.find({});
+  }
+};
+
+const isStaff = (member: number) => {
+  if (member > 100 && member < 200) return true;
+  else return false;
+};
+
+const isMember = (member: number) => {
+  if (member > 200 && member < 300) return true;
+  else return false;
+};
+
+const isSalesTeam = (member: number) => {
+  if (member === 900) return true;
+  else return false;
+};

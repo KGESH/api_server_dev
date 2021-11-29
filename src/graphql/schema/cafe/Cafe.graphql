@@ -1,6 +1,7 @@
 type Query {
   #  카페
   getAllCafe: [Cafe]
+  getCafeByMemberId(id:Int!, member: Int!): [Cafe]
   getCafeByCafeId(cafe_id: Int!): Cafe
   getCafeByOwnerId(owner_id: Int!): [Cafe]
   getCafeByStaffId(staff_id: Int!): [Cafe]
