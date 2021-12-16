@@ -5,6 +5,7 @@ import {
   FindCafeByMemberId,
   FindCafeByOwnerId,
   FindCafeByStaffId,
+  FindStaff,
 } from '@db/cafe/FindCafe';
 import { ICafe } from '@db/cafe/CafeModel';
 import { FindDummyData } from '@db/temp-cafe/FindTempCafe';
@@ -32,6 +33,7 @@ export default {
     getTempCafe: () => FindDummyData(),
     /** cafe_id로 해당 카페의 메뉴 조회 (21-9-22:유성현) */
     getMenuByCafeId: (_: any, { cafe_id }: IMenu) => FindMenuList(cafe_id),
+    getStaff: (_: any, params: any) => FindStaff(params),
   },
   Mutation: {
     /** 카페 이름들 조회 (21-11-17:유성현) */

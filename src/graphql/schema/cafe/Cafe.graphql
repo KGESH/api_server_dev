@@ -11,6 +11,9 @@ type Query {
 
   # 더미 data
   getTempCafe: [Cafe]
+
+  # 직원 검색
+  getStaff(cafe_id: Int, member: Int): [StaffDto]
 }
 
 type Mutation {
@@ -50,6 +53,16 @@ type Mutation {
   # 메뉴 카탈로그 추가
   addCategory(cafe_id: Int! title: String!): Menu_list
   deleteCategory(cafe_id: Int! title: String!): Menu_list
+}
+
+type StaffDto {
+  staff_id: Int,
+  cafe_id: Int,
+  staff_name: String,
+  cafe_name: String,
+  staff_phone: String,
+  staff_position: String,
+  enroll: Boolean,
 }
 
 type Cafe {
